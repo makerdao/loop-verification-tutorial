@@ -3331,10 +3331,10 @@ iff
 behaviour rpow-loop of Pot
 lemma
 
-//  0e01 => 0e45
+//  0f18 => 0f5c
 pc
 
-    3585 => 3653
+    3864 => 3932
 
 for all
 
@@ -3363,7 +3363,6 @@ if
     num0(N) >= 0
     num1(N) >= 0
 ```
-
 
 ```act
 behaviour rpow of Pot
