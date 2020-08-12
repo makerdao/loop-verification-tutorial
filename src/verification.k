@@ -1,4 +1,4 @@
-requires "../lemmas.k"
+requires "../../../evm-semantics-pr/tests/specs/lemmas.k"
 requires "bin_runtime.k"
 requires "storage.k"
 
