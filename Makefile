@@ -20,6 +20,7 @@ ACTS_DIR = $(OUT_DIR)/acts
 DOC_DIR = $(OUT_DIR)/doc
 
 KLAB_FLAGS = KLAB_OUT=$(OUT_DIR)
+KPROVE_SRCS = $(SPECS_DIR)/verification.k $(SPECS_DIR)/bin_runtime.k $(SPECS_DIR)/storage.k
 
 SMT_PRELUDE = $(OUT_DIR)/prelude.smt2
 RULES = $(OUT_DIR)/rules.k
@@ -52,9 +53,13 @@ klab:
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
-$(SPEC_MANIFEST): $(SRCS) $(DAPP_SRCS)
+$(SPEC_MANIFEST): $(SRCS) $(DAPP_SRCS) $(KPROVE_SRCS)
 	mkdir -p $(SPECS_DIR)
 	$(KLAB_FLAGS) klab build
+
+$(SPECS_DIR)/%.k: src/%.k
+	mkdir -p $(SPECS_DIR)
+	cp $< $@
 
 spec: $(SPEC_MANIFEST)
 
