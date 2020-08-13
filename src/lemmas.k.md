@@ -41,9 +41,7 @@ rule (#if C #then A #else B #fi *Int X) <=Int maxUInt256 => true
 We will have to use some of these tricks when reasoning about solidity implementations of `Flip`, `Flap`, and `Flop`:
 
 ```k
-syntax Int ::= "pow48"  [function]
 syntax Int ::= "pow208" [function]
-rule pow48  => 281474976710656                                                 [macro]
 rule pow208 => 411376139330301510538742295639337626245683966408394965837152256 [macro]
 
 syntax Int ::= "#WordPackUInt48UInt48" "(" Int "," Int ")" [function]
