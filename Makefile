@@ -27,7 +27,7 @@ RULES = $(OUT_DIR)/rules.k
 
 SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 
-.PHONY: all deps spec dapp kevm klab doc                \
+.PHONY: all deps spec dapp kevm klab doc proofs proofs-fast \
         clean dapp-clean spec-clean doc-clean log-clean
 
 all: deps spec
@@ -49,6 +49,15 @@ klab:
 	git submodule update --init --recursive -- deps/klab
 	cd deps/klab/      \
 	    && npm install
+
+proof_names      = $(shell cat proofs)
+proof_fast_names = $(shell cat proofs-fast)
+
+proofs: $(proof_names:=.prove)
+proofs-fast: $(proof_fast_names:=.prove)
+
+%.prove:
+	profile log timeout 600 klab prove $*
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
