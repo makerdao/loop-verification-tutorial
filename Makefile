@@ -53,11 +53,13 @@ klab:
 proof_names      = $(shell cat proofs)
 proof_fast_names = $(shell cat proofs-fast)
 
+PROVE = klab
+
 proofs: $(proof_names:=.prove)
 proofs-fast: $(proof_fast_names:=.prove)
 
 %.prove:
-	profile log timeout 600 klab prove $*
+	$(PROVE) prove $*
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
