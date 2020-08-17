@@ -36,7 +36,7 @@ deps: dapp kevm klab
 
 dapp:
 	dapp --version
-	git submodule update --init --recursive
+	git submodule update --init --recursive -- dss
 	cd $(DAPP_DIR) && dapp --use solc:0.5.12 build && cd ../
 
 kevm:
