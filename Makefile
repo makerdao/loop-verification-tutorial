@@ -3,7 +3,7 @@ SRC_DIR = $(CURDIR)/src
 SRCS = $(addprefix $(SRC_DIR)/, dss.md lemmas.k.md storage.k.md prelude.smt2.md)
 DAPP_SRCS = $(wildcard $(DAPP_DIR)/src/*)
 ifndef KLAB_EVMS_PATH
-KLAB_EVMS_PATH = deps/evm-semantics
+KLAB_EVMS_PATH = $(pwd)/deps/evm-semantics
 endif
 # if KLAB_OUT isn't defined, default is to use out/
 ifdef KLAB_OUT
@@ -20,7 +20,7 @@ ACTS_DIR = $(OUT_DIR)/acts
 DOC_DIR = $(OUT_DIR)/doc
 
 KLAB_FLAGS = KLAB_OUT=$(OUT_DIR)
-KPROVE_SRCS = $(SPECS_DIR)/verification.k $(SPECS_DIR)/bin_runtime.k $(SPECS_DIR)/storage.k
+KPROVE_SRCS = $(SPECS_DIR)/dss-verification.k
 
 SMT_PRELUDE = $(OUT_DIR)/prelude.smt2
 RULES = $(OUT_DIR)/rules.k
