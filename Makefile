@@ -28,7 +28,7 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc proofs proofs-fast \
+.PHONY: all deps spec dapp kevm klab doc proofs proofs-fast proofs-work \
         clean dapp-clean spec-clean doc-clean log-clean
 
 all: deps spec
@@ -53,14 +53,17 @@ klab:
 
 proof_names      = $(shell cat proofs)
 proof_fast_names = $(shell cat proofs-fast)
+proof_work_names = $(shell cat proofs-work)
 
 PROVE = klab
 
 proofs: $(proof_names:=.prove)
 proofs-fast: $(proof_fast_names:=.prove)
+proofs-work: $(proof_work_names:=.prove)
 
 %.prove:
-	$(PROVE) prove $*
+	@mkdir -p $(OUT_DIR)/output
+	$(PROVE) prove $* > $(OUT_DIR)/output/$@.out 2>&1
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
