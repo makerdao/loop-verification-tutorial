@@ -10,8 +10,9 @@ OUT_DIR = $(CURDIR)/out
 endif
 TMPDIR ?= $(CURDIR)/tmp
 ifndef KLAB_EVMS_PATH
-$(error $(red)Error$(reset): KLAB_EVMS_PATH must be defined and point to evm-semantics!)
+KLAB_EVMS_PATH=$(CURDIR)/deps/evm-semantics
 endif
+export KLAB_EVMS_PATH
 SPECS_DIR = $(OUT_DIR)/specs
 ACTS_DIR = $(OUT_DIR)/acts
 DOC_DIR = $(OUT_DIR)/doc
