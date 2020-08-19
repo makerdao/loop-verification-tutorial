@@ -7,5 +7,5 @@
 	ignore = untracked
 [submodule "deps/klab"]
 	path = deps/klab
-	url = https://github.com/makerdao/klab
+	url = https://github.com/ehildenb/klab
 	ignore = untracked
