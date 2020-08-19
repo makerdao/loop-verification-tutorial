@@ -24,6 +24,9 @@ RULES = $(OUT_DIR)/rules.k
 
 SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 
+PATH := $(CURDIR)/deps/klab/bin:$(PATH)
+export PATH
+
 .PHONY: all deps spec dapp kevm klab doc proofs proofs-fast \
         clean dapp-clean spec-clean doc-clean log-clean
 
