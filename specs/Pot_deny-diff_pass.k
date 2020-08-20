@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module ED603ACD0BE627D7888A541882FAC878B281B1CF1F0116249CB353F73A8B3A61
+module A0D3DD7ACB7C8135542995EAC4647E84C40935824CABD1E000F57283377C2925
   imports VERIFICATION
 
 // Pot_deny-diff
@@ -77,18 +77,8 @@ rule [Pot.deny-diff.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.wards[CALLER_ID] <- (May) => May]        
-          [#Pot.wards[ABI_usr] <- (Junk_0) => 0]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.wards[CALLER_ID] <- (Junk_1)]        
-          [#Pot.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Pot.wards[ABI_usr] <- 0 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -199,6 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[ABI_usr]) ==Int Junk_2 
 
 endmodule

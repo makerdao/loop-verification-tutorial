@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 37F1BE4DE182CE32640885FA08E603E20414A64BEC91063D247ABD75CE944788
+module 8D8D180C9B307774224D265C20B258FE64AD62216F99D1B7D08B1A346D56C6F0
   imports VERIFICATION
 
 // DSToken_transferFrom
@@ -77,22 +77,8 @@ rule [DSToken.transferFrom.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.allowance[ABI_src][CALLER_ID] <- (Allowance) => #if (ABI_src ==Int CALLER_ID orBool Allowance ==Int maxUInt256) #then Allowance #else Allowance -Int ABI_wad #fi]        
-          [#DSToken.balances[ABI_src] <- (Gem_s) => Gem_s -Int ABI_wad]        
-          [#DSToken.balances[ABI_dst] <- (Gem_d) => Gem_d +Int ABI_wad]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stopped)) => #WordPackAddrUInt8(Owner, Stopped)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.allowance[ABI_src][CALLER_ID] <- (Junk_0)]        
-          [#DSToken.balances[ABI_src] <- (Junk_1)]        
-          [#DSToken.balances[ABI_dst] <- (Junk_2)]        
-          [#DSToken.owner_stopped <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.allowance[ABI_src][CALLER_ID] <- #if (ABI_src ==Int CALLER_ID orBool Allowance ==Int maxUInt256) #then Allowance #else Allowance -Int ABI_wad #fi ] [ #DSToken.balances[ABI_src] <- Gem_s -Int ABI_wad ] [ #DSToken.balances[ABI_dst] <- Gem_d +Int ABI_wad ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -214,6 +200,15 @@ andBool #rangeUInt(256, VChainId)
   andBool (((#rangeUInt(256, Gem_d +Int ABI_wad)))
   andBool (((Allowance ==Int maxUInt256 orBool ABI_src ==Int CALLER_ID) orBool (ABI_wad <=Int Allowance))
   andBool ((VCallValue ==Int 0)
-  andBool ((Stopped ==Int 0)))))))))))))))))))))) 
+  andBool ((Stopped ==Int 0))))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Allowance
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_src]) ==Int Gem_s
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_dst]) ==Int Gem_d
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_src]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_dst]) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_3 
 
 endmodule

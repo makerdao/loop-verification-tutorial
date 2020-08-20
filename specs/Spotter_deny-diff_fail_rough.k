@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 95E699F0C9ADF97A13DA788A783F9A512A7E79F0F7C6A5C03B1A3FEFB13FD411
+module 4E64FA409CF30BF0DE38854CD624B2D952DE91419F1F66645772F6FE1F002B06
   imports VERIFICATION
 
 // Spotter_deny-diff
@@ -77,18 +77,8 @@ rule [Spotter.deny-diff.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.wards[CALLER_ID] <- (May) => ?_]        
-          [#Spotter.wards[ABI_usr] <- (Junk_0) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.wards[CALLER_ID] <- (Junk_1)]        
-          [#Spotter.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_2
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

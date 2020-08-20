@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module FFC6AFA505E0D28800DEFFE2FCC364BA2EAE9DB6184083D009C47F2FCC38481D
+module CC50BCD57A0471A4879A07CD55D6C409988688C52E89C3681EE08B3E237F8B3C
   imports VERIFICATION
 
 // Cat_rely-diff
@@ -77,18 +77,8 @@ rule [Cat.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Cat.wards[CALLER_ID] <- (May) => May]        
-          [#Cat.wards[ABI_usr] <- (Junk_0) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Cat.wards[CALLER_ID] <- (Junk_1)]        
-          [#Cat.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Cat.wards[ABI_usr] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -199,6 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[ABI_usr]) ==Int Junk_2 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DC806B15AFD82707009F4428DD50CE16E4021134D92FCF7BE038E80F344C883A
+module A4B433985A51CC66A61F2A78AFE2AC54791379FF356F7AA8A2F211F6DD7F7008
   imports VERIFICATION
 
 // DSToken_transfer-self
@@ -77,18 +77,8 @@ rule [DSToken.transfer-self.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.balances[ABI_usr] <- (Gem_u) => Gem_u]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stopped)) => #WordPackAddrUInt8(Owner, Stopped)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.balances[ABI_usr] <- (Junk_0)]        
-          [#DSToken.owner_stopped <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[ABI_usr] <- Gem_u ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -203,6 +193,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((ABI_wad <=Int Gem_u)
   andBool ((Stopped ==Int 0)
-  andBool ((VCallValue ==Int 0))))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_usr]) ==Int Gem_u
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_1 
 
 endmodule

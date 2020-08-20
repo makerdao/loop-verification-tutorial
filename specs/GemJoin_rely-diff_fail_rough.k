@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 87C62A8587FC18ECA8A569C67ECBB201FA109C84A4D5C3BC1E5C53BAF5B11444
+module F2A66D01CEC7BDAC9B6CC42615F7894974C2F4B059AAF66BF712EC6A083591A9
   imports VERIFICATION
 
 // GemJoin_rely-diff
@@ -77,18 +77,8 @@ rule [GemJoin.rely-diff.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#GemJoin.wards[CALLER_ID] <- (May) => ?_]        
-          [#GemJoin.wards[ABI_usr] <- (Junk_0) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#GemJoin.wards[CALLER_ID] <- (Junk_1)]        
-          [#GemJoin.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_2
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

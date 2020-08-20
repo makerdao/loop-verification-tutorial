@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F220D02F6532DB1E73550D013C5D35B17E9831CC0EBA02EBCB655001DF9D3225
+module 71AEC8B9D4374F01158FEE0293739B1FEB7DFE3D66D1A6D2502E6D97D7649278
   imports VERIFICATION
 
 // Vow_flopper
@@ -77,16 +77,8 @@ rule [Vow.flopper.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.flopper <- (Flopper) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.flopper <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Flopper)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.flopper) ==Int Flopper
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.flopper) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B45A733C844E102BDCEC89DEB4254461FFA315C96616DFA6CFFB3701A9A7037C
+module 6E2B8A1BE0038E24C4EE319AE0183D6DE64B0B766146479033E265E13C9F3480
   imports VERIFICATION
 
 // GemJoin_ilk
@@ -77,16 +77,8 @@ rule [GemJoin.ilk.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#GemJoin.ilk <- (Ilk) => Ilk]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#GemJoin.ilk <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1093)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #GemJoin.ilk) ==Int Ilk
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.ilk) ==Int Junk_0 
 
 endmodule

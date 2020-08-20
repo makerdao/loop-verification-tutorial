@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E683A4F22C61F7A086F07DD23AC20BC787975BF1416BD4B61D78021B7081AA98
+module AEB2D95EF8191FC5DB26DA231A196774668DB7E4859868A881CB4AA193083B2E
   imports VERIFICATION
 
 // End_deny-same
@@ -77,16 +77,8 @@ rule [End.deny-same.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wards[CALLER_ID] <- (May) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((CALLER_ID ==Int ABI_usr)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[CALLER_ID]) ==Int Junk_0
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

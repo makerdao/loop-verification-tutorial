@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1C53CF1D9AA1948A315BF14B34390DF0DB9C1D9E64AEAF5B084BCFD5C464725C
+module 67AB743350660D64D381E3BD11B4F3B46BA29187ECAE37DD458D23E8A1E7B8B7
   imports VERIFICATION
 
 // Pot_file-dsr
@@ -77,22 +77,8 @@ rule [Pot.file-dsr.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.wards[CALLER_ID] <- (May) => May]        
-          [#Pot.dsr <- (Dsr) => ABI_data]        
-          [#Pot.live <- (Live) => Live]        
-          [#Pot.rho <- (Rho) => Rho]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.wards[CALLER_ID] <- (Junk_0)]        
-          [#Pot.dsr <- (Junk_1)]        
-          [#Pot.live <- (Junk_2)]        
-          [#Pot.rho <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Pot.wards[CALLER_ID] <- May ] [ #Pot.dsr <- ABI_data ]  [ #Pot.rho <- Rho ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -209,6 +195,15 @@ andBool #rangeUInt(256, VChainId)
   andBool ((Live ==Int 1)
   andBool ((ABI_what ==Int #string2Word("dsr"))
   andBool ((Rho ==Int TIME)
-  andBool ((VCallValue ==Int 0))))))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.dsr) ==Int Dsr
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.live) ==Int Live
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.rho) ==Int Rho
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.dsr) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.live) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.rho) ==Int Junk_3 
 
 endmodule

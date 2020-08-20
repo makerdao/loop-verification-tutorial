@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 17C7818EC7274F8EC53CE0FF1F03DE8CCAC2CBB23361200299D93FA8ADE1BFAD
+module 3632524D8CA2CA096A2D3A0F5AF29A1BDA271C85EC09827771C8352C9D9803D4
   imports VERIFICATION
 
 // End_wards
@@ -77,16 +77,8 @@ rule [End.wards.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wards[ABI_usr] <- (May) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[ABI_usr]) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

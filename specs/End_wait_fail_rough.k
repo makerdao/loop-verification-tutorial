@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module FC71C1B7F0FE82D98195776223152CB8004A277445CC97352B624142D977C43A
+module 35570D526D93F198E39AD3099FFABA76BE826EFBBDF7CB1AAA1B32CA38C798A6
   imports VERIFICATION
 
 // End_wait
@@ -77,16 +77,8 @@ rule [End.wait.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wait <- (Wait) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wait <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wait) ==Int Wait
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wait) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

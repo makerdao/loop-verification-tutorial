@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1A2485E70B52B5750F1354245BE50FEF2901A3C0C4D04D01FC41F9CD9A6E3E3B
+module 92BF13333158529B11D96DB5BA1DD4231685716A86930F577BE7FD989E051042
   imports VERIFICATION
 
 // End_file-wait
@@ -77,20 +77,8 @@ rule [End.file-wait.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wards[CALLER_ID] <- (May) => ?_]        
-          [#End.wait <- (Wait) => ?_]        
-          [#End.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wards[CALLER_ID] <- (Junk_0)]        
-          [#End.wait <- (Junk_1)]        
-          [#End.live <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -202,6 +190,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #End.wait) ==Int Wait
+  andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wait) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_2
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live:Int ==Int 1)

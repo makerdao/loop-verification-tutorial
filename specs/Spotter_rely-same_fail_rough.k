@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C0A24985680684928B7D3949F658E7644ADC124291C8169AFE6489339597F800
+module 08258B3BF9787A5AF9ED15D9B76D7F1BBC9F724CDFE46CF0C6544E130EF83635
   imports VERIFICATION
 
 // Spotter_rely-same
@@ -77,16 +77,8 @@ rule [Spotter.rely-same.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.wards[CALLER_ID] <- (May) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((ABI_usr ==Int CALLER_ID)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_0
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

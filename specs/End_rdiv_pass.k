@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4652BBBD9DE5D28B08DF28A4D866FBEC55E5E8D58DEB5353C45386F6A6E989CD
+module 9F31B24872812AA677300DBF3C44DF7FDD0817E6F6399D92F463910959B054D1
   imports VERIFICATION
 
 // End_rdiv
@@ -77,16 +77,8 @@ rule [End.rdiv.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (179)
   andBool (((ABI_y =/=Int 0))
-  andBool ((#rangeUInt(256, ABI_x *Int #Ray))))))))) 
+  andBool ((#rangeUInt(256, ABI_x *Int #Ray)))))))))
+
+ 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module EBA64F89085B229F35EE034C5EEC9A0D1725B4BA3A37E29EC9B3F2529DB20BAF
+module 2D5E4842671096203F0E3E73B2651E93DC37A25797A77C21C5F138C1C8FFFDCD
   imports VERIFICATION
 
 // Dai_DOMAIN_SEPARATOR
@@ -77,16 +77,8 @@ rule [Dai.DOMAIN.SEPARATOR.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.DOMAIN_SEPARATOR <- (Dom) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.DOMAIN_SEPARATOR <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Dom
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

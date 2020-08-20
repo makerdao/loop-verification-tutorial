@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 747791FC12493B1FCA7B1DA4FD6A9D360E8D9308BB36F2A62F5E64B98E2C815D
+module D68D3D3848B40EDFFBF3A8FFC08F67ABECDF1CB19D039C695A22ADE7BC947060
   imports VERIFICATION
 
 // End_out
@@ -77,16 +77,8 @@ rule [End.out.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.out[ABI_ilk][ABI_usr] <- (Wad) => Wad]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.out[ABI_ilk][ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1372)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))) 
+  andBool ((VCallValue ==Int 0))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.out[ABI_ilk][ABI_usr]) ==Int Wad
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.out[ABI_ilk][ABI_usr]) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module ECF81886C5E56FB1EDF2B57659033619AE22E8B6A585F6C74D7A952A423D28EF
+module 46374A6ABBAD185114B7C0365925A12A7D6D25ABD06B605589A904B729FC5BFF
   imports VERIFICATION
 
 // Flapper_wards
@@ -77,16 +77,8 @@ rule [Flapper.wards.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.wards[ABI_usr] <- (May) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.wards[ABI_usr]) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

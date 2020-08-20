@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 81D74AE11AFC71D35EC7FFAF941CC05A406E7665FA949163C8F7EB55D235C015
+module D933D27077A8C35CF1C4DFB7DAC1CFE9B145CAD3866CF213B1C41C87B7A5A893
   imports VERIFICATION
 
 // Flipper_bids
@@ -77,26 +77,8 @@ rule [Flipper.bids.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.bids[ABI_n].bid <- (Bid) => Bid]        
-          [#Flipper.bids[ABI_n].lot <- (Lot) => Lot]        
-          [#Flipper.bids[ABI_n].guy_tic_end <- (#WordPackAddrUInt48UInt48(Guy, Tic, End)) => #WordPackAddrUInt48UInt48(Guy, Tic, End)]        
-          [#Flipper.bids[ABI_n].usr <- (Usr) => Usr]        
-          [#Flipper.bids[ABI_n].gal <- (Gal) => Gal]        
-          [#Flipper.bids[ABI_n].tab <- (Tab) => Tab]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.bids[ABI_n].bid <- (Junk_0)]        
-          [#Flipper.bids[ABI_n].lot <- (Junk_1)]        
-          [#Flipper.bids[ABI_n].guy_tic_end <- (Junk_2)]        
-          [#Flipper.bids[ABI_n].usr <- (Junk_3)]        
-          [#Flipper.bids[ABI_n].gal <- (Junk_4)]        
-          [#Flipper.bids[ABI_n].tab <- (Junk_5)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flipper.bids[ABI_n].bid <- Bid ] [ #Flipper.bids[ABI_n].lot <- Lot ]  [ #Flipper.bids[ABI_n].usr <- Usr ] [ #Flipper.bids[ABI_n].gal <- Gal ] [ #Flipper.bids[ABI_n].tab <- Tab ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -218,6 +200,19 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
   andBool (#rangeUInt(256, Junk_5)
-  andBool ((VCallValue ==Int 0)))))))))))))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].bid) ==Int Bid
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].lot) ==Int Lot
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].guy_tic_end) ==Int #WordPackAddrUInt48UInt48(Guy, Tic, End)
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].usr) ==Int Usr
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].gal) ==Int Gal
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].tab) ==Int Tab
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].bid) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].lot) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].guy_tic_end) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].usr) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].gal) ==Int Junk_4
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].tab) ==Int Junk_5 
 
 endmodule

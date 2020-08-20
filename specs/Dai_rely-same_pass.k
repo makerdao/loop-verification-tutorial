@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module FAB36904D7E4F69C0C9385596AFC30E4CDE4983F7CE26F5D486D7DF0A9C976BC
+module 2A3C5BAD2B3DFBBCB2483ADAC49F7BEC67EBA0C88DD7A54075B31B080F26D31B
   imports VERIFICATION
 
 // Dai_rely-same
@@ -77,16 +77,8 @@ rule [Dai.rely-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.wards[CALLER_ID] <- (May) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Dai.wards[CALLER_ID] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (6487)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[CALLER_ID]) ==Int Junk_0 
 
 endmodule

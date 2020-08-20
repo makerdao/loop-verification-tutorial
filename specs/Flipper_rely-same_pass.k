@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CF1BAD803E19EA7FE892D1C031B7B5D7B6DBA5102BD63E4906CBB273FF9D64CF
+module 316AED965E57ABEFD2E32369B11C70B2908922B6E6817DC1BA96A1465BEF859D
   imports VERIFICATION
 
 // Flipper_rely-same
@@ -77,16 +77,8 @@ rule [Flipper.rely-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.wards[CALLER_ID] <- (May) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flipper.wards[CALLER_ID] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (6399)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[CALLER_ID]) ==Int Junk_0 
 
 endmodule

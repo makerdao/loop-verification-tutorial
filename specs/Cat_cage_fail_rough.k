@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2A291C537406148B5CB580D477DAADF00964B21264FB8A14ED7582335E4B8195
+module 03B2DF469C62A439BDA646AF36E78EF37294A4648D46DDB8C60FDFB8843F074C
   imports VERIFICATION
 
 // Cat_cage
@@ -77,18 +77,8 @@ rule [Cat.cage.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Cat.wards[CALLER_ID] <- (Ward) => ?_]        
-          [#Cat.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Cat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Cat.live <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -196,6 +186,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int Ward
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.live) ==Int Junk_1
   andBool notBool (
     ((Ward:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

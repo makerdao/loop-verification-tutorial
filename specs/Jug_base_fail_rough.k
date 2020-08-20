@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6C6DFFA8735CF652AAF3817398511B85EE292FE813523F388B45057C70F2870E
+module FF8D5ABEDE5173791FE0F05B6F31F6C96F0026F06A871ABA613B7F7A3D7FC603
   imports VERIFICATION
 
 // Jug_base
@@ -77,16 +77,8 @@ rule [Jug.base.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.base <- (Base) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.base <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.base) ==Int Base
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.base) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

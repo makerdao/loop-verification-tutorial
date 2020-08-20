@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A8E5FBD1910610CEAD1ED5D5FE1C03591F44E322D3F8CAAC75DC10D05F7BFCC8
+module 34853823CC238218CC9E09C934B616D0DB57A4A3A3BEB9A741510AC5539074E2
   imports VERIFICATION
 
 // Dai_permit
@@ -77,20 +77,8 @@ rule [Dai.permit.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.nonces[ABI_hodler] <- (Nonce) => 1 +Int Nonce]        
-          [#Dai.DOMAIN_SEPARATOR <- (Domain_separator) => Domain_separator]        
-          [#Dai.allowance[ABI_hodler][ABI_ombudsman] <- (Allowed) => (#if ABI_may ==Int 0 #then 0 #else maxUInt256 #fi)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.nonces[ABI_hodler] <- (Junk_0)]        
-          [#Dai.DOMAIN_SEPARATOR <- (Junk_1)]        
-          [#Dai.allowance[ABI_hodler][ABI_ombudsman] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Dai.nonces[ABI_hodler] <- 1 +Int Nonce ]  [ #Dai.allowance[ABI_hodler][ABI_ombudsman] <- (#if ABI_may ==Int 0 #then 0 #else maxUInt256 #fi) ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -214,6 +202,13 @@ andBool #rangeUInt(256, VChainId)
   andBool ((ABI_ttl ==Int 0 orBool TIME <=Int ABI_ttl)
   andBool ((VCallValue ==Int 0)
   andBool ((ABI_n ==Int Nonce)
-  andBool ((VCallDepth <Int 1024)))))))))))))))))))))))) 
+  andBool ((VCallDepth <Int 1024))))))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Nonce
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Domain_separator
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Allowed
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Junk_2 
 
 endmodule

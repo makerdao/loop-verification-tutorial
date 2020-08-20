@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 50DDD680EF195ECFC015A7F78957C0B805C2060AB08B16A146BB487D01039C8C
+module C677432BBDBCAB15FBD077E542EA18A0A84BC38B601AAB84255F70D7B335C7A5
   imports VERIFICATION
 
 // Spotter_file-par
@@ -77,20 +77,8 @@ rule [Spotter.file-par.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.wards[CALLER_ID] <- (May) => May]        
-          [#Spotter.par <- (Junk_0) => ABI_data]        
-          [#Spotter.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.wards[CALLER_ID] <- (Junk_1)]        
-          [#Spotter.par <- (Junk_2)]        
-          [#Spotter.live <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Spotter.wards[CALLER_ID] <- May ] [ #Spotter.par <- ABI_data ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -205,6 +193,13 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
   andBool ((Live ==Int 1)
-  andBool ((ABI_what ==Int #string2Word("par")))))))))))))))) 
+  andBool ((ABI_what ==Int #string2Word("par"))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.par) ==Int Junk_0
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.par) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.live) ==Int Junk_3 
 
 endmodule

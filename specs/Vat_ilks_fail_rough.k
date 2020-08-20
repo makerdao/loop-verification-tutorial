@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module EC89FF661B806268B1167113BEB09A99B08F0F9EF81FF91CC2938BA240F618D6
+module F0A1FFD2B089AB1035889446B19FAD9B57EC2C2456296D615AC7804A3F02A729
   imports VERIFICATION
 
 // Vat_ilks
@@ -77,24 +77,8 @@ rule [Vat.ilks.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.ilks[ABI_ilk].Art <- (Ilk_Art) => ?_]        
-          [#Vat.ilks[ABI_ilk].rate <- (Ilk_rate) => ?_]        
-          [#Vat.ilks[ABI_ilk].spot <- (Ilk_spot) => ?_]        
-          [#Vat.ilks[ABI_ilk].line <- (Ilk_line) => ?_]        
-          [#Vat.ilks[ABI_ilk].dust <- (Ilk_dust) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.ilks[ABI_ilk].Art <- (Junk_0)]        
-          [#Vat.ilks[ABI_ilk].rate <- (Junk_1)]        
-          [#Vat.ilks[ABI_ilk].spot <- (Junk_2)]        
-          [#Vat.ilks[ABI_ilk].line <- (Junk_3)]        
-          [#Vat.ilks[ABI_ilk].dust <- (Junk_4)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -209,6 +193,17 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].Art) ==Int Ilk_Art
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Ilk_rate
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Ilk_spot
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Ilk_line
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Ilk_dust
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].Art) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_4
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

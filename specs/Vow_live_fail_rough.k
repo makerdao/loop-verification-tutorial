@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 301AF99B96AAA849FDA8ABAAC05CAC1ECAC578F90FD176ED38B5214FC58B106F
+module DFBA7FC0FF86407ED52D7741B5B4EF493062133A0DBF82E46EB3C43692A4A16D
   imports VERIFICATION
 
 // Vow_live
@@ -77,16 +77,8 @@ rule [Vow.live.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.live) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

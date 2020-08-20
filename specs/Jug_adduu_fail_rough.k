@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 29E7ED167BADC2199DF5EB34366541BC02C0969659FFB398B8E3E4EC4A0CED01
+module CA21EEE69E918E60358A21B5C3AFBD5B5581C9D8994102517FEF10B5904CA87A
   imports VERIFICATION
 
 // Jug_adduu
@@ -77,16 +77,8 @@ rule [Jug.adduu.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (VGas >=Int 3000000)))))
+
+
   andBool notBool (
     ((#rangeUInt(256, ABI_x:Int +Int ABI_y:Int)))
   ) 

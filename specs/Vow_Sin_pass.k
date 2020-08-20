@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2AB231C164AF5F4E28DD5264F8869341D7340C20EFA99F22F9EAD67C242F586E
+module 6B638ED4D7CCECE7D2CCDBEB37BAF40E5774683C911CDEE8D6CC967F51A9B373
   imports VERIFICATION
 
 // Vow_Sin
@@ -77,16 +77,8 @@ rule [Vow.Sin.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.Sin <- (Sin) => Sin]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.Sin <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1049)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.Sin) ==Int Sin
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.Sin) ==Int Junk_0 
 
 endmodule

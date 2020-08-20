@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module FD478993B180D68F9D0D96C3ABD135E99AFA17233C5745E505852973576321DD
+module D79AD6F55306C0F8C7D6EF64E3E9D6270CEF684BB67CD0B8F80F63A44EB8DC85
   imports VERIFICATION
 
 // Vow_wards
@@ -77,16 +77,8 @@ rule [Vow.wards.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.wards[ABI_usr] <- (May) => May]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1280)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[ABI_usr]) ==Int Junk_0 
 
 endmodule

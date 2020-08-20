@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4635D910337EA9EE243828F6F58F1C4554B913F1EC6966F7EA496159CB43F9FF
+module 7831899AFD03C12D09CE1B8188E08551D64E4E7D65DE4FD1FB5BFF995A8C86A7
   imports VERIFICATION
 
 // End_vat
@@ -77,16 +77,8 @@ rule [End.vat.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.vat <- (Vat) => Vat]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.vat <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vat)
   andBool (2300 <Int VGas -Int (1144)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vat) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D4C63B16CBB74C871E60E1C7D545A1AAF85823FBB4DA746A93D833E6F25F103D
+module 13F97AF22958AD691AEC1A231F33E338115EEF90DCD601AD8120174583D8B835
   imports VERIFICATION
 
 // Flapper_bids
@@ -77,20 +77,8 @@ rule [Flapper.bids.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.bids[ABI_n].bid <- (Bid) => Bid]        
-          [#Flapper.bids[ABI_n].lot <- (Lot) => Lot]        
-          [#Flapper.bids[ABI_n].guy_tic_end <- (#WordPackAddrUInt48UInt48(Guy, Tic, End)) => #WordPackAddrUInt48UInt48(Guy, Tic, End)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.bids[ABI_n].bid <- (Junk_0)]        
-          [#Flapper.bids[ABI_n].lot <- (Junk_1)]        
-          [#Flapper.bids[ABI_n].guy_tic_end <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flapper.bids[ABI_n].bid <- Bid ] [ #Flapper.bids[ABI_n].lot <- Lot ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -204,6 +192,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
-  andBool ((VCallValue ==Int 0)))))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.bids[ABI_n].bid) ==Int Bid
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.bids[ABI_n].lot) ==Int Lot
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.bids[ABI_n].guy_tic_end) ==Int #WordPackAddrUInt48UInt48(Guy, Tic, End)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.bids[ABI_n].bid) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.bids[ABI_n].lot) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.bids[ABI_n].guy_tic_end) ==Int Junk_2 
 
 endmodule

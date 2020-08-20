@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0FAA443DBCB63B992F87327BC4112844944F8E42EB99255A3F09656125C7FF93
+module 17F7C700B88051C0F8365DA36639500C64DE195E7B42ACEB32CA165D8FCCA982
   imports VERIFICATION
 
 // Dai_subuu
@@ -77,16 +77,8 @@ rule [Dai.subuu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (54)
-  andBool ((#rangeUInt(256, ABI_x -Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x -Int ABI_y))))))))
+
+ 
 
 endmodule

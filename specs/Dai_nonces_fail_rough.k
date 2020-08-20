@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 79CD22616CFC6108E8ADC813FF70DEF00CB5405554291DFAAC162956B3C42A8B
+module B1898871060412231FDCF5DADB0C90DEB0B150254210A3EF177EB00FF930CEAA
   imports VERIFICATION
 
 // Dai_nonces
@@ -77,16 +77,8 @@ rule [Dai.nonces.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.nonces[ABI_who] <- (Nonce) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.nonces[ABI_who] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_who]) ==Int Nonce
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_who]) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

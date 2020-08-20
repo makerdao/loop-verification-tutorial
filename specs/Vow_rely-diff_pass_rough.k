@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1BF0E957796E327D04D15CEC90809D76ED6328A2EA322BE3BD1C87A0004E515E
+module 799AD55279CD81DBC47F00B2628C772199AE9C1E732AF32EDDFBC2EE92D28612
   imports VERIFICATION
 
 // Vow_rely-diff
@@ -77,20 +77,8 @@ rule [Vow.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.wards[CALLER_ID] <- (May) => May]        
-          [#Vow.wards[ABI_usr] <- (Junk_0) => 1]        
-          [#Vow.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.wards[CALLER_ID] <- (Junk_1)]        
-          [#Vow.wards[ABI_usr] <- (Junk_2)]        
-          [#Vow.live <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vow.wards[CALLER_ID] <- May ] [ #Vow.wards[ABI_usr] <- 1 ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -204,6 +192,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_3)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[ABI_usr]) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.live) ==Int Junk_3 
 
 endmodule

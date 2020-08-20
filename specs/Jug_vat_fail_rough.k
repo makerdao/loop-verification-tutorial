@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 70A31D54852EC81FD317221CC4D2F6DBCA2A364879A45BF20EE3EDE6477D3916
+module E14D832D4C4FE5D61C24B919A0C4C43070586F434268B1CA08F445EF09F051ED
   imports VERIFICATION
 
 // Jug_vat
@@ -77,16 +77,8 @@ rule [Jug.vat.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.vat <- (Vat) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.vat <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vat)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.vat) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DD1E69BD4B4584E1D92AD83FC3E4241006D26709FD4839B8595A3B4F8A4C82D5
+module C7FF4FB42CF6C1CB63FDB0FA1BC385A4DCA8B19A966B60DAF25594150A2A21C7
   imports VERIFICATION
 
 // End_pot
@@ -77,16 +77,8 @@ rule [End.pot.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.pot <- (Pot) => Pot]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.pot <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Pot)
   andBool (2300 <Int VGas -Int (1121)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.pot) ==Int Pot
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.pot) ==Int Junk_0 
 
 endmodule

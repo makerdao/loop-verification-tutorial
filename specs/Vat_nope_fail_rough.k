@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D5FE99CD3D7D924A9703E8CE6650CD1FA9D1916EA92C53EACD196BB66945447F
+module 33AE6920A5D7D5CF409DAF92A10885FAC0366AE4A19F1B3A09578DB8F91CDD88
   imports VERIFICATION
 
 // Vat_nope
@@ -77,16 +77,8 @@ rule [Vat.nope.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.can[CALLER_ID][ABI_usr] <- (Junk_0) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.can[CALLER_ID][ABI_usr] <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.can[CALLER_ID][ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.can[CALLER_ID][ABI_usr]) ==Int Junk_1
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

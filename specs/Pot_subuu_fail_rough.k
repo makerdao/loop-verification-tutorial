@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2C186DA4299BBFBF6749B2127AB53A62D215F48D7F1EBD0846BDC6310C3D5AA4
+module 1CE81C0FAA73BD67BCDCD72D41882DDA474978DE5159D1A1F0461724DE344B02
   imports VERIFICATION
 
 // Pot_subuu
@@ -77,16 +77,8 @@ rule [Pot.subuu.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (VGas >=Int 3000000)))))
+
+
   andBool notBool (
     ((#rangeUInt(256, ABI_x:Int -Int ABI_y:Int)))
   ) 

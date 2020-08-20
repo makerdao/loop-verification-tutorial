@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 59273F3ADC80A22DFCEC91672B30C3D1DCAA34E6A06BE302A102C05A5F0A62AD
+module A984DB20D9CFF85EACB42FA8D0D644312B4738F77CE553B0C985B66E4457AB47
   imports VERIFICATION
 
 // Jug_init
@@ -77,20 +77,8 @@ rule [Jug.init.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.wards[CALLER_ID] <- (May) => May]        
-          [#Jug.ilks[ABI_ilk].duty <- (Duty) => #Ray]        
-          [#Jug.ilks[ABI_ilk].rho <- (Rho) => TIME]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.wards[CALLER_ID] <- (Junk_0)]        
-          [#Jug.ilks[ABI_ilk].duty <- (Junk_1)]        
-          [#Jug.ilks[ABI_ilk].rho <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Jug.wards[CALLER_ID] <- May ] [ #Jug.ilks[ABI_ilk].duty <- #Ray ] [ #Jug.ilks[ABI_ilk].rho <- TIME ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -203,6 +191,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
   andBool ((Duty ==Int 0)
-  andBool ((VCallValue ==Int 0))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Rho
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Junk_2 
 
 endmodule

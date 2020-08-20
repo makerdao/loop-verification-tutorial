@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3C20DCA91116CC360E11F5F829DC08EFA82803574DDE1CA73F050900CEDBA0AD
+module 80555F028B62536F63CB6E99ED26FF86501B5763A862A7700E81781C4FA9FAD8
   imports VERIFICATION
 
 // Vat_mului
@@ -77,16 +77,8 @@ rule [Vat.mului.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (VGas >=Int 3000000)))))
+
+
   andBool notBool (
     ((#rangeSInt(256, ABI_x:Int))
     andBool ((#rangeSInt(256, ABI_x:Int *Int ABI_y:Int))))

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3D1E6A35F8758B33BB8165A71C24DE191BF34E8EB8C27DF3789B0B2404839186
+module 36A458BFBE15E102035A23FA37B66FFA207F62C798D9233E6FD3CF6FFE0EE99F
   imports VERIFICATION
 
 // Vat_cage
@@ -77,18 +77,8 @@ rule [Vat.cage.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[CALLER_ID] <- (May) => ?_]        
-          [#Vat.live <- (Lives) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vat.live <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -196,6 +186,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Lives
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_1
   andBool notBool (
     ((VCallValue:Int ==Int 0)
     andBool ((May:Int ==Int 1)))

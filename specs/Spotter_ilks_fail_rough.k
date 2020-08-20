@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 73C061AEB1889E077A6C047CEED2CCCB6B121573E401DB69C6FFC54A604AE807
+module A97EBE24A9C6AA26A5E28EA80E8578186292FE73E56AB83248B89F402C84E19C
   imports VERIFICATION
 
 // Spotter_ilks
@@ -77,18 +77,8 @@ rule [Spotter.ilks.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.ilks[ABI_ilk].pip <- (Pip) => ?_]        
-          [#Spotter.ilks[ABI_ilk].mat <- (Mat) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.ilks[ABI_ilk].pip <- (Junk_0)]        
-          [#Spotter.ilks[ABI_ilk].mat <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Mat
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Junk_1
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

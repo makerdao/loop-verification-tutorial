@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 12BB63ABA33072C9F589EF9439D6EEF6C4261B3ED799A3DC8E15AD7F77CAD62D
+module 346082DEE04130ACDE55AD29151A49600ADE39D0E85D491FF1D7754ADC228A1F
   imports VERIFICATION
 
 // Dai_PERMIT_TYPEHASH
@@ -77,16 +77,8 @@ rule [Dai.PERMIT.TYPEHASH.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -190,6 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000))
+
+
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

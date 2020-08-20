@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E88D3DB07AE615630D7FA01F8FF209E595A00667A13EAF6854E8C9D3E179A8AC
+module 3006DE7537FBD90B577780FF79DFA2AB364E753109EF79960963D1BBE2843BD5
   imports VERIFICATION
 
 // Dai_DOMAIN_SEPARATOR
@@ -77,16 +77,8 @@ rule [Dai.DOMAIN.SEPARATOR.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.DOMAIN_SEPARATOR <- (Dom) => Dom]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.DOMAIN_SEPARATOR <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1050)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Dom
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_0 
 
 endmodule

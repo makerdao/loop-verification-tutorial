@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 47409E827FBC46042F0857EE0901BDBBE521B3FBB12D62499FDB79BE207D89F9
+module F87F3BB30E6347E365461A7583F7FB9D6146D6207260473C43D0E93610CA19BE
   imports VERIFICATION
 
 // End_file-addr
@@ -77,28 +77,8 @@ rule [End.file-addr.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wards[CALLER_ID] <- (May) => ?_]        
-          [#End.vat <- (Vat) => ?_]        
-          [#End.cat <- (Cat) => ?_]        
-          [#End.vow <- (Vow) => ?_]        
-          [#End.pot <- (Pot) => ?_]        
-          [#End.spot <- (Spot) => ?_]        
-          [#End.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wards[CALLER_ID] <- (Junk_0)]        
-          [#End.vat <- (Junk_1)]        
-          [#End.cat <- (Junk_2)]        
-          [#End.vow <- (Junk_3)]        
-          [#End.pot <- (Junk_4)]        
-          [#End.spot <- (Junk_5)]        
-          [#End.live <- (Junk_6)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -223,6 +203,21 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_4)
   andBool (#rangeUInt(256, Junk_5)
   andBool (#rangeUInt(256, Junk_6))))))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_STORAGE, #End.cat) ==Int Cat
+  andBool #lookup(ACCT_ID_STORAGE, #End.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_STORAGE, #End.pot) ==Int Pot
+  andBool #lookup(ACCT_ID_STORAGE, #End.spot) ==Int Spot
+  andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vat) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.cat) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vow) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.pot) ==Int Junk_4
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.spot) ==Int Junk_5
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_6
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live:Int ==Int 1)

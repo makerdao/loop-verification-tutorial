@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6D9FEB2DCEB218C02E486EAFB021D48AF337AD631B03FAD21DBD7E7949E35C60
+module 29D93D2B9EFEAD0F8819C94757034C73A5B01DBAEDD9765C7A8673D2D179C6EE
   imports VERIFICATION
 
 // Pot_rely-same
@@ -77,16 +77,8 @@ rule [Pot.rely-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.wards[CALLER_ID] <- (May) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Pot.wards[CALLER_ID] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (6399)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_0 
 
 endmodule

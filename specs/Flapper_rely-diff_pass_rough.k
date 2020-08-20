@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B9FDAD9D8C4C241DB7F525E4931DF2DE8457551E0851921809709FE6EDCBB946
+module 33A18FAE6011D697E428F7F77B46AEE56257B419DBAA53D795AF09B9C0A58201
   imports VERIFICATION
 
 // Flapper_rely-diff
@@ -77,18 +77,8 @@ rule [Flapper.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.wards[CALLER_ID] <- (May) => May]        
-          [#Flapper.wards[ABI_usr] <- (Junk_0) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.wards[CALLER_ID] <- (Junk_1)]        
-          [#Flapper.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flapper.wards[ABI_usr] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -199,6 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.wards[ABI_usr]) ==Int Junk_2 
 
 endmodule

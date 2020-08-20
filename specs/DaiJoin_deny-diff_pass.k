@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 04905C6E1DF38D563974A10BAF43D9F0F4EDD7E22FC77B1DEC0FF761FD9BCE16
+module 870B3AA8200CB03DBFDFD6C9E13ADAC14CEAEE3A8416BF5BD81866AD4C89A79F
   imports VERIFICATION
 
 // DaiJoin_deny-diff
@@ -77,18 +77,8 @@ rule [DaiJoin.deny-diff.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DaiJoin.wards[CALLER_ID] <- (May) => May]        
-          [#DaiJoin.wards[ABI_usr] <- (Junk_0) => 0]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DaiJoin.wards[CALLER_ID] <- (Junk_1)]        
-          [#DaiJoin.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #DaiJoin.wards[ABI_usr] <- 0 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>
         <account>
@@ -199,6 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((VCallValue ==Int 0)
-  andBool ((May ==Int 1))))))))))) 
+  andBool ((May ==Int 1)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[ABI_usr]) ==Int Junk_2 
 
 endmodule

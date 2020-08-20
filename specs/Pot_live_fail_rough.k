@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 35C3989E284479A9A2905257F993FE6548E989AE6225471F7E5AC785E69772BA
+module AE15E4953B960D74A35D8EC4CCDEA8884A129DB6798EFD73C68848773356AD57
   imports VERIFICATION
 
 // Pot_live
@@ -77,16 +77,8 @@ rule [Pot.live.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.live) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

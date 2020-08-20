@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B203551201946EBF4AC0ED969E9FD0C8D22F2346888F065BF73BF06B114965F4
+module 22D2BD657714EE7BF3C14A71880440CA46ED7560D7DE8489362163FB977E56C4
   imports VERIFICATION
 
 // Vat_rely-same
@@ -77,18 +77,8 @@ rule [Vat.rely-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[CALLER_ID] <- (May) => 1]        
-          [#Vat.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vat.live <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.wards[CALLER_ID] <- 1 ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -200,6 +190,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_1 
 
 endmodule

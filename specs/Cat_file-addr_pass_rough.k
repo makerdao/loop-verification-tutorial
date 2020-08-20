@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 538E41376BB95EAB3C1D3EB679966BFB6016B98DBA79818E84BF80DD80437BE6
+module 6649A3ED7C383834EAFF415ADE965F5274456242762C2C7DCCAA91C000F42D65
   imports VERIFICATION
 
 // Cat_file-addr
@@ -77,18 +77,8 @@ rule [Cat.file-addr.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Cat.wards[CALLER_ID] <- (May) => May]        
-          [#Cat.vow <- (Vow) => ABI_data]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Cat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Cat.vow <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Cat.vow <- ABI_data ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -201,6 +191,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool ((ABI_what ==Int #string2Word("vow")))))))))))))) 
+  andBool ((ABI_what ==Int #string2Word("vow"))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.vow) ==Int Junk_1 
 
 endmodule

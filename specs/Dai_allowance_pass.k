@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 730D05AE7E531A131FDB589C6136A54483ABDCCB040191A24DE54E6586BFAC28
+module A95A5338B8089F5143E9A1C2C9CED1BB25C19E3CD6893946AD6E3EA4CF3A76E3
   imports VERIFICATION
 
 // Dai_allowance
@@ -77,16 +77,8 @@ rule [Dai.allowance.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.allowance[ABI_holder][ABI_spender] <- (Allowed) => Allowed]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.allowance[ABI_holder][ABI_spender] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1377)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))) 
+  andBool ((VCallValue ==Int 0))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[ABI_holder][ABI_spender]) ==Int Allowed
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_holder][ABI_spender]) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3DE59A171F1B43A5BED86EB1B9AC2A6EF2A6EBC51989E975D8DE52812C300892
+module AD2C5491EA962397CC678BC06FD2D5FE4BE78A439D9916EAE59F2B0349A266C1
   imports VERIFICATION
 
 // Vat_gem
@@ -77,16 +77,8 @@ rule [Vat.gem.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.gem[ABI_ilk][ABI_usr] <- (Gem) => Gem]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.gem[ABI_ilk][ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1352)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))) 
+  andBool ((VCallValue ==Int 0))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.gem[ABI_ilk][ABI_usr]) ==Int Gem
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.gem[ABI_ilk][ABI_usr]) ==Int Junk_0 
 
 endmodule

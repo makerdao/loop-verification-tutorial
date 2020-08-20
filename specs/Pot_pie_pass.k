@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3C43E1A5535CD7118B0B06C0F5B8DB887BD4A2DA7C1B9B74044EFE0D011DF935
+module 9C159FDDFD0CF0AD96A62B065D551B304E2A5A28F073E01D5F3D2065F92F5D60
   imports VERIFICATION
 
 // Pot_pie
@@ -77,16 +77,8 @@ rule [Pot.pie.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.pie[ABI_usr] <- (Pie_usr) => Pie_usr]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.pie[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1215)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.pie[ABI_usr]) ==Int Pie_usr
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.pie[ABI_usr]) ==Int Junk_0 
 
 endmodule

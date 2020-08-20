@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 5BEAF967E0288AA8131F91CBDD79191C329730EEC5F1F0169D2C127310A291DF
+module 5FC803FD2EEA0AAD356717F09FDF3617C5671E1BBA6481816DFE1CC2707832AE
   imports VERIFICATION
 
 // Dai_wards
@@ -77,16 +77,8 @@ rule [Dai.wards.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.wards[ABI_usr] <- (May) => May]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1257)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[ABI_usr]) ==Int Junk_0 
 
 endmodule

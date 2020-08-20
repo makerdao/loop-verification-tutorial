@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 81FF054CBC1A3D6FC7D8D59040A9E36F351C11BF10E072E5D0E0569C78C2B8DB
+module 84AB9927200E81DBAEBF8D9805E1C1A300E9F8AD8F2048C64C0A1C69F97E99BB
   imports VERIFICATION
 
 // Flopper_beg
@@ -77,16 +77,8 @@ rule [Flopper.beg.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.beg <- (Beg) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.beg <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.beg) ==Int Beg
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.beg) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

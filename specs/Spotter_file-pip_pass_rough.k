@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 5FCBC43E35EB20B9F7C98AECE7BFD21492857E4E92B084FED49A94CF01DC72D0
+module F880C3FC67B46C1C78315332C06CDA2049228D14DCFAB06B418411C1E467BF7A
   imports VERIFICATION
 
 // Spotter_file-pip
@@ -77,20 +77,8 @@ rule [Spotter.file-pip.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.wards[CALLER_ID] <- (May) => May]        
-          [#Spotter.ilks[ABI_ilk].pip <- (Pip) => ABI_pip_]        
-          [#Spotter.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.wards[CALLER_ID] <- (Junk_0)]        
-          [#Spotter.ilks[ABI_ilk].pip <- (Junk_1)]        
-          [#Spotter.live <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Spotter.wards[CALLER_ID] <- May ] [ #Spotter.ilks[ABI_ilk].pip <- ABI_pip_ ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -207,6 +195,13 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
   andBool ((Live ==Int 1)
-  andBool ((ABI_what ==Int #string2Word("pip")))))))))))))))))) 
+  andBool ((ABI_what ==Int #string2Word("pip"))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.live) ==Int Junk_2 
 
 endmodule

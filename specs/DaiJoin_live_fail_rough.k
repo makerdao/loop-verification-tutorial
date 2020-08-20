@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0D4D38A1DE3E55FF24D108AC5366AE18901FD56FC42FCB7796874E2362C30886
+module D8B99CEF8854015AFA264A2C3BE2F338B8C76EE1ACC5F412C1B43C4A9A0625E6
   imports VERIFICATION
 
 // DaiJoin_live
@@ -77,16 +77,8 @@ rule [DaiJoin.live.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DaiJoin.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DaiJoin.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.live) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

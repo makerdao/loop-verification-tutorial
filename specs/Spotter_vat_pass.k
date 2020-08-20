@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9330D820D6D81F332C2F50FE06C2EA15ACE3C0356E859AC04F5B85855060BB9C
+module CF9CD0ED291F2BCDB48A656C226E9824D9A3BC4C8BED96ED7686E638E7F0F8DB
   imports VERIFICATION
 
 // Spotter_vat
@@ -77,16 +77,8 @@ rule [Spotter.vat.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.vat <- (Vat) => Vat]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.vat <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vat)
   andBool (2300 <Int VGas -Int (1120)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.vat) ==Int Junk_0 
 
 endmodule

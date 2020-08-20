@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B89FF8AC9E5B72346A3EEDA17FC00DC3A0C4B35A781448D46BD8A2F5065C3627
+module 5C95B9D39B0E968E8CF928DA820F949CA485D9DF96ACA6424B7243FC8D7C900F
   imports VERIFICATION
 
 // DSToken_balanceOf
@@ -77,16 +77,8 @@ rule [DSToken.balanceOf.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.balances[ABI_usr] <- (BalanceOf) => BalanceOf]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.balances[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1307)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_usr]) ==Int BalanceOf
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_0 
 
 endmodule

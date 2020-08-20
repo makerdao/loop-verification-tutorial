@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 8933A5B15EB3FBD6F7CB6C7121744CC532BB68D065C917AB716D5E7E02E368CE
+module B4274B97F1FF0D8DF3BE54722B1E24EBE01B2A03B535C6EE82748A663BD9D62C
   imports VERIFICATION
 
 // Vat_wards
@@ -77,16 +77,8 @@ rule [Vat.wards.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[ABI_usr] <- (May) => May]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1236)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[ABI_usr]) ==Int Junk_0 
 
 endmodule

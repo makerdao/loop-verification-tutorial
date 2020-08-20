@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7D93D8192A1AFE669D2E4810EB2E7DBF0768EC6318BDBA29E48D4211E478C82E
+module EA151AC224D2294DE7E63D86BE717E67974A21FFF1F2B8F8A28D8DDAF7EA6D3E
   imports VERIFICATION
 
 // Flipper_file
@@ -77,20 +77,8 @@ rule [Flipper.file.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.wards[CALLER_ID] <- (May) => ?_]        
-          [#Flipper.beg <- (Beg) => ?_]        
-          [#Flipper.ttl_tau <- (#WordPackUInt48UInt48(Ttl, Tau)) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.wards[CALLER_ID] <- (Junk_0)]        
-          [#Flipper.beg <- (Junk_1)]        
-          [#Flipper.ttl_tau <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -204,6 +192,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.beg) ==Int Beg
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.ttl_tau) ==Int #WordPackUInt48UInt48(Ttl, Tau)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.beg) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ttl_tau) ==Int Junk_2
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)

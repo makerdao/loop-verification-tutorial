@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0446D8EB52120BA03C81D80706A0958CC1A3EF0D8DA60FA0F173C0C16C4AC5A4
+module 397DA4D6B979C3A4D8908AE2F64FFF39C09DD7FB88AA1BDB76EBE7F91D13F255
   imports VERIFICATION
 
 // Vat_init
@@ -77,18 +77,8 @@ rule [Vat.init.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[CALLER_ID] <- (May) => May]        
-          [#Vat.ilks[ABI_ilk].rate <- (Rate) => #Ray]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vat.ilks[ABI_ilk].rate <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.wards[CALLER_ID] <- May ] [ #Vat.ilks[ABI_ilk].rate <- #Ray ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -199,6 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((Rate ==Int 0)
-  andBool ((VCallValue ==Int 0))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Rate
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Junk_1 
 
 endmodule

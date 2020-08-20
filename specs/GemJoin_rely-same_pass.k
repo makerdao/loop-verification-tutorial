@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B11EF47DB9041D1A454BB12CAD66E9D979A0B283EEC57F9C152E412CA8B38D32
+module 1DA281074448B9E585E3975C0F9FC8F718D49ADCA20B7CFF70A9D6165C5DBE61
   imports VERIFICATION
 
 // GemJoin_rely-same
@@ -77,16 +77,8 @@ rule [GemJoin.rely-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#GemJoin.wards[ABI_usr] <- (May) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#GemJoin.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #GemJoin.wards[ABI_usr] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (6421)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 92530F2B5321FCE32822277D9E1A2DC5FBA55CD8D7455E213FF1205F8179E966
+module D5CF6DFEF547357F630A991139F2B8070BF5911367A55E174BDC34010C5F2608
   imports VERIFICATION
 
 // Flipper_muluu
@@ -77,16 +77,8 @@ rule [Flipper.muluu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (#if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi)
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+
+ 
 
 endmodule

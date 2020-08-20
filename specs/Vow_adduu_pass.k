@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 26B40F9EF3887C31A063ACFDE506F41DC32D9757F7CB6C3F53F1B6F92A20A21B
+module EA2EB9BCB49543F038FA4D7EE68215E21EA3B7E1D28D68D0CB773063B8719F36
   imports VERIFICATION
 
 // Vow_adduu
@@ -77,16 +77,8 @@ rule [Vow.adduu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (54)
-  andBool ((#rangeUInt(256, ABI_x +Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x +Int ABI_y))))))))
+
+ 
 
 endmodule

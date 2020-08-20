@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 32FC30593748277ECA0A705A196B34B88496EA37EEA8B545DD76A08F8C870BED
+module 8BFDE49026AD4736A24CBF6624508DE3B20F06890556E97665E232A1562BCA8F
   imports VERIFICATION
 
 // Cat_file
@@ -77,20 +77,8 @@ rule [Cat.file.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Cat.wards[CALLER_ID] <- (May) => May]        
-          [#Cat.ilks[ABI_ilk].chop <- (Chop) => (#if ABI_what ==Int #string2Word("chop") #then ABI_data #else Chop #fi)]        
-          [#Cat.ilks[ABI_ilk].lump <- (Lump) => (#if ABI_what ==Int #string2Word("lump") #then ABI_data #else Lump #fi)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Cat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Cat.ilks[ABI_ilk].chop <- (Junk_1)]        
-          [#Cat.ilks[ABI_ilk].lump <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Cat.wards[CALLER_ID] <- May ] [ #Cat.ilks[ABI_ilk].chop <- (#if ABI_what ==Int #string2Word("chop") #then ABI_data #else Chop #fi) ] [ #Cat.ilks[ABI_ilk].lump <- (#if ABI_what ==Int #string2Word("lump") #then ABI_data #else Lump #fi) ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -205,6 +193,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool ((ABI_what ==Int #string2Word("chop") orBool ABI_what ==Int #string2Word("lump")))))))))))))))) 
+  andBool ((ABI_what ==Int #string2Word("chop") orBool ABI_what ==Int #string2Word("lump"))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Chop
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Lump
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Junk_2 
 
 endmodule

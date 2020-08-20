@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E37A72BEFADFED2A57DA051D439C25AB4CEE065C694FE0C4BB0EDC8AA9227A4D
+module B16D9194E3A8B56F0775EA97F427A7B836E82DAED4946C816BD1462DDCFCAF32
   imports VERIFICATION
 
 // Dai_permit
@@ -77,20 +77,8 @@ rule [Dai.permit.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.nonces[ABI_hodler] <- (Nonce) => ?_]        
-          [#Dai.DOMAIN_SEPARATOR <- (Domain_separator) => ?_]        
-          [#Dai.allowance[ABI_hodler][ABI_ombudsman] <- (Allowed) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.nonces[ABI_hodler] <- (Junk_0)]        
-          [#Dai.DOMAIN_SEPARATOR <- (Junk_1)]        
-          [#Dai.allowance[ABI_hodler][ABI_ombudsman] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -209,6 +197,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Nonce
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Domain_separator
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Allowed
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Junk_2
   andBool notBool (
     ((ABI_hodler:Int =/=Int 0)
     andBool ((ABI_hodler:Int ==Int #symEcrec(keccakIntList(#asWord(#parseHexWord("0x19") : #parseHexWord("0x01") : .WordStack) Domain_separator:Int keccakIntList(keccak(#parseByteStackRaw("Permit(address holder,address spender,uint256 nonce,uint256 expiry,bool allowed)")) ABI_hodler:Int ABI_ombudsman:Int ABI_n:Int ABI_ttl:Int ABI_may:Int)), ABI_v:Int, ABI_r:Int, ABI_s:Int))

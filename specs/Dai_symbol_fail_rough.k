@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A8DB6EC616CD7DB70019088A6FC2DC42E7751C927DA47B3A59D2A6599B66BF7A
+module C79A8FEFEB522C0CF617212D493EE0C3DCE0136CE7103DEF9298A165E78F6F06
   imports VERIFICATION
 
 // Dai_symbol
@@ -77,16 +77,8 @@ rule [Dai.symbol.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -190,6 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000))
+
+
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

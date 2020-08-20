@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D32BE37C94691837918D392C4216CBDAF7AFC5B2F4E10C30F71BC1D8638B1087
+module EB6DCC9C07C8FC2431736693F7BA467E695E1AC16A5A812E33D61C03395DFB6C
   imports VERIFICATION
 
 // Pot_rho
@@ -77,16 +77,8 @@ rule [Pot.rho.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.rho <- (Rho) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.rho <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.rho) ==Int Rho
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.rho) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

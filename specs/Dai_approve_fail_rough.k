@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 372F67AA036D5AAE26167AD91812D40BDB7DA76A8FFABF619D46A2ED27A9FE3F
+module 85BC211800104640CC7D717FB9F64BB2769CDCCEF739DC15DB4EFB85533CF012
   imports VERIFICATION
 
 // Dai_approve
@@ -77,16 +77,8 @@ rule [Dai.approve.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.allowance[CALLER_ID][ABI_usr] <- (Allowed) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.allowance[CALLER_ID][ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[CALLER_ID][ABI_usr]) ==Int Allowed
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[CALLER_ID][ABI_usr]) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

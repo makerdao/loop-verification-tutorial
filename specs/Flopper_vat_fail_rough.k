@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 13E95F1CD3E2DDD85648A735A8D87624723374A3F0518C49828662C4DC001EE6
+module 9F88E62CA9CDECBE92EC65DD0659469A48027D90741E0E375B70D2D2EB28E85F
   imports VERIFICATION
 
 // Flopper_vat
@@ -77,16 +77,8 @@ rule [Flopper.vat.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.vat <- (Vat) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.vat <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vat)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.vat) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D767A6CEA28D597E71B623C016BF24C1CD09F25B2053A1A0D2E364988879438A
+module 2A33DFC90E4912DA39E34CC4692E3463036ED3F6419FF2FC458650FB68317A01
   imports VERIFICATION
 
 // Cat_ilks
@@ -77,20 +77,8 @@ rule [Cat.ilks.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Cat.ilks[ABI_ilk].flip <- (Flip) => ?_]        
-          [#Cat.ilks[ABI_ilk].chop <- (Chop) => ?_]        
-          [#Cat.ilks[ABI_ilk].lump <- (Lump) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Cat.ilks[ABI_ilk].flip <- (Junk_0)]        
-          [#Cat.ilks[ABI_ilk].chop <- (Junk_1)]        
-          [#Cat.ilks[ABI_ilk].lump <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -202,6 +190,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].flip) ==Int Flip
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Chop
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Lump
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].flip) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Junk_2
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

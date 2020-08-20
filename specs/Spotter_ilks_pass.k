@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E6F7BB47D1D2B3D2AEB2187386EBD9C30073952405DD57355874088CFC7ECA1D
+module 2C678630AEB39F3F59B5B82A4D53464A7920386B6582E39B2E139488226FBEBD
   imports VERIFICATION
 
 // Spotter_ilks
@@ -77,18 +77,8 @@ rule [Spotter.ilks.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Spotter.ilks[ABI_ilk].pip <- (Pip) => Pip]        
-          [#Spotter.ilks[ABI_ilk].mat <- (Mat) => Mat]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Spotter.ilks[ABI_ilk].pip <- (Junk_0)]        
-          [#Spotter.ilks[ABI_ilk].mat <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE   </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (2145)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0)))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip
+  andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Mat
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Junk_1 
 
 endmodule

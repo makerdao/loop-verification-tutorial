@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9774755DA236AF86585AB21733A6399E26BF2054B460440BEF45E52EB56022F2
+module 38B0AA4D7F84F8CD9A5A704C807B2ADD19A546BDBF3816F02CC063F706FD1211
   imports VERIFICATION
 
 // End_skim-B
@@ -77,16 +77,8 @@ rule [End.skim-B.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.tag[ABI_ilk] <- (Tag) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.tag[ABI_ilk] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((VCallValue ==Int 0)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.tag[ABI_ilk]) ==Int Tag
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.tag[ABI_ilk]) ==Int Junk_0
   andBool notBool (
     ((Tag:Int =/=Int 0))
   ) 

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4C9019C15F90190516086F34A30CA570A4CCD9BE8BFE91765CE699434E7E7262
+module F427BBAE0CE7643CFE28424F43D8B60C03FF5479BD62CBC5B8D39279A7A19C63
   imports VERIFICATION
 
 // Flapper_file
@@ -77,20 +77,8 @@ rule [Flapper.file.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.wards[CALLER_ID] <- (May) => May]        
-          [#Flapper.beg <- (Beg) => (#if ABI_what ==Int #string2Word("beg") #then ABI_data #else Beg #fi)]        
-          [#Flapper.ttl_tau <- (#WordPackUInt48UInt48(Ttl, Tau)) => (#if ABI_what ==Int #string2Word("ttl") #then #WordPackUInt48UInt48(ABI_data, Tau) #else (#if ABI_what ==Int #string2Word("tau") #then #WordPackUInt48UInt48(Ttl, ABI_data) #else #WordPackUInt48UInt48(Ttl, Tau) #fi) #fi)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.wards[CALLER_ID] <- (Junk_0)]        
-          [#Flapper.beg <- (Junk_1)]        
-          [#Flapper.ttl_tau <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flapper.wards[CALLER_ID] <- May ] [ #Flapper.beg <- (#if ABI_what ==Int #string2Word("beg") #then ABI_data #else Beg #fi) ] [ #Flapper.ttl_tau <- (#if ABI_what ==Int #string2Word("ttl") #then #WordPackUInt48UInt48(ABI_data, Tau) #else (#if ABI_what ==Int #string2Word("tau") #then #WordPackUInt48UInt48(Ttl, ABI_data) #else #WordPackUInt48UInt48(Ttl, Tau) #fi) #fi) ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -206,6 +194,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool (((ABI_what ==Int #string2Word("beg")) orBool (ABI_what ==Int #string2Word("ttl")) orBool (ABI_what ==Int #string2Word("tau")))))))))))))))))) 
+  andBool (((ABI_what ==Int #string2Word("beg")) orBool (ABI_what ==Int #string2Word("ttl")) orBool (ABI_what ==Int #string2Word("tau"))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.beg) ==Int Beg
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.ttl_tau) ==Int #WordPackUInt48UInt48(Ttl, Tau)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.beg) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.ttl_tau) ==Int Junk_2 
 
 endmodule

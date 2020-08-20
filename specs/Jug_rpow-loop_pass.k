@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E027BB291A14E1B82A5BEDE06CA9B8D8C4906DDC3E8F685DF898D974092E6872
+module C503159EDCC67B2D5ACCEBEF57A170312480155043185E5EC3689E421F6E257A
   imports VERIFICATION
 
 // Jug_rpow-loop
@@ -77,16 +77,8 @@ rule [Jug.rpow-loop.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -202,6 +194,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((num0(N) >=Int 0)
   andBool ((num1(N) >=Int 0)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (2300 <Int VGas -Int (194 +Int ((num0(N) *Int 172) +Int (num1(N) *Int 287)))))))))))))))))) 
+  andBool (2300 <Int VGas -Int (194 +Int ((num0(N) *Int 172) +Int (num1(N) *Int 287))))))))))))))))))
+
+ 
 
 endmodule

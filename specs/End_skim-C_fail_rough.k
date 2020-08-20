@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 870D62CB486C01F543A1B2F275D72D61351EFF7C5FCCE2AB24424AE3F46A6A75
+module B6433A0AB5AC01A04EE405B34D9596A1432963F683B86442FBB5889F4E4EACBC
   imports VERIFICATION
 
 // End_skim-C
@@ -78,34 +78,16 @@ rule [End.skim-C.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.vat <- (Vat) => ?_]        
-          [#End.tag[ABI_ilk] <- (Tag) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.vat <- (Junk_0)]        
-          [#End.tag[ABI_ilk] <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
           <acctID> Vat </acctID>
           <balance> Vat_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> Vat_STORAGE => ?_Vat_STORAGE </storage>
+          <origStorage> Vat_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -220,6 +202,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_STORAGE, #End.tag[ABI_ilk]) ==Int Tag
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vat) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.tag[ABI_ilk]) ==Int Junk_1
   andBool notBool (
     ((VCallDepth:Int <Int 1024))
   ) 

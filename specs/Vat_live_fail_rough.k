@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D52BBB36CDA596F0464B95B23EA233140B9FD16CC51A177BF26AD14920C761A0
+module 33C7FF96711435DCB497343DCCDB727701797885A3FE5060395C78D78BA97C43
   imports VERIFICATION
 
 // Vat_live
@@ -77,16 +77,8 @@ rule [Vat.live.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

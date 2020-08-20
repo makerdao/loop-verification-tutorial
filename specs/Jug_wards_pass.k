@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1F9ED90104429492ECBCA676E6B11C120F2BB89652176258618C6E7CD1772BAD
+module B7D51B0111566D5BC06A943579ECFF4F045F7B793FD8C9AE7BD789CCD6CB8555
   imports VERIFICATION
 
 // Jug_wards
@@ -77,16 +77,8 @@ rule [Jug.wards.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.wards[ABI_usr] <- (May) => May]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1235)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[ABI_usr]) ==Int Junk_0 
 
 endmodule

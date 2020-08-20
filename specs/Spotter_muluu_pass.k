@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A9D713D9DEE8BF3CB6D6DA2DCA0011E531F3CE1DBA0D6A19A89C8ED626D9747A
+module E38F73D116B9DBC3DCF9D22510B4BEBAB34250FE2B9A87037ADB004BFFC44F27
   imports VERIFICATION
 
 // Spotter_muluu
@@ -77,16 +77,8 @@ rule [Spotter.muluu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (#if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi)
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+
+ 
 
 endmodule

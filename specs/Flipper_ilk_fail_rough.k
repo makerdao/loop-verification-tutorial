@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 980EF4E7553675D8AA701A4BD8206B068AF842A05221BB14BAAB5D3ECD2ACDD7
+module C749271926E3D69C471A352519204ABE98C9A6224DC2CEB95FD2A35EFA8BF155
   imports VERIFICATION
 
 // Flipper_ilk
@@ -77,16 +77,8 @@ rule [Flipper.ilk.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.ilk <- (Ilk) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.ilk <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.ilk) ==Int Ilk
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ilk) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

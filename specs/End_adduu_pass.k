@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0A6615AB4A3C7A7779AE0F0B2159D6843FEA8F1436462C36BD9E33E675FE3DF7
+module 42901E7C23195FAE8ED7D1DC6A942C9411D9333BA27C7E01F49B0C2815DD653C
   imports VERIFICATION
 
 // End_adduu
@@ -77,16 +77,8 @@ rule [End.adduu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (54)
-  andBool ((#rangeUInt(256, ABI_x +Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x +Int ABI_y))))))))
+
+ 
 
 endmodule

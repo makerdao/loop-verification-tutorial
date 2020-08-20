@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4E3952068200BCD390DD33A23888516EF7DE507F3C97BFB4435B3E33A93BDB81
+module BFD31CC4A331956C64A0ED2D12C5569F04B76D7CEB5F8B5BF772131F58691B61
   imports VERIFICATION
 
 // Dai_nonces
@@ -77,16 +77,8 @@ rule [Dai.nonces.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.nonces[ABI_who] <- (Nonce) => Nonce]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.nonces[ABI_who] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1192)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_who]) ==Int Nonce
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_who]) ==Int Junk_0 
 
 endmodule

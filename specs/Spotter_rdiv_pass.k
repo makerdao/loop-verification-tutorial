@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7678BA63FE4CEFA9E5EA955B603C75E94CF74F9B8C65EEFB1BC52E267ED8488D
+module AD92532542C0B01B111981633E038BC5F0F127526137B2687E8E42B9B28F3660
   imports VERIFICATION
 
 // Spotter_rdiv
@@ -77,16 +77,8 @@ rule [Spotter.rdiv.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (179)
   andBool (((ABI_y =/=Int 0))
-  andBool ((#rangeUInt(256, ABI_x *Int #Ray))))))))) 
+  andBool ((#rangeUInt(256, ABI_x *Int #Ray)))))))))
+
+ 
 
 endmodule

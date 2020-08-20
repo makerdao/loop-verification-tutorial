@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7642AC465B159B320A89C86432D6990BBBEF4C37774D884BB069C659E0C7B61B
+module EA8CF5A3044E18FDC2C7470D1D6E10D5EA983D3C28EF04E2258593414266D526
   imports VERIFICATION
 
 // Flopper_kicks
@@ -77,16 +77,8 @@ rule [Flopper.kicks.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.kicks <- (Kicks) => Kicks]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.kicks <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1093)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.kicks) ==Int Kicks
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.kicks) ==Int Junk_0 
 
 endmodule

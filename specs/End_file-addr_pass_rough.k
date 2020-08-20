@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module AFBDBC230A6E713F214B988FA9F72C6F964FCB54F175098E9A5673BF291437F3
+module 60922363A3E2784AE2A877F466C6FCF302ACFFB6398741FC5FBC98DDD7A4864D
   imports VERIFICATION
 
 // End_file-addr
@@ -77,28 +77,8 @@ rule [End.file-addr.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wards[CALLER_ID] <- (May) => May]        
-          [#End.vat <- (Vat) => (#if ABI_what ==Int #string2Word("vat")  #then ABI_data #else Vat #fi)]        
-          [#End.cat <- (Cat) => (#if ABI_what ==Int #string2Word("cat")  #then ABI_data #else Cat #fi)]        
-          [#End.vow <- (Vow) => (#if ABI_what ==Int #string2Word("vow")  #then ABI_data #else Vow #fi)]        
-          [#End.pot <- (Pot) => (#if ABI_what ==Int #string2Word("pot")  #then ABI_data #else Pot #fi)]        
-          [#End.spot <- (Spot) => (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi)]        
-          [#End.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wards[CALLER_ID] <- (Junk_0)]        
-          [#End.vat <- (Junk_1)]        
-          [#End.cat <- (Junk_2)]        
-          [#End.vow <- (Junk_3)]        
-          [#End.pot <- (Junk_4)]        
-          [#End.spot <- (Junk_5)]        
-          [#End.live <- (Junk_6)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #End.wards[CALLER_ID] <- May ] [ #End.vat <- (#if ABI_what ==Int #string2Word("vat")  #then ABI_data #else Vat #fi) ] [ #End.cat <- (#if ABI_what ==Int #string2Word("cat")  #then ABI_data #else Cat #fi) ] [ #End.vow <- (#if ABI_what ==Int #string2Word("vow")  #then ABI_data #else Vow #fi) ] [ #End.pot <- (#if ABI_what ==Int #string2Word("pot")  #then ABI_data #else Pot #fi) ] [ #End.spot <- (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi) ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -226,6 +206,21 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool (((ABI_what ==Int #string2Word("vat")) orBool (ABI_what ==Int #string2Word("cat")) orBool (ABI_what ==Int #string2Word("vow")) orBool (ABI_what ==Int #string2Word("pot")) orBool (ABI_what ==Int #string2Word("spot")))))))))))))))))))))))))))))) 
+  andBool (((ABI_what ==Int #string2Word("vat")) orBool (ABI_what ==Int #string2Word("cat")) orBool (ABI_what ==Int #string2Word("vow")) orBool (ABI_what ==Int #string2Word("pot")) orBool (ABI_what ==Int #string2Word("spot"))))))))))))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat
+  andBool #lookup(ACCT_ID_STORAGE, #End.cat) ==Int Cat
+  andBool #lookup(ACCT_ID_STORAGE, #End.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_STORAGE, #End.pot) ==Int Pot
+  andBool #lookup(ACCT_ID_STORAGE, #End.spot) ==Int Spot
+  andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vat) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.cat) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vow) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.pot) ==Int Junk_4
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.spot) ==Int Junk_5
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_6 
 
 endmodule

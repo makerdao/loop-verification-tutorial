@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 5C4B545849A1F4C4E674E2E2A0EAAD20A45C7CAAE7FF13499C279DB967B7D6EF
+module 747615D14B6099639C6E2A1B9E8DD26A91DEA90604E09DB285FE654FD0301BCE
   imports VERIFICATION
 
 // Dai_balanceOf
@@ -77,16 +77,8 @@ rule [Dai.balanceOf.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.balanceOf[ABI_who] <- (Balance) => Balance]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.balanceOf[ABI_who] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1302)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.balanceOf[ABI_who]) ==Int Balance
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.balanceOf[ABI_who]) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 25C28979E90EF7AF2DAE27D6BE702B618D82FEF1D8A36FA60E3295E44F077D04
+module A13441607ECFB41258224D9D167F532F720A896FEE827E011A5C487A1A50B33F
   imports VERIFICATION
 
 // Flopper_bids
@@ -77,20 +77,8 @@ rule [Flopper.bids.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.bids[ABI_n].bid <- (Bid) => ?_]        
-          [#Flopper.bids[ABI_n].lot <- (Lot) => ?_]        
-          [#Flopper.bids[ABI_n].guy_tic_end <- (#WordPackAddrUInt48UInt48(Guy, Tic, End)) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.bids[ABI_n].bid <- (Junk_0)]        
-          [#Flopper.bids[ABI_n].lot <- (Junk_1)]        
-          [#Flopper.bids[ABI_n].guy_tic_end <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -204,6 +192,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.bids[ABI_n].bid) ==Int Bid
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.bids[ABI_n].lot) ==Int Lot
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.bids[ABI_n].guy_tic_end) ==Int #WordPackAddrUInt48UInt48(Guy, Tic, End)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].bid) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].lot) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].guy_tic_end) ==Int Junk_2
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

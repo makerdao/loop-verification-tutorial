@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0DEC8678D719DA6EC34B9BCC9F6F6E42DC704A766FA164A79B0C0FC5742D72B5
+module 5ECF8FA511FA3ED35429CCE221E4238262C7272E1462EA629D4EF3156AFC0E2B
   imports VERIFICATION
 
 // Flipper_ttl
@@ -77,16 +77,8 @@ rule [Flipper.ttl.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.ttl_tau <- (#WordPackUInt48UInt48(Ttl, Tau)) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.ttl_tau <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.ttl_tau) ==Int #WordPackUInt48UInt48(Ttl, Tau)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ttl_tau) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

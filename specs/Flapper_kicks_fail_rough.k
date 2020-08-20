@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 36224B2E819C194A1A49E22B47A521A0189112DE27795A66AA9AF1722CA2FBC1
+module C28AC631AF598A30A999C3DA2BF656760F1117823F145A8E7F4318A0D32DB224
   imports VERIFICATION
 
 // Flapper_kicks
@@ -77,16 +77,8 @@ rule [Flapper.kicks.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.kicks <- (Kicks) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.kicks <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.kicks) ==Int Kicks
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.kicks) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

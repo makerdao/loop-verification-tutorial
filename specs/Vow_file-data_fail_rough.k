@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7A2AB5E9E11A8BEBF8EEB4132B982A986451F2A5DC56F4A4B6AE498F5F3A267B
+module C2F5C62DAA96B5E6BA83674D01E69337D9930D14D72AEFC6B9F483CC70BD216B
   imports VERIFICATION
 
 // Vow_file-data
@@ -77,26 +77,8 @@ rule [Vow.file-data.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.wards[CALLER_ID] <- (May) => ?_]        
-          [#Vow.wait <- (Wait) => ?_]        
-          [#Vow.dump <- (Dump) => ?_]        
-          [#Vow.sump <- (Sump) => ?_]        
-          [#Vow.bump <- (Bump) => ?_]        
-          [#Vow.hump <- (Hump) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vow.wait <- (Junk_1)]        
-          [#Vow.dump <- (Junk_2)]        
-          [#Vow.sump <- (Junk_3)]        
-          [#Vow.bump <- (Junk_4)]        
-          [#Vow.hump <- (Junk_5)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -214,6 +196,19 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
   andBool (#rangeUInt(256, Junk_5)))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.wait) ==Int Wait
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.dump) ==Int Dump
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.sump) ==Int Sump
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.bump) ==Int Bump
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.hump) ==Int Hump
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wait) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.dump) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.sump) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.bump) ==Int Junk_4
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.hump) ==Int Junk_5
   andBool notBool (
     ((May:Int ==Int 1)
     andBool (((ABI_what:Int ==Int #string2Word("wait")) orBool (ABI_what:Int ==Int #string2Word("dump")) orBool (ABI_what:Int ==Int #string2Word("sump")) orBool (ABI_what:Int ==Int #string2Word("bump")) orBool (ABI_what:Int ==Int #string2Word("hump")))

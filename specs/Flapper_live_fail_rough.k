@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 35AD44EC1EBFA851DB55955E5A09D2B99E0CB449937D3DAD10660E15ED84EA18
+module BF7990D34E3FAB700DD77AA937A582D722271A767117CFD347499622707013CF
   imports VERIFICATION
 
 // Flapper_live
@@ -77,16 +77,8 @@ rule [Flapper.live.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.live) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2BCD81A040764B522B7B89B6E9A80877EDA30AB08E96AE24EB9C79A336AAF744
+module F128000B200D7183872264229BC3C3021005E1A68B4BAC951E11C82C07D5D9ED
   imports VERIFICATION
 
 // Dai_rely-diff
@@ -77,18 +77,8 @@ rule [Dai.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.wards[CALLER_ID] <- (May) => May]        
-          [#Dai.wards[ABI_usr] <- (Junk_0) => 1]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.wards[CALLER_ID] <- (Junk_1)]        
-          [#Dai.wards[ABI_usr] <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Dai.wards[ABI_usr] <- 1 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -199,6 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[ABI_usr]) ==Int Junk_2 
 
 endmodule

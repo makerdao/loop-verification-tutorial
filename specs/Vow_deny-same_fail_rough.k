@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E5D4F97402DBAF4DF4534C485D1B7965E681908C96C2BFB2FAA8029E8C4011F0
+module 83B8F5ED6F7C7E45AF8B8FA1EFC8BD99BEE3871EEB2CACA00795D455C51B1ADA
   imports VERIFICATION
 
 // Vow_deny-same
@@ -77,16 +77,8 @@ rule [Vow.deny-same.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.wards[CALLER_ID] <- (Could) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((CALLER_ID ==Int ABI_usr)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[CALLER_ID]) ==Int Could
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[CALLER_ID]) ==Int Junk_0
   andBool notBool (
     ((Could:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

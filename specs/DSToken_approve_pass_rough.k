@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 91BFD4B75E4696FE772845AA84B4885CD8EE4178012AD9E92BC2EE08F66693B3
+module 9D7A5755DA505C437AA49A12A96E9FB9F07A9B1447065F0A8FA6412E0F47A644
   imports VERIFICATION
 
 // DSToken_approve
@@ -77,18 +77,8 @@ rule [DSToken.approve.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.allowance[CALLER_ID][ABI_usr] <- (Allowed) => ABI_wad]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stopped)) => #WordPackAddrUInt8(Owner, Stopped)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.allowance[CALLER_ID][ABI_usr] <- (Junk_0)]        
-          [#DSToken.owner_stopped <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.allowance[CALLER_ID][ABI_usr] <- ABI_wad ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -201,6 +191,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((Stopped ==Int 0)
-  andBool ((VCallValue ==Int 0))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[CALLER_ID][ABI_usr]) ==Int Allowed
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.allowance[CALLER_ID][ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_1 
 
 endmodule

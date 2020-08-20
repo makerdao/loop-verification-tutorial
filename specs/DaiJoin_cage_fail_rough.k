@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D0C06B4C17C3D679447C70B08163849D1C98AA7A6A755F9F66530B3619FEBD18
+module 1157510351E12B7D9D477463EB2062E8A850B71595CBF71D5B0EC5013E34D6FA
   imports VERIFICATION
 
 // DaiJoin_cage
@@ -77,18 +77,8 @@ rule [DaiJoin.cage.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DaiJoin.wards[CALLER_ID] <- (May) => ?_]        
-          [#DaiJoin.live <- (Junk_0) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DaiJoin.wards[CALLER_ID] <- (Junk_1)]        
-          [#DaiJoin.live <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>
         <account>
@@ -196,6 +186,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.live) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.live) ==Int Junk_2
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

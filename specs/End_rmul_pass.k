@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4EF5468B40BF0AE41C674D1C344583C3E899C1C184D33206120EF639C15055D7
+module 9D0225F5C1B30EB742E241DBEA43C51035C8BB888D11D07026746A142C85E98B
   imports VERIFICATION
 
 // End_rmul
@@ -77,16 +77,8 @@ rule [End.rmul.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (#if ( ABI_y ==K 0 ) #then ( 127 ) #else ( 179 ) #fi)
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+
+ 
 
 endmodule

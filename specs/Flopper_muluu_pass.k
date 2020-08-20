@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6D33E8162EE9CCAC44A377740D5D0EED6E7B3A6E46A7D0F66E6B3A1B0A23FF9F
+module C5293899742DB1F4759D32CC8DC1487F8D454EA5CCC8EF74A01D8440651558B6
   imports VERIFICATION
 
 // Flopper_muluu
@@ -77,16 +77,8 @@ rule [Flopper.muluu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (#if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi)
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+
+ 
 
 endmodule

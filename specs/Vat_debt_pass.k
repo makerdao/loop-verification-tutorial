@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4945F6A5E315A005BACF82839095ADC8CAFBE7AE99319C5ED8E72E76F0706AE0
+module F4A0E49D59727F13597C50F07FD9A9B4EB8E32D7985D17253C85C4C6EFFB170B
   imports VERIFICATION
 
 // Vat_debt
@@ -77,16 +77,8 @@ rule [Vat.debt.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.debt <- (Debt) => Debt]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.debt <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1052)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.debt) ==Int Debt
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.debt) ==Int Junk_0 
 
 endmodule

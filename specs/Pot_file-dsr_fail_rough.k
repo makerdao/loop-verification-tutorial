@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 82AEBC2C048C8E4D91B119C38BC6764519273EB0929337E357E011A5625F8C92
+module D9929BEFB738590A8516267FD591BB90AB6B0E59810CE2F4472D2D9A2CB3D54A
   imports VERIFICATION
 
 // Pot_file-dsr
@@ -77,22 +77,8 @@ rule [Pot.file-dsr.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.wards[CALLER_ID] <- (May) => ?_]        
-          [#Pot.dsr <- (Dsr) => ?_]        
-          [#Pot.live <- (Live) => ?_]        
-          [#Pot.rho <- (Rho) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.wards[CALLER_ID] <- (Junk_0)]        
-          [#Pot.dsr <- (Junk_1)]        
-          [#Pot.live <- (Junk_2)]        
-          [#Pot.rho <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -205,6 +191,15 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.dsr) ==Int Dsr
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.live) ==Int Live
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.rho) ==Int Rho
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.dsr) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.live) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.rho) ==Int Junk_3
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live ==Int 1)

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B7C0C84E1D275C2C0D0FE009BD0829714132CA3BF62C4484B00E317C823A6535
+module 79EC897712A0E07E3C070993BE9E5CC00914C8A28789AB2AB22A154A8FB3F229
   imports VERIFICATION
 
 // Flapper_gem
@@ -77,16 +77,8 @@ rule [Flapper.gem.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flapper.gem <- (Gem) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flapper.gem <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Gem)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flapper.gem) ==Int Gem
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.gem) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

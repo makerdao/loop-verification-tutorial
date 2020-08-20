@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DC2F21662E38A46CFAA5A49D41718974DDF6C28D78D253812250BFEA750D88AF
+module A5E7E1953096B2501B28569201D015CD9F63CEBDD57E5B6E267296D442202FB6
   imports VERIFICATION
 
 // End_skim-A
@@ -77,16 +77,8 @@ rule [End.skim-A.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_urn)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000))))
+
+
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

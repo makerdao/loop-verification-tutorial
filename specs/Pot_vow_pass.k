@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4FEDF6ABC8278B4796DFB5FAA19A1AB69DEDB9EF02265A202AB44924DE88B937
+module FBB86FD69C51FD105BB586E96E41775EC6E13F3377E4740640D2423EEE9F5B17
   imports VERIFICATION
 
 // Pot_vow
@@ -77,16 +77,8 @@ rule [Pot.vow.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.vow <- (Vow) => Vow]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.vow <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vow)
   andBool (2300 <Int VGas -Int (1142)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.vow) ==Int Junk_0 
 
 endmodule

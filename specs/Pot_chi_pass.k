@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7ECB4CC091BEC1A73BD58A73BC2CC80061837F926ED3B085733C2E2B702C3192
+module B1E40C38359B0AED58C496CBA037DDAB180C8EC38E9BD5B971D2409A21AADAD5
   imports VERIFICATION
 
 // Pot_chi
@@ -77,16 +77,8 @@ rule [Pot.chi.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.chi <- (Chi) => Chi]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.chi <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1093)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.chi) ==Int Chi
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.chi) ==Int Junk_0 
 
 endmodule

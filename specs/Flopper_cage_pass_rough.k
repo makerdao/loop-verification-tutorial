@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E1F98AABE4673D684F3C0887D3D6DDBE8B03F1BE843AC62B051DF1DA76B58355
+module A73C820E399A16323EBBDB9D1B1C33682629A2132B7E2EAA433A1FC541885162
   imports VERIFICATION
 
 // Flopper_cage
@@ -77,20 +77,8 @@ rule [Flopper.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.wards[CALLER_ID] <- (Ward) => Ward]        
-          [#Flopper.live <- (Live) => 0]        
-          [#Flopper.vow <- (Vow) => CALLER_ID]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.wards[CALLER_ID] <- (Junk_0)]        
-          [#Flopper.live <- (Junk_1)]        
-          [#Flopper.vow <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flopper.live <- 0 ] [ #Flopper.vow <- CALLER_ID ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -202,6 +190,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((Ward ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Ward
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.live) ==Int Live
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.live) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.vow) ==Int Junk_2 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C376CAFAB968814A667542822CB72C1C80D9E4BB73681F2260C162DA52F00339
+module 7487E4C2BD9E28DEAD14C01E3EFC342CAB844C3D54589DEF6773153345CB3063
   imports VERIFICATION
 
 // Vow_Ash
@@ -77,16 +77,8 @@ rule [Vow.Ash.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.Ash <- (Ash) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.Ash <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.Ash) ==Int Ash
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.Ash) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

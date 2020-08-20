@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 41F139B9E51B3F0BEDF72C42209BB59BEC0A39312A1C40516F4D74F3D3A1D294
+module A2D9076A69BDCD137ADDF79C274A8BF126456DC8FE80696AD06EE07A9331F769
   imports VERIFICATION
 
 // End_Art
@@ -77,16 +77,8 @@ rule [End.Art.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.Art[ABI_ilk] <- (Wad) => Wad]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.Art[ABI_ilk] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1230)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.Art[ABI_ilk]) ==Int Wad
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.Art[ABI_ilk]) ==Int Junk_0 
 
 endmodule

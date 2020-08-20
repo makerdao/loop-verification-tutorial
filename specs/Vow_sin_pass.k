@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 519F3ED912BF507AFB1183B95C56DA2946136C1FEE47F7A3DF643A4ED5315563
+module 13DC2FA30CCD72ECEDD930407661DD81864A6A28BE1049992DFBFE418885C106
   imports VERIFICATION
 
 // Vow_sin
@@ -77,16 +77,8 @@ rule [Vow.sin.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.sin[ABI_era] <- (Sin_era) => Sin_era]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.sin[ABI_era] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1185)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.sin[ABI_era]) ==Int Sin_era
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.sin[ABI_era]) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module AA95979DD8051F41FA59C028120B7F9C5679E906877199B40DE5784DB0EFB7F7
+module 833C4D81E2944B6D28F9CB8208295A56E5542876DF4D651352917B5D4570C816
   imports VERIFICATION
 
 // Vat_file-ilk
@@ -77,24 +77,8 @@ rule [Vat.file-ilk.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[CALLER_ID] <- (May) => ?_]        
-          [#Vat.ilks[ABI_ilk].spot <- (Spot) => ?_]        
-          [#Vat.ilks[ABI_ilk].line <- (Line) => ?_]        
-          [#Vat.ilks[ABI_ilk].dust <- (Dust) => ?_]        
-          [#Vat.live <- (Live) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vat.ilks[ABI_ilk].spot <- (Junk_1)]        
-          [#Vat.ilks[ABI_ilk].line <- (Junk_2)]        
-          [#Vat.ilks[ABI_ilk].dust <- (Junk_3)]        
-          [#Vat.live <- (Junk_4)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -211,6 +195,17 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Spot
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Line
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Dust
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_4
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live:Int ==Int 1)

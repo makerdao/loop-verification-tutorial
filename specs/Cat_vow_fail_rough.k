@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4A92F99DA8B2CE2AF3F73125E62BC699B626B9546B9238E77AEC814E5E1BDA99
+module C5472DD0946E176E7881BCAC6460E1AF21E3C00FF7C9D455C4D33FA655CFE3CB
   imports VERIFICATION
 
 // Cat_vow
@@ -77,16 +77,8 @@ rule [Cat.vow.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Cat.vow <- (Vow) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Cat.vow <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vow)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Cat.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.vow) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

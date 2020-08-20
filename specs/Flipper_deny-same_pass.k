@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 043368565BC243F754882BDE879DD93DBF6BA4156AB26E3AC08A89F48FE8BDA9
+module 7E8CE78C6D25634830B48BC2B92DAB6F76BD2E3714456B82FDD9CB7A4CDECC28
   imports VERIFICATION
 
 // Flipper_deny-same
@@ -77,16 +77,8 @@ rule [Flipper.deny-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.wards[CALLER_ID] <- (May) => 0]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flipper.wards[CALLER_ID] <- 0 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int ((#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6443)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[CALLER_ID]) ==Int Junk_0 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 39BFBA4E6DAD8FF57AA1A09059AD239C41BCFC89C8D71BB08CF8C462E3BD2938
+module 19A619A7736BA7B039BB9B3D1570EE5941B4DBDD20A052C00BC251437B3D4C91
   imports VERIFICATION
 
 // Dai_totalSupply
@@ -77,16 +77,8 @@ rule [Dai.totalSupply.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.totalSupply <- (Supply) => Supply]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.totalSupply <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1073)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.totalSupply) ==Int Supply
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.totalSupply) ==Int Junk_0 
 
 endmodule

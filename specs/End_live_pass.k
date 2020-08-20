@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4D296B650402B72BDB0964B33CE547E56489962ADDC5CC4A8FB5D36FC35C44A4
+module B3855280AA25E07737DA2ACBF5DCC64A2173D0FA3556950ABD19237ACB59BA0F
   imports VERIFICATION
 
 // End_live
@@ -77,16 +77,8 @@ rule [End.live.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1095)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_0 
 
 endmodule

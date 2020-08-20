@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E2E8FF47892BC0318114BD477C4F5F83F7AB976C34235A17614A41E3683B79D1
+module 1C013C3DB1DDB757B2184DD223A707878C97800440DB36F4246A24C353D04280
   imports VERIFICATION
 
 // GemJoin_deny-same
@@ -77,16 +77,8 @@ rule [GemJoin.deny-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#GemJoin.wards[ABI_usr] <- (May) => 0]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#GemJoin.wards[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #GemJoin.wards[ABI_usr] <- 0 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int ((#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6398)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[ABI_usr]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_0 
 
 endmodule

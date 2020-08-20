@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F484CC2E348FC5D9785705C32B0095EDC642AD29C0220DCB9D6A8A4E5FBDF22E
+module 0B900C9C44141959FCB04CB44E82714F2B7EF2FFD9127AE761714A61DB10A9EB
   imports VERIFICATION
 
 // DaiJoin_muluu
@@ -77,16 +77,8 @@ rule [DaiJoin.muluu.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (VGas >=Int 3000000)))))
+
+
   andBool notBool (
     ((#rangeUInt(256, ABI_x:Int *Int ABI_y:Int)))
   ) 

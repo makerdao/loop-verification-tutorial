@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C12A2CBE4D4C3A9C8EAA7C4D25EA97D180AD2AF07F848ACC672AE53E196BC508
+module 84256B20210D86627D27F767C3B8447F18CE784041DD3CE9131C0DF85C0BEB3C
   imports VERIFICATION
 
 // Jug_vow
@@ -77,16 +77,8 @@ rule [Jug.vow.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.vow <- (Vow) => Vow]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.vow <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vow)
   andBool (2300 <Int VGas -Int (1053)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.vow) ==Int Junk_0 
 
 endmodule

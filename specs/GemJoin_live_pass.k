@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 5AB2C79B31956A6CBBA1652D8F01BF28069EFA506CCEC303CD0443DEB2C25A83
+module 1F1E28881C629ED3A58C8F03DC30C9A32DD70678D9322ED1110BE753C76958F2
   imports VERIFICATION
 
 // GemJoin_live
@@ -77,16 +77,8 @@ rule [GemJoin.live.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#GemJoin.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#GemJoin.live <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1005)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #GemJoin.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.live) ==Int Junk_0 
 
 endmodule

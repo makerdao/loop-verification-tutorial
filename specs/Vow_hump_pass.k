@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A950887B21C4DF163319289887B5A092A6D0BD423876295919F25B00A1DC96BD
+module 0EF386A77E2D3CA36847E675D562BABD809E8E97CB52F315E7D688E07EFCFB1B
   imports VERIFICATION
 
 // Vow_hump
@@ -77,16 +77,8 @@ rule [Vow.hump.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vow.hump <- (Hump) => Hump]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vow.hump <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1051)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vow.hump) ==Int Hump
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.hump) ==Int Junk_0 
 
 endmodule

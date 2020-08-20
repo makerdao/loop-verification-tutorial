@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CEDDB03F1EE6690FECB34F07BB5A6925158EB6D830D4F071975FDD8D8B6C0797
+module 2AF4E4FA233D2BFB04EA0F6D9FA2A99A5DAF0BD6FD64AF0A713207ECF2F85F9B
   imports VERIFICATION
 
 // Dai_approve
@@ -77,16 +77,8 @@ rule [Dai.approve.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.allowance[CALLER_ID][ABI_usr] <- (Allowed) => ABI_wad]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.allowance[CALLER_ID][ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Dai.allowance[CALLER_ID][ABI_usr] <- ABI_wad ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))) 
+  andBool ((VCallValue ==Int 0))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[CALLER_ID][ABI_usr]) ==Int Allowed
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[CALLER_ID][ABI_usr]) ==Int Junk_0 
 
 endmodule

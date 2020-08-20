@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 5D68646429F35A3B20150532A4962821E49CCE7921BB739D2C21AD372798ED69
+module 253679F74408F9055626484CEA1433C50C0E1C44DB360EF74DC84DE421681FBA
   imports VERIFICATION
 
 // Vat_file-ilk
@@ -77,24 +77,8 @@ rule [Vat.file-ilk.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[CALLER_ID] <- (May) => May]        
-          [#Vat.ilks[ABI_ilk].spot <- (Spot) => (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi)]        
-          [#Vat.ilks[ABI_ilk].line <- (Line) => (#if ABI_what ==Int #string2Word("line") #then ABI_data #else Line #fi)]        
-          [#Vat.ilks[ABI_ilk].dust <- (Dust) => (#if ABI_what ==Int #string2Word("dust") #then ABI_data #else Dust #fi)]        
-          [#Vat.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vat.ilks[ABI_ilk].spot <- (Junk_1)]        
-          [#Vat.ilks[ABI_ilk].line <- (Junk_2)]        
-          [#Vat.ilks[ABI_ilk].dust <- (Junk_3)]        
-          [#Vat.live <- (Junk_4)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.wards[CALLER_ID] <- May ] [ #Vat.ilks[ABI_ilk].spot <- (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi) ] [ #Vat.ilks[ABI_ilk].line <- (#if ABI_what ==Int #string2Word("line") #then ABI_data #else Line #fi) ] [ #Vat.ilks[ABI_ilk].dust <- (#if ABI_what ==Int #string2Word("dust") #then ABI_data #else Dust #fi) ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -214,6 +198,17 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
   andBool (((ABI_what ==Int #string2Word("spot")) orBool (ABI_what ==Int #string2Word("line")) orBool (ABI_what ==Int #string2Word("dust")))
-  andBool ((VCallValue ==Int 0)))))))))))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Spot
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Line
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Dust
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_4 
 
 endmodule

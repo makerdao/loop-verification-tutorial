@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C04ECAA4606E225340DE894481E630F135C5261440C10A8EE428ACAA9AFD2105
+module D2ECC359AAAA657C961FE38E28CECC44E42CABDAAF27F4327BDF4D8766139C42
   imports VERIFICATION
 
 // DSToken_mint
@@ -77,20 +77,8 @@ rule [DSToken.mint.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.balances[ABI_dst] <- (Gem_d) => Gem_d  +Int ABI_wad]        
-          [#DSToken.supply <- (Supply) => Supply +Int ABI_wad]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stopped)) => #WordPackAddrUInt8(Owner, Stopped)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.balances[ABI_dst] <- (Junk_0)]        
-          [#DSToken.supply <- (Junk_1)]        
-          [#DSToken.owner_stopped <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[ABI_dst] <- Gem_d  +Int ABI_wad ] [ #DSToken.supply <- Supply +Int ABI_wad ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -209,6 +197,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (((#rangeUInt(256, Gem_d +Int ABI_wad)))
   andBool (((#rangeUInt(256, Supply +Int ABI_wad)))
   andBool ((Stopped ==Int 0)
-  andBool ((VCallValue ==Int 0))))))))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_dst]) ==Int Gem_d
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.supply) ==Int Supply
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_dst]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_2 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module BB218DACD64F1D825987C1E2D9000B8D5912966BE490D0EDCD18C940940E24CD
+module BEA87D491B3C8A39BB0BCE091A6B502FF472351783A6ED5F78CA6A4A67F85081
   imports VERIFICATION
 
 // End_debt
@@ -77,16 +77,8 @@ rule [End.debt.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.debt <- (Debt) => Debt]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.debt <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1052)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.debt) ==Int Debt
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.debt) ==Int Junk_0 
 
 endmodule

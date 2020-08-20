@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7391941DD8A9EE101FF94C6222F2F3807E5DBA619D3EA29BEF0063385BC97C98
+module 309DF90B0C2593AC86EB118689BC7ECEE25CC27509EB4A77036311E9CC3BEFD8
   imports VERIFICATION
 
 // Vat_urns
@@ -77,18 +77,8 @@ rule [Vat.urns.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.urns[ABI_ilk][ABI_urn].ink <- (Ink_iu) => ?_]        
-          [#Vat.urns[ABI_ilk][ABI_urn].art <- (Art_iu) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.urns[ABI_ilk][ABI_urn].ink <- (Junk_0)]        
-          [#Vat.urns[ABI_ilk][ABI_urn].art <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Ink_iu
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Art_iu
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Junk_1
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

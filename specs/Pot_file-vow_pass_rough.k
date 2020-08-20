@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 8B1406FCD63CAB7836E65AA01588E4C14FD8AA5BAD96F9A13C3ABEB3B7AD36B4
+module 710C6B5063D015C8D8B9B1DA566539C90AEE7B11A84768E2BE2B8ADC542E2541
   imports VERIFICATION
 
 // Pot_file-vow
@@ -77,18 +77,8 @@ rule [Pot.file-vow.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Pot.wards[CALLER_ID] <- (May) => May]        
-          [#Pot.vow <- (Vow) => ABI_addr]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Pot.wards[CALLER_ID] <- (Junk_0)]        
-          [#Pot.vow <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Pot.vow <- ABI_addr ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -201,6 +191,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((ABI_what ==Int #string2Word("vow"))
-  andBool ((VCallValue ==Int 0))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Pot.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.vow) ==Int Junk_1 
 
 endmodule

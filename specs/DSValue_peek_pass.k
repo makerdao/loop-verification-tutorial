@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4C0E4437E5047D3B4477DA728839114C1DFC889491ECEFDDCD5910B457727103
+module E5F686F22A95B33A4FEF3F71CB17A93DF88DF29BE6CED291BFE4CCB7A81474AC
   imports VERIFICATION
 
 // DSValue_peek
@@ -77,18 +77,8 @@ rule [DSValue.peek.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSValue_bin_runtime </code>
-          <storage>         
-           .Map 
-          [1 <- (#WordPackAddrUInt8(Owner, Ok)) => #WordPackAddrUInt8(Owner, Ok)]        
-          [2 <- (Value) => Value]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [1 <- (Junk_0)]        
-          [2 <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ 2 <- Value ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSValue => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (2012)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0)))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, 1) ==Int #WordPackAddrUInt8(Owner, Ok)
+  andBool #lookup(ACCT_ID_STORAGE, 2) ==Int Value
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, 1) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, 2) ==Int Junk_1 
 
 endmodule

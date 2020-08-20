@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module AC7A91EF4CF0830670DA95DD8B80E75483738E61C23EA65816AB1E445C26A24F
+module 0045E48AAEAF523197E9B419996611CC5B17787CE06674CA4E58B883EECFDB6D
   imports VERIFICATION
 
 // Vat_file
@@ -77,20 +77,8 @@ rule [Vat.file.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.wards[CALLER_ID] <- (May) => May]        
-          [#Vat.Line <- (Lime) => ABI_data]        
-          [#Vat.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.wards[CALLER_ID] <- (Junk_0)]        
-          [#Vat.Line <- (Junk_1)]        
-          [#Vat.live <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.wards[CALLER_ID] <- May ] [ #Vat.Line <- ABI_data ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -205,6 +193,13 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
   andBool ((ABI_what ==Int #string2Word("Line"))
-  andBool ((VCallValue ==Int 0))))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.Line) ==Int Lime
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.Line) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_2 
 
 endmodule

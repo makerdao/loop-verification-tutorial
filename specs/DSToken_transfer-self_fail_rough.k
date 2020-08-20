@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 71DE3C878456C38B3D5BB085F4BD24BB019B8866CB98B10F0689081C77D8980F
+module A660F0E83AED9364457B05177BBCC486F710E750AB43D8F9DB99A4E9700E4FBC
   imports VERIFICATION
 
 // DSToken_transfer-self
@@ -77,18 +77,8 @@ rule [DSToken.transfer-self.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.balances[ABI_usr] <- (Gem_u) => ?_]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stopped)) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.balances[ABI_usr] <- (Junk_0)]        
-          [#DSToken.owner_stopped <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -201,6 +191,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_usr]) ==Int Gem_u
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_1
   andBool notBool (
     ((ABI_wad:Int <=Int Gem_u:Int)
     andBool ((Stopped:Int ==Int 0)

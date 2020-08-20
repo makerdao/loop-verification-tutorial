@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 772A32ABDF793F3E09BBEAD1B5FA58FA3D20D78C71F39CD157275F505C6A0277
+module A3BF49D0EB82F2CDB4FADBE04E07310DD989DCBF8BC9F8CB3AA4A3B181E5EFC3
   imports VERIFICATION
 
 // Flopper_cage
@@ -77,20 +77,8 @@ rule [Flopper.cage.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.wards[CALLER_ID] <- (Ward) => ?_]        
-          [#Flopper.live <- (Live) => ?_]        
-          [#Flopper.vow <- (Vow) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.wards[CALLER_ID] <- (Junk_0)]        
-          [#Flopper.live <- (Junk_1)]        
-          [#Flopper.vow <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -201,6 +189,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Ward
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.live) ==Int Live
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.vow) ==Int Vow
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.live) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.vow) ==Int Junk_2
   andBool notBool (
     ((Ward:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

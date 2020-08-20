@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 44B684AEBFCB2CFFDA2E8BD568AA33B4B6770CAB6E0C5A12EC4638A6562FEEFE
+module B5F9B56C390FC18258D1A839577D47747099FC36747DAAE1A38B529AC0836C7E
   imports VERIFICATION
 
 // Flapper_addu48u48
@@ -77,16 +77,8 @@ rule [Flapper.addu48u48.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (VGas >=Int 3000000)))))
+
+
   andBool notBool (
     ((#rangeUInt(48, ABI_x:Int +Int ABI_y:Int)))
   ) 

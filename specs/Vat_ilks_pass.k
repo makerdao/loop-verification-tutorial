@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 20124219C2D6DFE1C8D05058ED7C9D78D6B411348FFA45411B240063BF58D7AB
+module 5D49DC638796BEAE847EC9F89787480E797853EA29110895BB8C9584AB08AE94
   imports VERIFICATION
 
 // Vat_ilks
@@ -77,24 +77,8 @@ rule [Vat.ilks.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.ilks[ABI_ilk].Art <- (Ilk_Art) => Ilk_Art]        
-          [#Vat.ilks[ABI_ilk].rate <- (Ilk_rate) => Ilk_rate]        
-          [#Vat.ilks[ABI_ilk].spot <- (Ilk_spot) => Ilk_spot]        
-          [#Vat.ilks[ABI_ilk].line <- (Ilk_line) => Ilk_line]        
-          [#Vat.ilks[ABI_ilk].dust <- (Ilk_dust) => Ilk_dust]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.ilks[ABI_ilk].Art <- (Junk_0)]        
-          [#Vat.ilks[ABI_ilk].rate <- (Junk_1)]        
-          [#Vat.ilks[ABI_ilk].spot <- (Junk_2)]        
-          [#Vat.ilks[ABI_ilk].line <- (Junk_3)]        
-          [#Vat.ilks[ABI_ilk].dust <- (Junk_4)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.ilks[ABI_ilk].Art <- Ilk_Art ]     </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -209,6 +193,17 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
-  andBool ((VCallValue ==Int 0))))))))))))))) 
+  andBool ((VCallValue ==Int 0)))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].Art) ==Int Ilk_Art
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Ilk_rate
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Ilk_spot
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Ilk_line
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Ilk_dust
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].Art) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_4 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 58D4B4D1825685695D4CA0E8494BFC821B34A3101870CD09E597E45503CDB679
+module AB1B6642708738D8A8E8FD6C4C4CC91587382CD359F5456E9A82C1C6228CDA45
   imports VERIFICATION
 
 // DaiJoin_deny-same
@@ -77,16 +77,8 @@ rule [DaiJoin.deny-same.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DaiJoin.wards[CALLER_ID] <- (May) => 0]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DaiJoin.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DaiJoin.wards[CALLER_ID] <- 0 ] </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>
         <account>
@@ -195,6 +187,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int ((#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6398)
   andBool (#rangeUInt(256, Junk_0)
   andBool ((VCallValue ==Int 0)
-  andBool ((May ==Int 1))))))))) 
+  andBool ((May ==Int 1)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int Junk_0 
 
 endmodule

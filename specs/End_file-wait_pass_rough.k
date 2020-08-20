@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module EC43E9EDA669B40230D1B3CC3859FF614F4F84A3200D02BFB9506CFD9A14AECE
+module 8387B97D378CC5A5A274DFD58D18B07F5833CFF682200337EACBE80E88434C1A
   imports VERIFICATION
 
 // End_file-wait
@@ -77,20 +77,8 @@ rule [End.file-wait.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#End.wards[CALLER_ID] <- (May) => May]        
-          [#End.wait <- (Wait) => ABI_data]        
-          [#End.live <- (Live) => Live]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#End.wards[CALLER_ID] <- (Junk_0)]        
-          [#End.wait <- (Junk_1)]        
-          [#End.live <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #End.wards[CALLER_ID] <- May ] [ #End.wait <- ABI_data ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>
         <account>
@@ -205,6 +193,13 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool ((ABI_what ==Int #string2Word("wait")))))))))))))))) 
+  andBool ((ABI_what ==Int #string2Word("wait"))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #End.wait) ==Int Wait
+  andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wait) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_2 
 
 endmodule

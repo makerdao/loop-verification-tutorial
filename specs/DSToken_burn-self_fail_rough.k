@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F0D7B45F43BA9517D715338B1BDBDDB6DD75E644A80F54C776CFF9E7F3B0C38A
+module 670D81639C512E48ABE3AA759B972A010D0A036E618CC9177B0A502741567A4F
   imports VERIFICATION
 
 // DSToken_burn-self
@@ -77,22 +77,8 @@ rule [DSToken.burn-self.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.allowance[ABI_src][CALLER_ID] <- (Allowance) => ?_]        
-          [#DSToken.balances[ABI_src] <- (Gem_s) => ?_]        
-          [#DSToken.supply <- (Supply) => ?_]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stoppedd)) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.allowance[ABI_src][CALLER_ID] <- (Junk_0)]        
-          [#DSToken.balances[ABI_src] <- (Junk_1)]        
-          [#DSToken.supply <- (Junk_2)]        
-          [#DSToken.owner_stopped <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -211,6 +197,15 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Allowance
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_src]) ==Int Gem_s
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.supply) ==Int Supply
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stoppedd)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_src]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_3
   andBool notBool (
     (((#rangeUInt(256, Gem_s:Int  -Int ABI_wad:Int)))
     andBool (((#rangeUInt(256, Supply:Int -Int ABI_wad:Int)))

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C3A6E5BA7F6C7C5937C552E3AF20CD40DBD9B23456A57BAC647DB4CBD258785E
+module 7B9A8A5BAA872E341A3BD40B85E951D90B03B2B3CD078D3C20084FFF7B4C68BF
   imports VERIFICATION
 
 // Vat_adduu
@@ -77,16 +77,8 @@ rule [Vat.adduu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (2300 <Int VGas -Int (54)
-  andBool ((#rangeUInt(256, ABI_x +Int ABI_y)))))))) 
+  andBool ((#rangeUInt(256, ABI_x +Int ABI_y))))))))
+
+ 
 
 endmodule

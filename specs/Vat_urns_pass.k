@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 36C5F963BAEE188DAEB66357CA2A23A7EC3508C8916849EC3FBAD36AEC5A8956
+module 0961E4B65E5765D0AE92B33BC9416127580654232117109BDA6BC8F7ED5928C9
   imports VERIFICATION
 
 // Vat_urns
@@ -77,18 +77,8 @@ rule [Vat.urns.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.urns[ABI_ilk][ABI_urn].ink <- (Ink_iu) => Ink_iu]        
-          [#Vat.urns[ABI_ilk][ABI_urn].art <- (Art_iu) => Art_iu]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.urns[ABI_ilk][ABI_urn].ink <- (Junk_0)]        
-          [#Vat.urns[ABI_ilk][ABI_urn].art <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE   </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (2300 <Int VGas -Int (2153)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0)))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Ink_iu
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Art_iu
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Junk_1 
 
 endmodule

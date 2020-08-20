@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6FAEFF07EEB088360BA7867C8C5E818E13C538ED76DB830C4FD4573B7A049B6E
+module 10C3114DF80EADA3E52FD7ED6A633DA8B35400165B4A28BA4F0F1C3F3E09FB69
   imports VERIFICATION
 
 // DSToken_totalSupply
@@ -77,16 +77,8 @@ rule [DSToken.totalSupply.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.supply <- (Supply) => Supply]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.supply <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1125)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))) 
+  andBool ((VCallValue ==Int 0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.supply) ==Int Supply
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_0 
 
 endmodule

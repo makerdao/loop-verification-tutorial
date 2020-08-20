@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A3AE6D135E219C8313DC0B8DD8B08B247655A02323D446FE050FB25492DAA5ED
+module 56A8596B55B71AE1480DD5E4070D5CD796CB68670C424894B01881F715B62DAB
   imports VERIFICATION
 
 // Vat_dai
@@ -77,16 +77,8 @@ rule [Vat.dai.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.dai[ABI_usr] <- (Rad) => Rad]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.dai[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1236)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.dai[ABI_usr]) ==Int Rad
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.dai[ABI_usr]) ==Int Junk_0 
 
 endmodule

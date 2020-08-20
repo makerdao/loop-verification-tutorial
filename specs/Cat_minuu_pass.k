@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 42D9786F6C2843793954EC641D4DF3156E3CBF34912A4CB3C60C90BFC32E5E99
+module 75FC269D6FA714629BE0C1D97B36351FFAC8CF1A3916998D7BB26D6B0A24F27F
   imports VERIFICATION
 
 // Cat_minuu
@@ -77,16 +77,8 @@ rule [Cat.minuu.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (2300 <Int VGas -Int (#if ( ABI_x <=Int ABI_y ) #then ( 49 ) #else ( 59 ) #fi)))))) 
+  andBool (2300 <Int VGas -Int (#if ( ABI_x <=Int ABI_y ) #then ( 49 ) #else ( 59 ) #fi))))))
+
+ 
 
 endmodule

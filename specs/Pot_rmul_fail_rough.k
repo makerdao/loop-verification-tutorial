@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F66BE54796D75E976CFABAC0854AD5EB7673087D5566F74DF7EB9316D6F061ED
+module 52ECB060FD90580B690C0A6B601843600B772C019312D09FDE39E061367712A6
   imports VERIFICATION
 
 // Pot_rmul
@@ -77,16 +77,8 @@ rule [Pot.rmul.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
   andBool (VGas >=Int 3000000)))))
+
+
   andBool notBool (
     ((#rangeUInt(256, ABI_x:Int *Int ABI_y:Int)))
   ) 

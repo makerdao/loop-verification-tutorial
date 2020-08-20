@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 35C3E543C9163875D4448DEB543F8795E568C9CA3BAB4F7AD26686B31975756D
+module FDA4A68E7B67692FA657FCC1C17ECDAB1D3CFF590DB5C6EF6044FEB13C5123A3
   imports VERIFICATION
 
 // Dai_deny-same
@@ -77,16 +77,8 @@ rule [Dai.deny-same.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.wards[CALLER_ID] <- (Could) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((CALLER_ID ==Int ABI_usr)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[CALLER_ID]) ==Int Could
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[CALLER_ID]) ==Int Junk_0
   andBool notBool (
     ((Could:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

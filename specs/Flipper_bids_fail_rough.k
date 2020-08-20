@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1248A051E4DDFC7FDE70829F5AA553E0698A294A11832967ADDA8C95DBFCA791
+module A447785D235CE6BF34D68BBD552F4F4CA74C518BE737A44CD41C33FF9D01438E
   imports VERIFICATION
 
 // Flipper_bids
@@ -77,26 +77,8 @@ rule [Flipper.bids.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flipper.bids[ABI_n].bid <- (Bid) => ?_]        
-          [#Flipper.bids[ABI_n].lot <- (Lot) => ?_]        
-          [#Flipper.bids[ABI_n].guy_tic_end <- (#WordPackAddrUInt48UInt48(Guy, Tic, End)) => ?_]        
-          [#Flipper.bids[ABI_n].usr <- (Usr) => ?_]        
-          [#Flipper.bids[ABI_n].gal <- (Gal) => ?_]        
-          [#Flipper.bids[ABI_n].tab <- (Tab) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flipper.bids[ABI_n].bid <- (Junk_0)]        
-          [#Flipper.bids[ABI_n].lot <- (Junk_1)]        
-          [#Flipper.bids[ABI_n].guy_tic_end <- (Junk_2)]        
-          [#Flipper.bids[ABI_n].usr <- (Junk_3)]        
-          [#Flipper.bids[ABI_n].gal <- (Junk_4)]        
-          [#Flipper.bids[ABI_n].tab <- (Junk_5)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>
         <account>
@@ -218,6 +200,19 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
   andBool (#rangeUInt(256, Junk_5)))))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].bid) ==Int Bid
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].lot) ==Int Lot
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].guy_tic_end) ==Int #WordPackAddrUInt48UInt48(Guy, Tic, End)
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].usr) ==Int Usr
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].gal) ==Int Gal
+  andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].tab) ==Int Tab
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].bid) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].lot) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].guy_tic_end) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].usr) ==Int Junk_3
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].gal) ==Int Junk_4
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].tab) ==Int Junk_5
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

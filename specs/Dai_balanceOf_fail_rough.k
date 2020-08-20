@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1CC0ED808B39B92B35A90C49D41F2391CABA46D65BD69DD93FC483DE8A9BD9FB
+module 8134856E07AE36FBAA0F594B5CC1F0047E325F388D2E851310421B701F1ADDDC
   imports VERIFICATION
 
 // Dai_balanceOf
@@ -77,16 +77,8 @@ rule [Dai.balanceOf.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.balanceOf[ABI_who] <- (Balance) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.balanceOf[ABI_who] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.balanceOf[ABI_who]) ==Int Balance
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.balanceOf[ABI_who]) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

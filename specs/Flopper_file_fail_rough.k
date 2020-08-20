@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1120EF2C9B28512EE6EAB4EF4C64F7F62E4FCE836B57772EAED4707A3DB8B0BF
+module 114DDE7277F76958098B1D5964BDC3509112E8D48C2F95EB30504988C37A7A39
   imports VERIFICATION
 
 // Flopper_file
@@ -77,22 +77,8 @@ rule [Flopper.file.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Flopper.wards[CALLER_ID] <- (May) => ?_]        
-          [#Flopper.beg <- (Beg) => ?_]        
-          [#Flopper.pad <- (Pad) => ?_]        
-          [#Flopper.ttl_tau <- (#WordPackUInt48UInt48(Ttl, Tau)) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Flopper.wards[CALLER_ID] <- (Junk_0)]        
-          [#Flopper.beg <- (Junk_1)]        
-          [#Flopper.pad <- (Junk_2)]        
-          [#Flopper.ttl_tau <- (Junk_3)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>
         <account>
@@ -208,6 +194,15 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.beg) ==Int Beg
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.pad) ==Int Pad
+  andBool #lookup(ACCT_ID_STORAGE, #Flopper.ttl_tau) ==Int #WordPackUInt48UInt48(Ttl, Tau)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.beg) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.pad) ==Int Junk_2
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.ttl_tau) ==Int Junk_3
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)

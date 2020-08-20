@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module ECC62D32D57F6989748C222B284D5EC081CC7B815A4D0F6D76B296780186AFBF
+module D37A75B3D0FAB327E80022560116C7ABC4229DC391289201D30805F50D73011F
   imports VERIFICATION
 
 // DSToken_allowance
@@ -77,16 +77,8 @@ rule [DSToken.allowance.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.allowance[ABI_src][ABI_usr] <- (Allowance) => Allowance]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.allowance[ABI_src][ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1409)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))) 
+  andBool ((VCallValue ==Int 0))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[ABI_src][ABI_usr]) ==Int Allowance
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.allowance[ABI_src][ABI_usr]) ==Int Junk_0 
 
 endmodule

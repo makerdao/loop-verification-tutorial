@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 58448C6D61C2BC95748F0B75ED5CD1D1A6647FD2D302029D32E4DF0EBE6142E3
+module D0F68840EFCC0C332CD8D7D2075B4CE7E0D1160CDE9343DDB85D3580CF412412
   imports VERIFICATION
 
 // Pot_rpow-loop
@@ -77,16 +77,8 @@ rule [Pot.rpow-loop.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage>         
-           .Map 
-          
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>
         <account>
@@ -202,6 +194,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((num0(N) >=Int 0)
   andBool ((num1(N) >=Int 0)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (2300 <Int VGas -Int (194 +Int ((num0(N) *Int 172) +Int (num1(N) *Int 287)))))))))))))))))) 
+  andBool (2300 <Int VGas -Int (194 +Int ((num0(N) *Int 172) +Int (num1(N) *Int 287))))))))))))))))))
+
+ 
 
 endmodule

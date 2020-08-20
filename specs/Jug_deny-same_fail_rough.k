@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1DDA9A833971DF4BD75C239A804B9C9D3A093F2E86A12CA5DF5FB4B2B58D1049
+module 674AD3787CB722CE3E43AEC89A0CD6B111F56D51A22423B5317F32660E5E86AB
   imports VERIFICATION
 
 // Jug_deny-same
@@ -77,16 +77,8 @@ rule [Jug.deny-same.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.wards[CALLER_ID] <- (Could) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.wards[CALLER_ID] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -194,6 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((CALLER_ID ==Int ABI_usr)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int Could
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[CALLER_ID]) ==Int Junk_0
   andBool notBool (
     ((Could:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

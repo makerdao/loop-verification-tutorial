@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 894A58913E987C1EB7A76F000986F85217DB5C19B6A4E4AB86877242DD164288
+module C43247487819BE4719EFD5DD48E2187DD690E3465BD6117B153EDF1B460C05E0
   imports VERIFICATION
 
 // Jug_ilks
@@ -77,18 +77,8 @@ rule [Jug.ilks.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Jug.ilks[ABI_ilk].duty <- (Duty) => ?_]        
-          [#Jug.ilks[ABI_ilk].rho <- (Rho) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Jug.ilks[ABI_ilk].duty <- (Junk_0)]        
-          [#Jug.ilks[ABI_ilk].rho <- (Junk_1)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>
         <account>
@@ -198,6 +188,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Rho
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Junk_1
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

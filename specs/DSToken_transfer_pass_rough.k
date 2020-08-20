@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 32478E8574281E897DC56E21409053EF920D4E0FA58CEDAD6B7F116B2360623D
+module D10636D40E8B50E6FA446A94DF0B78955B3606AD5534A9A2BD8F0DA4497D412A
   imports VERIFICATION
 
 // DSToken_transfer
@@ -77,20 +77,8 @@ rule [DSToken.transfer.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#DSToken.balances[CALLER_ID] <- (Gem_c) => Gem_c -Int ABI_wad]        
-          [#DSToken.balances[ABI_usr] <- (Gem_u) => Gem_u +Int ABI_wad]        
-          [#DSToken.owner_stopped <- (#WordPackAddrUInt8(Owner, Stopped)) => #WordPackAddrUInt8(Owner, Stopped)]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#DSToken.balances[CALLER_ID] <- (Junk_0)]        
-          [#DSToken.balances[ABI_usr] <- (Junk_1)]        
-          [#DSToken.owner_stopped <- (Junk_2)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[CALLER_ID] <- Gem_c -Int ABI_wad ] [ #DSToken.balances[ABI_usr] <- Gem_u +Int ABI_wad ]  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>
         <account>
@@ -208,6 +196,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (((#rangeUInt(256, Gem_c -Int ABI_wad)))
   andBool (((#rangeUInt(256, Gem_u +Int ABI_wad)))
   andBool ((Stopped ==Int 0)
-  andBool ((VCallValue ==Int 0)))))))))))))))))) 
+  andBool ((VCallValue ==Int 0))))))))))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[CALLER_ID]) ==Int Gem_c
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_usr]) ==Int Gem_u
+  andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_2 
 
 endmodule

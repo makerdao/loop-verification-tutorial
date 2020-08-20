@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 94D71119E073290B404362F8B117239340828309B3DD2A8FF5FCCE24E6ADC041
+module C235EB6358AD1CE273FD52BFD5CDCE7677537567A12B501477E087ADE4CF8138
   imports VERIFICATION
 
 // Dai_totalSupply
@@ -77,16 +77,8 @@ rule [Dai.totalSupply.fail.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Dai.totalSupply <- (Supply) => ?_]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Dai.totalSupply <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>
         <account>
@@ -192,6 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Dai.totalSupply) ==Int Supply
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.totalSupply) ==Int Junk_0
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

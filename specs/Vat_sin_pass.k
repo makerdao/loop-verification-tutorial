@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CEA81A150B8136BCA965B52833065868A7409D4091174D92204F59427FA30D8B
+module BED505C4213617BD960DF9A8A822267C27B60EB17AE6AF5612BBB8140AE24D98
   imports VERIFICATION
 
 // Vat_sin
@@ -77,16 +77,8 @@ rule [Vat.sin.pass]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage>         
-           .Map 
-          [#Vat.sin[ABI_usr] <- (Rad) => Rad]
-            _:Map
-           </storage>
-          <origStorage>         
-           .Map
-          [#Vat.sin[ABI_usr] <- (Junk_0)]
-            _:Map
-           </origStorage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>
         <account>
@@ -193,6 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (2300 <Int VGas -Int (1235)
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))) 
+  andBool ((VCallValue ==Int 0)))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Vat.sin[ABI_usr]) ==Int Rad
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.sin[ABI_usr]) ==Int Junk_0 
 
 endmodule
