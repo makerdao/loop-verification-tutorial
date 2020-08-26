@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 90EB3596B98F7BD23F9A788B2A1284A8765D7E4A56E9466A449E298449D097D2
+module 49385F386ED94ABA75541C06BD337ADC46CD269FE3C6E34829E3E7DBE7B2CB26
   imports VERIFICATION
 
 // DSValue_read
@@ -189,11 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)))))))))
 
-  andBool #lookup(ACCT_ID_STORAGE, 1) ==Int #WordPackAddrUInt8(Owner, Ok)
-  andBool #lookup(ACCT_ID_STORAGE, 2) ==Int Value
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, 1) ==Int Junk_0
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, 2) ==Int Junk_1
-  andBool 1 =/=Int 2
+  andBool #lookup(ACCT_ID_STORAGE, #DSValue.owner_has) ==Int #WordPackAddrUInt8(Owner, Ok)
+  andBool #lookup(ACCT_ID_STORAGE, #DSValue.val) ==Int Value
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSValue.owner_has) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSValue.val) ==Int Junk_1
+  andBool #DSValue.owner_has =/=Int #DSValue.val
   andBool notBool (
     ((VCallValue:Int ==Int 0)
     andBool ((Ok:Int ==Int 1)))
