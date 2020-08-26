@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1D4E8305D31313CD89F92370A91C614756B8A4FAB37445DA98F2D7A03C024914
+module 7A0E9B026F2F4DF8CB0BB764A0488BC3C41B3E45BF679DFFCAD0AC8BFAB683D7
   imports VERIFICATION
 
 // Flopper_deny-diff
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[ABI_usr]) ==Int Junk_2
+  andBool #Flopper.wards[CALLER_ID] =/=Int #Flopper.wards[ABI_usr]
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

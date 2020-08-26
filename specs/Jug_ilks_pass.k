@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 8A1C8CEEB17A1EE5443BFC5E2AD0128FC5594D3D19C3D3DAD301702837585D74
+module 19033DB5F3723BC191F47CEA4FC176D8D89B8D49F39631BF93458F83285BDD4D
   imports VERIFICATION
 
 // Jug_ilks
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty
   andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Rho
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Junk_0
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Junk_1 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Junk_1
+  andBool #Jug.ilks[ABI_ilk].duty =/=Int #Jug.ilks[ABI_ilk].rho 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0A3AE3A26B58EAAEEDEBDCB5AE3C0230EDBBEBA9858FED7A76FCEA153D82D4BE
+module 1ABC5B51C294A553B5DEC6169F4464CC5D9AA39A43DE75AF89784331A245449F
   imports VERIFICATION
 
 // Flapper_bids
@@ -199,6 +199,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.bids[ABI_n].bid) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.bids[ABI_n].lot) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.bids[ABI_n].guy_tic_end) ==Int Junk_2
+  andBool #Flapper.bids[ABI_n].bid =/=Int #Flapper.bids[ABI_n].lot
+  andBool #Flapper.bids[ABI_n].bid =/=Int #Flapper.bids[ABI_n].guy_tic_end
+  andBool #Flapper.bids[ABI_n].lot =/=Int #Flapper.bids[ABI_n].guy_tic_end
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

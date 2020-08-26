@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 27CB806767F288F5DC20E05E040E2D383421234B28BE18A07BFE8F11F40242B2
+module 170E5CB1B6C005100A48E1157171A6D17873A47F3C7DD73FDBC9470DBD66578A
   imports VERIFICATION
 
 // Flopper_cage
@@ -196,6 +196,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.live) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.vow) ==Int Junk_2
+  andBool #Flopper.wards[CALLER_ID] =/=Int #Flopper.live
+  andBool #Flopper.wards[CALLER_ID] =/=Int #Flopper.vow
+  andBool #Flopper.live =/=Int #Flopper.vow
   andBool notBool (
     ((Ward:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

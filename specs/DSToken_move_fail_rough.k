@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E883BFECEEF79AB05387654F08C9B02795598E3439EECC085CA663ED2B07E6F0
+module A3B353F6865A523FE44ACE36469EB22BFF24BDDD2BEF0BC4FCC4E9F9AB41BF16
   imports VERIFICATION
 
 // DSToken_move
@@ -206,6 +206,12 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_src]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_dst]) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_3
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.balances[ABI_src]
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.balances[ABI_dst]
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.balances[ABI_src] =/=Int #DSToken.balances[ABI_dst]
+  andBool #DSToken.balances[ABI_src] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.balances[ABI_dst] =/=Int #DSToken.owner_stopped
   andBool notBool (
     (((#rangeUInt(256, Gem_s:Int -Int ABI_wad:Int)))
     andBool (((#rangeUInt(256, Gem_d:Int +Int ABI_wad:Int)))

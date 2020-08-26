@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4A70E6D38E4A63E6525000E2481EAAE780FC1D8BE3FB0CFC5D4335D7BBD31641
+module E6352D83B48A961FE88FC49DBE5F22758DFB79C572E5BF4DBB97198284A6BDD5
   imports VERIFICATION
 
 // Pot_deny-diff
@@ -194,6 +194,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[ABI_usr]) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[ABI_usr]) ==Int Junk_2
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.wards[ABI_usr] 
 
 endmodule

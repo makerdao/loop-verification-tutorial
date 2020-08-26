@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A6E006CF563769D2C816162F78827CEB73CF7696B817CBBF88A2746539287D54
+module 8169EE25FEA918744FEDA52912B30C474994C6DB7E5CB1E740FE9730CC9FA01D
   imports VERIFICATION
 
 // Pot_file-vow
@@ -196,6 +196,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Pot.vow) ==Int Vow
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_0
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.vow) ==Int Junk_1 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.vow) ==Int Junk_1
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.vow 
 
 endmodule

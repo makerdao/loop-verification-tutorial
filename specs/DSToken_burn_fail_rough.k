@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2724C212E40F8EB2BF79BA516C0F4F8978A1B7A844AF20B7BD8D68AE10333409
+module 2D0DEF21E2F2A3E8E7D5D4D85BA65830CFD5B93D89B8B24A2606595AA4C036D0
   imports VERIFICATION
 
 // DSToken_burn
@@ -206,6 +206,12 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_src]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_3
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.balances[ABI_src]
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.supply
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.balances[ABI_src] =/=Int #DSToken.supply
+  andBool #DSToken.balances[ABI_src] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.supply =/=Int #DSToken.owner_stopped
   andBool notBool (
     (((#rangeUInt(256, Gem_s:Int  -Int ABI_wad:Int)))
     andBool (((#rangeUInt(256, Supply:Int -Int ABI_wad:Int)))

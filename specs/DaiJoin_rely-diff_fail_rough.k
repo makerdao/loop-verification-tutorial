@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 01A12FA145FFD1E4FA2536E56DBFA86EF287CF4CF5F890BBBF785C23AE60C285
+module 96D5E867489C7DF92E6D758FBD30A87F67BE0087D17F75B726A086231E41FA15
   imports VERIFICATION
 
 // DaiJoin_rely-diff
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[ABI_usr]) ==Int Junk_2
+  andBool #DaiJoin.wards[CALLER_ID] =/=Int #DaiJoin.wards[ABI_usr]
   andBool notBool (
     ((VCallValue:Int ==Int 0)
     andBool ((May:Int ==Int 1)))

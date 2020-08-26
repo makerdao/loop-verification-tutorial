@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 94EE8589163182A136EF565D6E2A4885F7F3308A4269A272F68E7F86B5A52B50
+module 8B5077BEBB8B5DEF3F450B10428CD335AC3403363460FC9FA5B3C564D63177DB
   imports VERIFICATION
 
 // Dai_permit
@@ -209,6 +209,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Allowed
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Junk_2
+  andBool #Dai.nonces[ABI_hodler] =/=Int #Dai.DOMAIN_SEPARATOR
+  andBool #Dai.nonces[ABI_hodler] =/=Int #Dai.allowance[ABI_hodler][ABI_ombudsman]
+  andBool #Dai.DOMAIN_SEPARATOR =/=Int #Dai.allowance[ABI_hodler][ABI_ombudsman] 
 
 endmodule

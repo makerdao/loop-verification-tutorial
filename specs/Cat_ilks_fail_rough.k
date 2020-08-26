@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 673601929F12BC50F9519BBE2F3C01456C6C4849AF0BA7D2FD78452D2B6E4A99
+module 2595C3111AF990E57B89CD8A45829BA61CB60FA28C7124F9BD4AAA43C9EA11C6
   imports VERIFICATION
 
 // Cat_ilks
@@ -197,6 +197,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].flip) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Junk_2
+  andBool #Cat.ilks[ABI_ilk].flip =/=Int #Cat.ilks[ABI_ilk].chop
+  andBool #Cat.ilks[ABI_ilk].flip =/=Int #Cat.ilks[ABI_ilk].lump
+  andBool #Cat.ilks[ABI_ilk].chop =/=Int #Cat.ilks[ABI_ilk].lump
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

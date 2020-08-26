@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9A7ADA030B7449DE04E2455162EC22FAFABF6D3D5991EC11772D4BA80745F77F
+module 59FF3D5439961EC92D6595233E8632F0AD56A9ADDCC54670CD634B9006358495
   imports VERIFICATION
 
 // End_file-addr
@@ -218,6 +218,27 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.pot) ==Int Junk_4
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.spot) ==Int Junk_5
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_6
+  andBool #End.wards[CALLER_ID] =/=Int #End.vat
+  andBool #End.wards[CALLER_ID] =/=Int #End.cat
+  andBool #End.wards[CALLER_ID] =/=Int #End.vow
+  andBool #End.wards[CALLER_ID] =/=Int #End.pot
+  andBool #End.wards[CALLER_ID] =/=Int #End.spot
+  andBool #End.wards[CALLER_ID] =/=Int #End.live
+  andBool #End.vat =/=Int #End.cat
+  andBool #End.vat =/=Int #End.vow
+  andBool #End.vat =/=Int #End.pot
+  andBool #End.vat =/=Int #End.spot
+  andBool #End.vat =/=Int #End.live
+  andBool #End.cat =/=Int #End.vow
+  andBool #End.cat =/=Int #End.pot
+  andBool #End.cat =/=Int #End.spot
+  andBool #End.cat =/=Int #End.live
+  andBool #End.vow =/=Int #End.pot
+  andBool #End.vow =/=Int #End.spot
+  andBool #End.vow =/=Int #End.live
+  andBool #End.pot =/=Int #End.spot
+  andBool #End.pot =/=Int #End.live
+  andBool #End.spot =/=Int #End.live
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live:Int ==Int 1)

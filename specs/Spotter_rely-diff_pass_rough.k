@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 00BE8C3E3A2AE02A0E239A36A19CEBF21D25B08DFA041B2C1988FA41ED2AB00C
+module E2CC6411AE0E7EEFF09E819A0F7EE4D982936C8AEEEA3AD1A53632C320D2AF34
   imports VERIFICATION
 
 // Spotter_rely-diff
@@ -194,6 +194,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_2
+  andBool #Spotter.wards[CALLER_ID] =/=Int #Spotter.wards[ABI_usr] 
 
 endmodule

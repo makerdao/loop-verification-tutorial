@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 780FF68C2FEFEABE6665BCC20EA77B937D1B3FFABF351ADE8EA9CC8B3EA213AA
+module 001AA1A5A57BC2A6D029627E741AE6BFD011EA8FAB733AB5294FA65A0C27A37E
   imports VERIFICATION
 
 // Cat_deny-diff
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[ABI_usr]) ==Int Junk_2
+  andBool #Cat.wards[CALLER_ID] =/=Int #Cat.wards[ABI_usr]
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

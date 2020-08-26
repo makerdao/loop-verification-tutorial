@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 14A03BCA4EB5DADAB2374882B7A1084C77F855C236BB3875C2319A32D4CE88A1
+module FA69E0BA616C95AE22F5D54F6F0D25487AB1164BF1DEAF664B76F1025B2A73FC
   imports VERIFICATION
 
 // Jug_file
@@ -198,6 +198,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Junk_2
+  andBool #Jug.wards[CALLER_ID] =/=Int #Jug.ilks[ABI_ilk].duty
+  andBool #Jug.wards[CALLER_ID] =/=Int #Jug.ilks[ABI_ilk].rho
+  andBool #Jug.ilks[ABI_ilk].duty =/=Int #Jug.ilks[ABI_ilk].rho
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((ABI_what:Int ==Int #string2Word("duty"))

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6257A53672C4311A8637D8E462574A6E70A611BD705FA1FBBC67F239B2CFC095
+module 531EDBAF65528D4EBF6CE1F37028CCFB0A7375D69EB472F49E6A34E51C3DD518
   imports VERIFICATION
 
 // Jug_deny-diff
@@ -194,6 +194,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[CALLER_ID]) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[ABI_usr]) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[ABI_usr]) ==Int Junk_2
+  andBool #Jug.wards[CALLER_ID] =/=Int #Jug.wards[ABI_usr] 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CE2BA2FF0B79711B5D422C458A0F291A42533721D22CC66B685EF9D11A259469
+module A7F60821A44E80E0B04C72BFEB39907BD8C4007002B70C25C2ACCE8723921A83
   imports VERIFICATION
 
 // Vat_file-ilk
@@ -209,6 +209,16 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_3
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_4 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_4
+  andBool #Vat.wards[CALLER_ID] =/=Int #Vat.ilks[ABI_ilk].spot
+  andBool #Vat.wards[CALLER_ID] =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.wards[CALLER_ID] =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.wards[CALLER_ID] =/=Int #Vat.live
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.live
+  andBool #Vat.ilks[ABI_ilk].line =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].line =/=Int #Vat.live
+  andBool #Vat.ilks[ABI_ilk].dust =/=Int #Vat.live 
 
 endmodule

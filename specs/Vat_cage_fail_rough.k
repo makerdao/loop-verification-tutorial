@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1F1D3106BA7CFCDCDC000E57C5205BC70D7DB947433016F879F92AD14E499B2F
+module BF6C1659D6A5BE4EC859FC42C71EF6B3046C968795052844FAE50B64EB4B7E92
   imports VERIFICATION
 
 // Vat_cage
@@ -191,6 +191,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Lives
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_1
+  andBool #Vat.wards[CALLER_ID] =/=Int #Vat.live
   andBool notBool (
     ((VCallValue:Int ==Int 0)
     andBool ((May:Int ==Int 1)))

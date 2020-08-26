@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1255AFF774827B479FCA3C55C6735658C9EBB935C77D7F4FDC80C3A8958CB2A2
+module 52ED7BD9F7AFF1D04A7F23DD18DC5850B57D013E9D582958E325BBAD3761F351
   imports VERIFICATION
 
 // Spotter_cage
@@ -192,6 +192,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.live) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.live) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.live) ==Int Junk_2
+  andBool #Spotter.wards[CALLER_ID] =/=Int #Spotter.live 
 
 endmodule

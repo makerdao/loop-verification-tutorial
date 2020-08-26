@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D3A9BBFB68EB795D4DB4430918D73971B6632CDE7F0C18FE47B2C3192CFA4A8B
+module 2FD5A7DC544BFB0C436892D7F8BD649D405C67768EFB46C22F4AF61C808AB086
   imports VERIFICATION
 
 // Spotter_rely-diff
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[ABI_usr]) ==Int Junk_2
+  andBool #Spotter.wards[CALLER_ID] =/=Int #Spotter.wards[ABI_usr]
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

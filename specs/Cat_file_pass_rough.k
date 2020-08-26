@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 898A4CE092FC8C09D5443B3103B93253BA927848F99C58491387FCFC9DEAC1A0
+module 465B05ECC31E43774801499619833EF78D400E0AC10CC6A0D8BF0D31814537BE
   imports VERIFICATION
 
 // Cat_file
@@ -200,6 +200,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Lump
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.ilks[ABI_ilk].lump) ==Int Junk_2
+  andBool #Cat.wards[CALLER_ID] =/=Int #Cat.ilks[ABI_ilk].chop
+  andBool #Cat.wards[CALLER_ID] =/=Int #Cat.ilks[ABI_ilk].lump
+  andBool #Cat.ilks[ABI_ilk].chop =/=Int #Cat.ilks[ABI_ilk].lump 
 
 endmodule

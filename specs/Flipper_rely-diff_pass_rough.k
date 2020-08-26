@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 045A52F8101AF565B83887A0DF21686C19F7061AC3D25F05BE1F04A286EC3DD0
+module 191054F8C29E4800FCD79DC02678F6FD5E610C6CE5D43B9DAA71027F09ED9BDB
   imports VERIFICATION
 
 // Flipper_rely-diff
@@ -194,6 +194,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[CALLER_ID]) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[ABI_usr]) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[ABI_usr]) ==Int Junk_2
+  andBool #Flipper.wards[CALLER_ID] =/=Int #Flipper.wards[ABI_usr] 
 
 endmodule

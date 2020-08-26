@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2C83FE85A1CBFC401202322A335F7C9882EE5E4C15EFC91E8995FA247DAF6C12
+module 802422181A844A4F5131B70536CA5C2B271CA91A1EFAA72D99731C51C2FCA4AA
   imports VERIFICATION
 
 // Cat_file-addr
@@ -194,6 +194,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Cat.vow) ==Int Vow
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.vow) ==Int Junk_1
+  andBool #Cat.wards[CALLER_ID] =/=Int #Cat.vow
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)

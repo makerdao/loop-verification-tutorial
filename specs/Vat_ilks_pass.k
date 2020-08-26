@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3F23AD6F44CC6E59E57C21287C9A13C1616AB070BA887F71CDB1F5A18DF1326C
+module 99882953780C27F91D10703C359CF3B97CAF08FCEEF393BAE1210AEDDA44B49F
   imports VERIFICATION
 
 // Vat_ilks
@@ -204,6 +204,16 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_3
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_4 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_4
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].rate
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].spot
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].rate =/=Int #Vat.ilks[ABI_ilk].spot
+  andBool #Vat.ilks[ABI_ilk].rate =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].rate =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].line =/=Int #Vat.ilks[ABI_ilk].dust 
 
 endmodule

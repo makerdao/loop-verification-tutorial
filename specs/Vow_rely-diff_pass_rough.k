@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1FB81D3F16978779B549C6E399A0B44370996D54084EC3B51C701767A682E75F
+module 634E9A43D78133781167C683BD6239C162FBF204E6F24F8D22C427F4221B1404
   imports VERIFICATION
 
 // Vow_rely-diff
@@ -199,6 +199,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Vow.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.wards[ABI_usr]) ==Int Junk_2
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.live) ==Int Junk_3 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.live) ==Int Junk_3
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.wards[ABI_usr]
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.live
+  andBool #Vow.wards[ABI_usr] =/=Int #Vow.live 
 
 endmodule

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 73EEFB599A7E661C9BFF0A29AE7F9FFF2581308DDCD91798A77C89DCDE063819
+module ABF1298B272C0CDF57F86FDA9597C53168838D390118F75F84F2474A17A81F11
   imports VERIFICATION
 
 // Flopper_file
@@ -205,6 +205,12 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.beg) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.pad) ==Int Junk_2
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.ttl_tau) ==Int Junk_3 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.ttl_tau) ==Int Junk_3
+  andBool #Flopper.wards[CALLER_ID] =/=Int #Flopper.beg
+  andBool #Flopper.wards[CALLER_ID] =/=Int #Flopper.pad
+  andBool #Flopper.wards[CALLER_ID] =/=Int #Flopper.ttl_tau
+  andBool #Flopper.beg =/=Int #Flopper.pad
+  andBool #Flopper.beg =/=Int #Flopper.ttl_tau
+  andBool #Flopper.pad =/=Int #Flopper.ttl_tau 
 
 endmodule

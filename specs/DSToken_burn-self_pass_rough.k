@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 37F7CADE9BC4A8F18FBD3F72BE11ADDA2FF9AC85E6BC61B6AEAA868933022FEA
+module BCEB48C4FC29850E8718911B9526D2C4F84405E2A35CB67CB2E1945DC5F2EBE9
   imports VERIFICATION
 
 // DSToken_burn-self
@@ -209,6 +209,12 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_src]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_2
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_3 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_3
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.balances[ABI_src]
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.supply
+  andBool #DSToken.allowance[ABI_src][CALLER_ID] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.balances[ABI_src] =/=Int #DSToken.supply
+  andBool #DSToken.balances[ABI_src] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.supply =/=Int #DSToken.owner_stopped 
 
 endmodule

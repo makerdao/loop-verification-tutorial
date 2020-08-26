@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 23DBB6D2E5B335F880F07B425FD2D3910D7B76FE9543B7A5B236A937D4D1251E
+module A985D3A1B84644D6E9467B7A4ED54A5B0688A4ACFA02270818DCB9917A4D6564
   imports VERIFICATION
 
 // DaiJoin_cage
@@ -191,6 +191,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.live) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.live) ==Int Junk_2
+  andBool #DaiJoin.wards[CALLER_ID] =/=Int #DaiJoin.live
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 78372AF4FA47C72D9F7FE558EE9203C4AB13B53F333B8D71C1C6281B9BB3A05A
+module 74BCCDEE9DE6E9F0B07D064EEA9BEB4B9F8DB95CA3ACB393588CEF6C340E6FE7
   imports VERIFICATION
 
 // Pot_file-dsr
@@ -200,6 +200,12 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.dsr) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.live) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.rho) ==Int Junk_3
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.dsr
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.live
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.rho
+  andBool #Pot.dsr =/=Int #Pot.live
+  andBool #Pot.dsr =/=Int #Pot.rho
+  andBool #Pot.live =/=Int #Pot.rho
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live ==Int 1)

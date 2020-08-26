@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4ADACB104FE11D94B90BEE781EFAF974586AD7448ECE7818CC1A7F280A8F83F2
+module 548D193CDB5F477A79D563F483A38379074D6FE07BF32D18D0E5590BCC81DC51
   imports VERIFICATION
 
 // Vat_ilks
@@ -204,6 +204,16 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].line) ==Int Junk_3
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.ilks[ABI_ilk].dust) ==Int Junk_4
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].rate
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].spot
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].Art =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].rate =/=Int #Vat.ilks[ABI_ilk].spot
+  andBool #Vat.ilks[ABI_ilk].rate =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].rate =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.ilks[ABI_ilk].line
+  andBool #Vat.ilks[ABI_ilk].spot =/=Int #Vat.ilks[ABI_ilk].dust
+  andBool #Vat.ilks[ABI_ilk].line =/=Int #Vat.ilks[ABI_ilk].dust
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

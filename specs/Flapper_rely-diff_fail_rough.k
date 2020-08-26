@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F58C9BF3B917C8A38ECEAF9D2AEAC011E2D12F2AD81754FE197820959FA4D1E3
+module D68033AF433CC2814407698EFC7BD90C9C8A994D682A7ED98EDBF090B106EB31
   imports VERIFICATION
 
 // Flapper_rely-diff
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Flapper.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.wards[ABI_usr]) ==Int Junk_2
+  andBool #Flapper.wards[CALLER_ID] =/=Int #Flapper.wards[ABI_usr]
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

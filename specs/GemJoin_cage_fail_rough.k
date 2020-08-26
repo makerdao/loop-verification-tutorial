@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CDC847EBADDA37110FB93651D59FDAB172B754CC0D176434BE91078821C69BD5
+module 4F75917AE81A9ED5F40A5AA64EDD59445D9720C9DF5754847B873D6B5AAB2E17
   imports VERIFICATION
 
 // GemJoin_cage
@@ -191,6 +191,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.live) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.live) ==Int Junk_2
+  andBool #GemJoin.wards[CALLER_ID] =/=Int #GemJoin.live
   andBool notBool (
     ((VCallValue:Int ==Int 0)
     andBool ((May:Int ==Int 1)))

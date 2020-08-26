@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D12D89E32C7915CC7B05B110735B363A947106F667559A9A64718D45E24660AA
+module 48C56623C3F54203C541FFDF1A96AC32E56AF0B4663188DC9B6F8C2BB580DBBE
   imports VERIFICATION
 
 // DSToken_transfer
@@ -200,6 +200,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_2
+  andBool #DSToken.balances[CALLER_ID] =/=Int #DSToken.balances[ABI_usr]
+  andBool #DSToken.balances[CALLER_ID] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.balances[ABI_usr] =/=Int #DSToken.owner_stopped
   andBool notBool (
     (((#rangeUInt(256, Gem_c:Int -Int ABI_wad:Int)))
     andBool (((#rangeUInt(256, Gem_u:Int +Int ABI_wad:Int)))

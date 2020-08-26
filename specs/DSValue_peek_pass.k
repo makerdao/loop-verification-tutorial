@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C6D6E6B071FECC8AA90E0C99837BB8360217B39A4DC0DB909C3488F9B0555330
+module 857162FCDA5C715FAC0A3D8F3FB62E3E0C355DEB13B852DE8A2C6A70FC28C0E3
   imports VERIFICATION
 
 // DSValue_peek
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, 1) ==Int #WordPackAddrUInt8(Owner, Ok)
   andBool #lookup(ACCT_ID_STORAGE, 2) ==Int Value
   andBool #lookup(ACCT_ID_ORIG_STORAGE, 1) ==Int Junk_0
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, 2) ==Int Junk_1 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, 2) ==Int Junk_1
+  andBool 1 =/=Int 2 
 
 endmodule

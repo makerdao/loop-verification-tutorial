@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F175D5D7C9868D56F760EA926E3DBD2B566CFEC4B589CBAB633B2427EEE0B8F5
+module 6DFB13E0A8C959192BA0F60094B5E595374E53A8FF45D2D38345EF53F5D61AA0
   imports VERIFICATION
 
 // Vow_file-data
@@ -211,6 +211,21 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.dump) ==Int Junk_2
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.sump) ==Int Junk_3
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.bump) ==Int Junk_4
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.hump) ==Int Junk_5 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.hump) ==Int Junk_5
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.wait
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.dump
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.sump
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.bump
+  andBool #Vow.wards[CALLER_ID] =/=Int #Vow.hump
+  andBool #Vow.wait =/=Int #Vow.dump
+  andBool #Vow.wait =/=Int #Vow.sump
+  andBool #Vow.wait =/=Int #Vow.bump
+  andBool #Vow.wait =/=Int #Vow.hump
+  andBool #Vow.dump =/=Int #Vow.sump
+  andBool #Vow.dump =/=Int #Vow.bump
+  andBool #Vow.dump =/=Int #Vow.hump
+  andBool #Vow.sump =/=Int #Vow.bump
+  andBool #Vow.sump =/=Int #Vow.hump
+  andBool #Vow.bump =/=Int #Vow.hump 
 
 endmodule

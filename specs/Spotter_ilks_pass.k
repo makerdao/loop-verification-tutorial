@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 702B4B50E7BB2AF4522C0239B63CCAB867BD119E8D706B856E90CE52AA638227
+module B336C0EF8808B552C92DB2F8091297F88C8B8F23E7683A659C8894EF71748479
   imports VERIFICATION
 
 // Spotter_ilks
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Mat
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Junk_0
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Junk_1 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Junk_1
+  andBool #Spotter.ilks[ABI_ilk].pip =/=Int #Spotter.ilks[ABI_ilk].mat 
 
 endmodule

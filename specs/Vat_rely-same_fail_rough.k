@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 02936B36A88462885A7C2D621D0BA87153370A843F4B00C0816AAB5D5044C7EE
+module AC6CF9C86072DDE303DDB593ACFC5EC06A4879B2F7105670A9A0A6DE1D93EBD0
   imports VERIFICATION
 
 // Vat_rely-same
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_1
+  andBool #Vat.wards[CALLER_ID] =/=Int #Vat.live
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((Live:Int ==Int 1)

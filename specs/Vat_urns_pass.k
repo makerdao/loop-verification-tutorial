@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module AEC0F256D79CC8EB0C7514149CD04E81983F8BA68EE097D32E29B970CD21BC7B
+module 9ED12E292FC6769C0653674C7F3C3D4D73F23127DCFDBDB70AEDC863853C89AC
   imports VERIFICATION
 
 // Vat_urns
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Ink_iu
   andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Art_iu
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Junk_0
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Junk_1 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Junk_1
+  andBool #Vat.urns[ABI_ilk][ABI_urn].ink =/=Int #Vat.urns[ABI_ilk][ABI_urn].art 
 
 endmodule

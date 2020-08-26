@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1C8C07C2CACDA9ACBEA6641A9E98222661D5105BE7FD65B74C7EAD78A3FB555F
+module BF0113BBD5410DE96F92E3AD8486E2AEDABCAFC1006C2BDC5E21E2F488A75DA3
   imports VERIFICATION
 
 // DSToken_transfer-self
@@ -196,6 +196,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_1
+  andBool #DSToken.balances[ABI_usr] =/=Int #DSToken.owner_stopped
   andBool notBool (
     ((ABI_wad:Int <=Int Gem_u:Int)
     andBool ((Stopped:Int ==Int 0)

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 81EF5B4C928C8168820572A8EBBED2864861B1201E2845D91BEB90B46F6DB1E9
+module 2A43009649D680C4E76A03B8E27A4226EE2E69946D3F8623614433BB2D456775
   imports VERIFICATION
 
 // Flipper_bids
@@ -213,6 +213,21 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].usr) ==Int Junk_3
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].gal) ==Int Junk_4
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.bids[ABI_n].tab) ==Int Junk_5
+  andBool #Flipper.bids[ABI_n].bid =/=Int #Flipper.bids[ABI_n].lot
+  andBool #Flipper.bids[ABI_n].bid =/=Int #Flipper.bids[ABI_n].guy_tic_end
+  andBool #Flipper.bids[ABI_n].bid =/=Int #Flipper.bids[ABI_n].usr
+  andBool #Flipper.bids[ABI_n].bid =/=Int #Flipper.bids[ABI_n].gal
+  andBool #Flipper.bids[ABI_n].bid =/=Int #Flipper.bids[ABI_n].tab
+  andBool #Flipper.bids[ABI_n].lot =/=Int #Flipper.bids[ABI_n].guy_tic_end
+  andBool #Flipper.bids[ABI_n].lot =/=Int #Flipper.bids[ABI_n].usr
+  andBool #Flipper.bids[ABI_n].lot =/=Int #Flipper.bids[ABI_n].gal
+  andBool #Flipper.bids[ABI_n].lot =/=Int #Flipper.bids[ABI_n].tab
+  andBool #Flipper.bids[ABI_n].guy_tic_end =/=Int #Flipper.bids[ABI_n].usr
+  andBool #Flipper.bids[ABI_n].guy_tic_end =/=Int #Flipper.bids[ABI_n].gal
+  andBool #Flipper.bids[ABI_n].guy_tic_end =/=Int #Flipper.bids[ABI_n].tab
+  andBool #Flipper.bids[ABI_n].usr =/=Int #Flipper.bids[ABI_n].gal
+  andBool #Flipper.bids[ABI_n].usr =/=Int #Flipper.bids[ABI_n].tab
+  andBool #Flipper.bids[ABI_n].gal =/=Int #Flipper.bids[ABI_n].tab
   andBool notBool (
     ((VCallValue:Int ==Int 0))
   ) 

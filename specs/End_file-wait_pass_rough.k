@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 20EB526635EBD7010E0567D21E0417D51FB4F6A16413548BF8C26BD11A0A74EC
+module 3CE6C70ECD21282011C96E837E4172A53C22FA805DB3D246CD95A5321F1BE713
   imports VERIFICATION
 
 // End_file-wait
@@ -200,6 +200,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wait) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_2
+  andBool #End.wards[CALLER_ID] =/=Int #End.wait
+  andBool #End.wards[CALLER_ID] =/=Int #End.live
+  andBool #End.wait =/=Int #End.live 
 
 endmodule

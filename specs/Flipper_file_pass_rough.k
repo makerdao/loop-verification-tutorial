@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 05CF3F2FA46CB3618DED02ADE07480905862470EA36047E32AAD1CE1929250CF
+module 51D01ADC6437E19392AB87A2D3B0E55965510F02531EEA122FAF608497AC3744
   imports VERIFICATION
 
 // Flipper_file
@@ -201,6 +201,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.ttl_tau) ==Int #WordPackUInt48UInt48(Ttl, Tau)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.beg) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ttl_tau) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ttl_tau) ==Int Junk_2
+  andBool #Flipper.wards[CALLER_ID] =/=Int #Flipper.beg
+  andBool #Flipper.wards[CALLER_ID] =/=Int #Flipper.ttl_tau
+  andBool #Flipper.beg =/=Int #Flipper.ttl_tau 
 
 endmodule

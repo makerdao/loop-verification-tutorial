@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module BD3836F33A110967D79B0B6D1DCE6F1B369C8BFC9FF4A2CF55124203F742AB4F
+module 54B29105E6DF8ED83296BCAC13A1190F5FC669DCC691D04F801EB3CDD64FC054
   imports VERIFICATION
 
 // Flopper_bids
@@ -199,6 +199,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.bids[ABI_n].guy_tic_end) ==Int #WordPackAddrUInt48UInt48(Guy, Tic, End)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].bid) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].lot) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].guy_tic_end) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.bids[ABI_n].guy_tic_end) ==Int Junk_2
+  andBool #Flopper.bids[ABI_n].bid =/=Int #Flopper.bids[ABI_n].lot
+  andBool #Flopper.bids[ABI_n].bid =/=Int #Flopper.bids[ABI_n].guy_tic_end
+  andBool #Flopper.bids[ABI_n].lot =/=Int #Flopper.bids[ABI_n].guy_tic_end 
 
 endmodule

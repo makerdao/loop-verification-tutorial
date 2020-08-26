@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9131ABDA8A9090FFDE4E460E090EAAF807F50C7C3B2075FAADCD9FACAB1F5042
+module 8453A842AB8D5206963117F6452E8E7C00145CDDA385DA2784560EDA9586E011
   imports VERIFICATION
 
 // DSToken_mint
@@ -204,6 +204,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_dst]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_1
-  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_2 
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.owner_stopped) ==Int Junk_2
+  andBool #DSToken.balances[ABI_dst] =/=Int #DSToken.supply
+  andBool #DSToken.balances[ABI_dst] =/=Int #DSToken.owner_stopped
+  andBool #DSToken.supply =/=Int #DSToken.owner_stopped 
 
 endmodule

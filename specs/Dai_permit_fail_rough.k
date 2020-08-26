@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 44441354B561C22BB4AABC31CD92C3FA8DB06CAF451B434A70F787BC5DCB5A38
+module 7732A2070BB3C2E7E4467242D66E83403EE530E82E4020AB8BFA64215428012F
   imports VERIFICATION
 
 // Dai_permit
@@ -204,6 +204,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_hodler][ABI_ombudsman]) ==Int Junk_2
+  andBool #Dai.nonces[ABI_hodler] =/=Int #Dai.DOMAIN_SEPARATOR
+  andBool #Dai.nonces[ABI_hodler] =/=Int #Dai.allowance[ABI_hodler][ABI_ombudsman]
+  andBool #Dai.DOMAIN_SEPARATOR =/=Int #Dai.allowance[ABI_hodler][ABI_ombudsman]
   andBool notBool (
     ((ABI_hodler:Int =/=Int 0)
     andBool ((ABI_hodler:Int ==Int #symEcrec(keccakIntList(#asWord(#parseHexWord("0x19") : #parseHexWord("0x01") : .WordStack) Domain_separator:Int keccakIntList(keccak(#parseByteStackRaw("Permit(address holder,address spender,uint256 nonce,uint256 expiry,bool allowed)")) ABI_hodler:Int ABI_ombudsman:Int ABI_n:Int ABI_ttl:Int ABI_may:Int)), ABI_v:Int, ABI_r:Int, ABI_s:Int))

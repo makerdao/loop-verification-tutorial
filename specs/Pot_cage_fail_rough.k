@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B43C9A820F7D78366FAA56C2FBB6DCFA1F2D14806262066F995FAC22F87267C0
+module AF6E2B82DC1C75B8D1763FDFBE1B820DA7F448C483874064D7D4E269F396CC4F
   imports VERIFICATION
 
 // Pot_cage
@@ -195,6 +195,9 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.dsr) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.live) ==Int Junk_2
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.dsr
+  andBool #Pot.wards[CALLER_ID] =/=Int #Pot.live
+  andBool #Pot.dsr =/=Int #Pot.live
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D24C100793BCCEBA4F67E485E0BEC50556777F06F080B85B3DF843C9EF997735
+module 3BB508287E6BF273372AF7D37AD7105E7257A5186FD776A3874E4AB77392F84F
   imports VERIFICATION
 
 // End_skim-C
@@ -207,6 +207,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #End.tag[ABI_ilk]) ==Int Tag
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vat) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.tag[ABI_ilk]) ==Int Junk_1
+  andBool #End.vat =/=Int #End.tag[ABI_ilk]
   andBool notBool (
     ((VCallDepth:Int <Int 1024))
   ) 

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1E7F255DA9349A149BD462A987D3021728462E0B3C1C110A3C2E65155EE85194
+module 34B0EAD131476BBB29D86198AD1C0723CC3474C2B3B93A73041A1E0FCFB6B3B1
   imports VERIFICATION
 
 // GemJoin_deny-diff
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[CALLER_ID]) ==Int Junk_1
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_2
+  andBool #GemJoin.wards[CALLER_ID] =/=Int #GemJoin.wards[ABI_usr]
   andBool notBool (
     ((May:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))

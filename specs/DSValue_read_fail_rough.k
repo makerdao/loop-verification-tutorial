@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 46E38D79E67C565BFB8DA61C00CD4EBEE5A73C6EE24365EC080CDB651C0EB387
+module 90EB3596B98F7BD23F9A788B2A1284A8765D7E4A56E9466A449E298449D097D2
   imports VERIFICATION
 
 // DSValue_read
@@ -193,6 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, 2) ==Int Value
   andBool #lookup(ACCT_ID_ORIG_STORAGE, 1) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, 2) ==Int Junk_1
+  andBool 1 =/=Int 2
   andBool notBool (
     ((VCallValue:Int ==Int 0)
     andBool ((Ok:Int ==Int 1)))

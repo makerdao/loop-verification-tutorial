@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6C7507EC93DA948E8C2E1A41C57FD66EB071BD87FCA81CBA889057809D68CC4F
+module 4B7932FAEA7D6C944B281CFE1CA905C8C90892EC783D9C39153AA0751C2C78BB
   imports VERIFICATION
 
 // Cat_cage
@@ -191,6 +191,7 @@ andBool #rangeUInt(256, VChainId)
   andBool #lookup(ACCT_ID_STORAGE, #Cat.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.live) ==Int Junk_1
+  andBool #Cat.wards[CALLER_ID] =/=Int #Cat.live
   andBool notBool (
     ((Ward:Int ==Int 1)
     andBool ((VCallValue:Int ==Int 0)))
