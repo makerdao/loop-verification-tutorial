@@ -1,12 +1,8 @@
-Cat_ilks_pass
 Dai_permit_fail_rough
 Dai_permit_pass_rough
 DSToken_burn_fail_rough
-DSToken_burn_pass_rough
 DSToken_burn-self_fail_rough
-DSToken_burn-self_pass_rough
 DSToken_mint_fail_rough
-DSToken_mint_pass_rough
 DSValue_peek_pass
 Flapper_addu48u48_fail_rough
 Flapper_bids_pass
