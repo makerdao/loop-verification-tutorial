@@ -73,6 +73,9 @@ proofs-work: $(proof_work_names:=.prove)
 %.klab-gas:
 	klab get-gas $*
 
+%.hash:
+	klab hash $*
+
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
