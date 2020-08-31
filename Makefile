@@ -65,6 +65,13 @@ proofs-work: $(proof_work_names:=.prove)
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove $* > $(OUT_DIR)/output/$@.out 2>&1
 
+%.prove-dump:
+	@mkdir -p $(OUT_DIR)/output
+	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
+
+%.klab-gas:
+	klab get-gas $*
+
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
