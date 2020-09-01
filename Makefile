@@ -48,8 +48,9 @@ kevm:
 
 klab:
 	git submodule update --init --recursive -- deps/klab
-	cd deps/klab/      \
-	    && npm install
+	cd deps/klab/            \
+	    && npm install       \
+	    && make deps-haskell
 
 proof_names      = $(shell cat proofs)
 proof_fast_names = $(shell cat proofs-fast)
