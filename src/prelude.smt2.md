@@ -29,31 +29,6 @@
 ;; (assert (>= pow256 115792089237316195423570985008687907853269984665640564039457584007913129639936))
 ;; (assert (<= pow256 115792089237316195423570985008687907853269984665640564039457584007913129639936))
 
-;; signed word arithmetic definitions:
-;; integer to word:
-(define-fun unsigned ((x Int)) Int
-  (if (>= x 0)
-      x
-    (+ x pow256)))
-
-;; word to integer
-(define-fun signed ((x Int)) Int
-  (if (< x pow255)
-      x
-    (- x pow256)))
-
-;; signed_abs
-(define-fun signed_abs ((x Int)) Int
-  (if (< x pow255)
-      x
-    (- pow256 x)))
-
-;; signed_sgn
-(define-fun signed_sgn ((x Int)) Int
-  (if (< x pow255)
-      1
-    -1))
-
 ;; smt_rpow
 ;; (declare-fun smt_rpow (Int Int Int Int) Int)
 ;; (assert (forall ((z Int) (x Int) (y Int) (b Int)) (! (=> (= y 1) (= (smt_rpow z x y b) (div (+ (* z x) (div b 2)) b))) :pattern ((smt_rpow z x y b)))))
