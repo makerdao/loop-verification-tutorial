@@ -72,7 +72,8 @@ proofs-work: $(proof_work_names:=.prove)
 	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
 %.klab-gas:
-	klab get-gas $*
+	$(KLAB_FLAGS) klab get-gas   $*
+	$(KLAB_FLAGS) klab solve-gas $*
 
 %.hash:
 	klab hash $*
