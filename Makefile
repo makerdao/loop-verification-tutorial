@@ -24,7 +24,9 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc proofs proofs-exhaustiveness proofs-gas proofs-fast proofs-work \
+.PHONY: all deps spec dapp kevm klab doc \
+	    build build-exhaustiveness build-gas build-fast build-work \
+	    prove prove-exhaustiveness prove-gas prove-fast prove-work \
         clean dapp-clean spec-clean doc-clean log-clean
 
 all: deps spec
@@ -60,23 +62,29 @@ GET_GAS   = klab get-gas
 SOLVE_GAS = klab solve-gas
 HASH      = klab hash
 
-proofs-exhaustiveness: $(proof_names_exhaustiveness:=.prove)
-proofs:                $(proof_names:=.prove)
-proofs-gas:            $(proof_names_gas:=.prove-gas)
-proofs-fast:           $(proof_fast_names:=.prove)
-proofs-work:           $(proof_work_names:=.prove)
+prove-exhaustiveness: $(proof_names_exhaustiveness:=.prove)
+prove:                $(proof_names:=.prove)
+prove-gas:            $(proof_names_gas:=.prove-gas)
+prove-fast:           $(proof_fast_names:=.prove)
+prove-work:           $(proof_work_names:=.prove)
+
+build-exhaustiveness: $(proof_names_exhaustiveness:=.build)
+build:                $(proof_names:=.build)
+build-gas:            $(proof_names_gas:=.build)
+build-fast:           $(proof_fast_names:=.build)
+build-work:           $(proof_work_names:=.build)
 
 %.build:
-	@mkdir -p $(SPECS_DIR)
-	$(KLAB_FLAGS) $(BUILD) $*
+	@mkdir -p $(SPECS_DIR)/output
+	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove: %.build $(KPROVE_SRCS)
 	@mkdir -p $(OUT_DIR)/output
-	$(KLAB_FLAGS) $(PROVE) $* > $(OUT_DIR)/output/$@.out 2>&1
+	$(KLAB_FLAGS) $(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove-dump: %.build $(KPROVE_SRCS)
 	@mkdir -p $(OUT_DIR)/output
-	$(KLAB_FLAGS) $(PROVE) --dump $* > $(OUT_DIR)/output/$@.out 2>&1
+	$(KLAB_FLAGS) $(PROVE) --dump $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.build-with-gas: %_rough.prove-dump
 	$(KLAB_FLAGS) $(GET_GAS)   $*_rough
