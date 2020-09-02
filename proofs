@@ -4,7 +4,6 @@ Cat_deny-diff_fail_rough
 Cat_deny-diff_pass_rough
 Cat_deny-same_fail_rough
 Cat_deny-same_pass_rough
-Cat__exhaustiveness
 Cat_file-addr_fail_rough
 Cat_file-addr_pass_rough
 Cat_file_fail_rough
@@ -42,7 +41,6 @@ Dai_deny-same_fail_rough
 Dai_deny-same_pass_rough
 Dai_DOMAIN_SEPARATOR_fail_rough
 Dai_DOMAIN_SEPARATOR_pass_rough
-Dai__exhaustiveness
 DaiJoin_cage_fail_rough
 DaiJoin_cage_pass_rough
 DaiJoin_dai_fail_rough
@@ -51,7 +49,6 @@ DaiJoin_deny-diff_fail_rough
 DaiJoin_deny-diff_pass_rough
 DaiJoin_deny-same_fail_rough
 DaiJoin_deny-same_pass_rough
-DaiJoin__exhaustiveness
 DaiJoin_live_fail_rough
 DaiJoin_live_pass_rough
 DaiJoin_muluu_fail_rough
@@ -96,7 +93,6 @@ DSToken_burn_fail_rough
 DSToken_burn_pass_rough
 DSToken_burn-self_fail_rough
 DSToken_burn-self_pass_rough
-DSToken__exhaustiveness
 DSToken_mint_fail_rough
 DSToken_mint_pass_rough
 DSToken_move_fail_rough
@@ -109,7 +105,6 @@ DSToken_transferFrom_pass_rough
 DSToken_transfer_pass_rough
 DSToken_transfer-self_fail_rough
 DSToken_transfer-self_pass_rough
-DSValue__exhaustiveness
 DSValue_peek_fail_rough
 DSValue_peek_pass_rough
 DSValue_read_fail_rough
@@ -128,7 +123,6 @@ End_deny-diff_fail_rough
 End_deny-diff_pass_rough
 End_deny-same_fail_rough
 End_deny-same_pass_rough
-End__exhaustiveness
 End_file-addr_fail_rough
 End_file-addr_pass_rough
 End_file-wait_fail_rough
@@ -183,7 +177,6 @@ Flapper_deny-diff_fail_rough
 Flapper_deny-diff_pass_rough
 Flapper_deny-same_fail_rough
 Flapper_deny-same_pass_rough
-Flapper__exhaustiveness
 Flapper_file_fail_rough
 Flapper_file_pass_rough
 Flapper_gem_fail_rough
@@ -216,7 +209,6 @@ Flipper_deny-diff_fail_rough
 Flipper_deny-diff_pass_rough
 Flipper_deny-same_fail_rough
 Flipper_deny-same_pass_rough
-Flipper__exhaustiveness
 Flipper_file_fail_rough
 Flipper_file_pass_rough
 Flipper_ilk_fail_rough
@@ -249,7 +241,6 @@ Flopper_deny-diff_fail_rough
 Flopper_deny-diff_pass_rough
 Flopper_deny-same_fail_rough
 Flopper_deny-same_pass_rough
-Flopper__exhaustiveness
 Flopper_file_fail_rough
 Flopper_file_pass_rough
 Flopper_gem_fail_rough
@@ -284,7 +275,6 @@ GemJoin_deny-diff_fail_rough
 GemJoin_deny-diff_pass_rough
 GemJoin_deny-same_fail_rough
 GemJoin_deny-same_pass_rough
-GemJoin__exhaustiveness
 GemJoin_gem_fail_rough
 GemJoin_gem_pass_rough
 GemJoin_ilk_fail_rough
@@ -307,7 +297,6 @@ Jug_deny-diff_fail_rough
 Jug_deny-diff_pass_rough
 Jug_deny-same_fail_rough
 Jug_deny-same_pass_rough
-Jug__exhaustiveness
 Jug_file-base_fail_rough
 Jug_file-base_pass_rough
 Jug_file_fail_rough
@@ -340,7 +329,6 @@ Pot_deny-same_fail_rough
 Pot_deny-same_pass_rough
 Pot_dsr_fail_rough
 Pot_dsr_pass_rough
-Pot__exhaustiveness
 Pot_file-dsr_fail_rough
 Pot_file-dsr_pass_rough
 Pot_file-vow_fail_rough
@@ -376,7 +364,6 @@ Spotter_deny-diff_fail_rough
 Spotter_deny-diff_pass_rough
 Spotter_deny-same_fail_rough
 Spotter_deny-same_pass_rough
-Spotter__exhaustiveness
 Spotter_file-mat_fail_rough
 Spotter_file-mat_pass_rough
 Spotter_file-par_fail_rough
@@ -417,7 +404,6 @@ Vat_deny-diff_fail_rough
 Vat_deny-diff_pass_rough
 Vat_deny-same_fail_rough
 Vat_deny-same_pass_rough
-Vat__exhaustiveness
 Vat_file_fail_rough
 Vat_file-ilk_fail_rough
 Vat_file-ilk_pass_rough
@@ -468,7 +454,6 @@ Vow_deny-same_fail_rough
 Vow_deny-same_pass_rough
 Vow_dump_fail_rough
 Vow_dump_pass_rough
-Vow__exhaustiveness
 Vow_file-data_fail_rough
 Vow_file-data_pass_rough
 Vow_flapper_fail_rough

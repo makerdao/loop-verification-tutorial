@@ -75,15 +75,18 @@ build-fast:           $(proof_fast_names:=.build)
 build-work:           $(proof_work_names:=.build)
 
 %.build:
-	@mkdir -p $(SPECS_DIR)/output
+	@mkdir -p $(KLAB_OUT)/specs
+	@mkdir -p $(KLAB_OUT)/acts
+	@mkdir -p $(KLAB_OUT)/gas
+	@mkdir -p $(KLAB_OUT)/meta/name
+	@mkdir -p $(KLAB_OUT)/meta/data
+	@mkdir -p $(KLAB_OUT)/output
 	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove: %.build $(KPROVE_SRCS)
-	@mkdir -p $(OUT_DIR)/output
 	$(KLAB_FLAGS) $(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove-dump: %.build $(KPROVE_SRCS)
-	@mkdir -p $(OUT_DIR)/output
 	$(KLAB_FLAGS) $(PROVE) --dump $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.build-with-gas: %_rough.prove-dump
