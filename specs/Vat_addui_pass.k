@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 498B7ECF8F083FC73BDA074388D8CE5AC888FB2723631358102DA31F75E856D1
+module 083221E7423ACF531D8F6B5106CAA2E76971FD19B96AA7D1F7E036D7EE80EA89
   imports VERIFICATION
 
 // Vat_addui
@@ -24,10 +24,10 @@ rule [Vat.addui.pass]:
         <caller> CALLER_ID </caller>
         <callData> _ => ?_ </callData>
         <callValue> VCallValue </callValue>
-        <wordStack> #unsigned(ABI_y) : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x +Int ABI_y : WS </wordStack>
+        <wordStack> chop(ABI_y) : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x +Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 13112 => 13174 </pc>
-        <gas> VGas => VGas -Int ((#if ( ( 0 <=Int ABI_y ) andBool ( #unsigned(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi)) </gas>
+        <gas> VGas => VGas -Int ((#if ( ( 0 <=Int ABI_y ) andBool ( chop(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi)) </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,7 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeSInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1015)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (2300 <Int VGas -Int ((#if ( ( 0 <=Int ABI_y ) andBool ( #unsigned(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi))
+  andBool (2300 <Int VGas -Int ((#if ( ( 0 <=Int ABI_y ) andBool ( chop(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi))
   andBool ((#rangeUInt(256, ABI_x +Int ABI_y))))))))
 
  

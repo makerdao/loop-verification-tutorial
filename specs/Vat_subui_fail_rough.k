@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 34CA9D1A3423EF9D25545C8F74AEF310EC802F4DACB902AB9CAC8FEB1C88094B
+module 0B7CE83B2BF98819E95D459DAC5CF3CB1350499BA0FBEC57AD20C741650273F4
   imports VERIFICATION
 
 // Vat_subui
@@ -24,7 +24,7 @@ rule [Vat.subui.fail.rough]:
         <caller> CALLER_ID </caller>
         <callData> _ => ?_ </callData>
         <callValue> VCallValue </callValue>
-        <wordStack> #unsigned(ABI_y) : ABI_x : JMPTO : WS  => ?_ </wordStack>
+        <wordStack> chop(ABI_y) : ABI_x : JMPTO : WS  => ?_ </wordStack>
         <localMem> _ </localMem>
         <pc> 13304 => ?_ </pc>
         <gas> VGas => ?_ </gas>

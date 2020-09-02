@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 982BB1656BDEBBE55E29A9AE62C1661C26C5E9AAB0990C2E43ED6F8B33F60F5C
+module 253926E2BF8D52FA0F03A481BA05889759A8121C64492E85FDCC69001A98EA8A
   imports VERIFICATION
 
 // Vat_mului
@@ -24,7 +24,7 @@ rule [Vat.mului.pass]:
         <caller> CALLER_ID </caller>
         <callData> _ => ?_ </callData>
         <callValue> VCallValue </callValue>
-        <wordStack> #unsigned(ABI_y) : ABI_x : JMPTO : WS  =>  JMPTO : #unsigned(ABI_x *Int ABI_y) : WS </wordStack>
+        <wordStack> chop(ABI_y) : ABI_x : JMPTO : WS  =>  JMPTO : chop(ABI_x *Int ABI_y) : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 13175 => 13233 </pc>
         <gas> VGas => VGas -Int ((#if ( ABI_y ==K 0 ) #then ( 96 ) #else ( 132 ) #fi)) </gas>
