@@ -28,7 +28,7 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc proofs proofs-fast proofs-fast-dump proofs-work \
+.PHONY: all deps spec dapp kevm klab doc proofs-stage1 proofs-stage2 proofs-fast proofs-work \
         clean dapp-clean spec-clean doc-clean log-clean
 
 all: deps spec
@@ -52,15 +52,16 @@ klab:
 	    && npm install       \
 	    && make deps-haskell
 
-proof_names      = $(shell cat proofs)
-proof_fast_names = $(shell cat proofs-fast)
-proof_work_names = $(shell cat proofs-work)
+proof_names_stage1 = $(shell cat proofs-stage1)
+proof_names_stage2 = $(shell cat proofs-stage2)
+proof_fast_names   = $(shell cat proofs-fast)
+proof_work_names   = $(shell cat proofs-work)
 
 PROVE = klab
 
-proofs: $(proof_names:=.prove)
+proofs-stage1: $(proof_names_stage1:=.prove)
+proofs-stage2: $(proof_names_stage2:=.prove)
 proofs-fast: $(proof_fast_names:=.prove)
-proofs-fast-dump: $(proof_fast_names:=.prove-dump)
 proofs-work: $(proof_work_names:=.prove)
 
 %.prove:
@@ -71,9 +72,13 @@ proofs-work: $(proof_work_names:=.prove)
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
-%.klab-gas:
-	$(KLAB_FLAGS) klab get-gas   $*
-	$(KLAB_FLAGS) klab solve-gas $*
+%_rough.klab-gas: %_rough.prove-dump
+	$(KLAB_FLAGS) klab get-gas   $*_rough
+	$(KLAB_FLAGS) klab solve-gas $*_rough
+
+%.prove-stage2: %_rough.klab-gas
+	$(MAKE) spec
+	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
 %.hash:
 	klab hash $*
