@@ -304,7 +304,7 @@ interface add(uint256 x, int256 y) internal
 
 stack
 
-   #unsigned(y) : x : JMPTO : WS => JMPTO : x + y : WS
+   chop(y) : x : JMPTO : WS => JMPTO : x + y : WS
 
 iff in range uint256
 
@@ -315,7 +315,7 @@ if
    #sizeWordStack(WS) <= 1015
 
 gas
-    (#if ( ( 0 <=Int ABI_y ) andBool ( #unsigned(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi)
+    (#if ( ( 0 <=Int ABI_y ) andBool ( chop(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi)
 ```
 
 ```act
@@ -324,7 +324,7 @@ interface sub(uint256 x, int256 y) internal
 
 stack
 
-    #unsigned(y) : x : JMPTO : WS => JMPTO : x - y : WS
+    chop(y) : x : JMPTO : WS => JMPTO : x - y : WS
 
 iff in range uint256
 
@@ -344,7 +344,7 @@ interface mul(uint256 x, int256 y) internal
 
 stack
 
-    #unsigned(y) : x : JMPTO : WS => JMPTO : #unsigned(x * y) : WS
+    chop(y) : x : JMPTO : WS => JMPTO : chop(x * y) : WS
 
 iff in range int256
 
