@@ -24,7 +24,7 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc proofs-stage1 proofs-stage2 proofs-fast proofs-work \
+.PHONY: all deps spec dapp kevm klab doc proofs proofs-exhaustiveness proofs-gas proofs-fast proofs-work \
         clean dapp-clean spec-clean doc-clean log-clean
 
 all: deps spec
@@ -48,34 +48,38 @@ klab:
 	    && npm install       \
 	    && make deps-haskell
 
-proof_names_stage1 = $(shell cat proofs-stage1)
-proof_names_stage2 = $(shell cat proofs-stage2)
-proof_fast_names   = $(shell cat proofs-fast)
-proof_work_names   = $(shell cat proofs-work)
+proof_names_exhaustiveness = $(shell cat proofs-exhaustiveness)
+proof_names                = $(shell cat proofs)
+proof_names_gas            = $(shell cat proofs-gas)
+proof_fast_names           = $(shell cat proofs-fast)
+proof_work_names           = $(shell cat proofs-work)
 
 PROVE = klab
 
-proofs-stage1: $(proof_names_stage1:=.prove-stage1)
-proofs-stage2: $(proof_names_stage2:=.prove-stage2)
-proofs-fast: $(proof_fast_names:=.prove)
-proofs-work: $(proof_work_names:=.prove)
+proofs-exhaustiveness: $(proof_names_exhaustiveness:=.prove)
+proofs:                $(proof_names:=.prove)
+proofs-gas:            $(proof_names_gas:=.prove-gas)
+proofs-fast:           $(proof_fast_names:=.prove)
+proofs-work:           $(proof_work_names:=.prove)
 
-%.prove:
+%.build:
+	@mkdir -p $(SPECS_DIR)
+	$(PROVE) build-spec $*
+
+%.prove: %.build $(KPROVE_SRCS)
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove $* > $(OUT_DIR)/output/$@.out 2>&1
 
-%.prove-stage1:
-	$(MAKE) spec
+%.prove-dump: %.build $(KPROVE_SRCS)
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
-%_rough.klab-gas: %_rough.prove-stage1
+%.build-with-gas: %_rough.prove-dump
 	$(KLAB_FLAGS) klab get-gas   $*_rough
 	$(KLAB_FLAGS) klab solve-gas $*_rough
 
-%.prove-stage2: %_rough.klab-gas
-	$(MAKE) spec
-	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
+%.prove-gas: %.build-with-gas
+	$(MAKE) $*.prove
 
 %.hash:
 	klab hash $*
