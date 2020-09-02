@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module EC256CD8F4147F0CB29A9EC43B6C6448A28427015A4D93EEB9EBF268E73CC6C2
+module 1FB531EEAF294EA7CB718F991EACF8665517095D6EC893C05C7069C122E3377C
   imports VERIFICATION
 
 // Dai_subuu
@@ -36,7 +36,7 @@ rule [Dai.subuu.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

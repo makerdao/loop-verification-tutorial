@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9FC0B110C6D5395302D86BAB7387C5CE2618C835DAD51FA55C8379057529EA46
+module C2167EB05BDF5C4E296F822A91F613AEF2B9D7B621CE2D214B599EC748ED9867
   imports VERIFICATION
 
 // DaiJoin_deny-diff
@@ -36,7 +36,7 @@ rule [DaiJoin.deny-diff.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7FC9ABE66A2A4BE31E3E27325C6F5BEE00F0B4D95B7FCEF3F3DF24A43E664B6B
+module 36BA734615A66C48E3A336387C70DE626ED1C3ED4DDA2E141FE3BD0D270E5EA4
   imports VERIFICATION
 
 // DaiJoin_muluu
@@ -36,7 +36,7 @@ rule [DaiJoin.muluu.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

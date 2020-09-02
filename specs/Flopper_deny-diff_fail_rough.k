@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7A0E9B026F2F4DF8CB0BB764A0488BC3C41B3E45BF679DFFCAD0AC8BFAB683D7
+module 799A98564ABE451CC1A98484474B320BED84EAD97B374101FDC05A9C55C54AD4
   imports VERIFICATION
 
 // Flopper_deny-diff
@@ -36,7 +36,7 @@ rule [Flopper.deny-diff.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

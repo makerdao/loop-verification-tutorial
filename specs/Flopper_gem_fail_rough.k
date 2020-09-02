@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 81C8282BB5F4E1945690D3BDB4A12322C1BA37158D6133A753F64926D181F1D4
+module F87AD3666FDF4F3D9EAA5446EDCCC0068B1E4B585E5297361A11289DD5374A50
   imports VERIFICATION
 
 // Flopper_gem
@@ -36,7 +36,7 @@ rule [Flopper.gem.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

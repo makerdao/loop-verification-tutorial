@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3F257B81B2014C86FA7D0C3243AE1EB10E9A650262EAD3E58C337D3016878A8A
+module 2FC7936EE0990A66FE802C0E46390354FDEEED2FED88878CF4F936329B93BEBA
   imports VERIFICATION
 
 // Jug_vat
@@ -36,7 +36,7 @@ rule [Jug.vat.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

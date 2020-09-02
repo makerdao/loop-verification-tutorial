@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9862E2A904D11470220A8B99D44B0FD0B0961B9B5AD160C179FAA38375F5C952
+module BCBD2B5C59031F1299191BCC72370BC2FC4C66261D527F542C33EA82F329CA8E
   imports VERIFICATION
 
 // Pot_muluu
@@ -36,7 +36,7 @@ rule [Pot.muluu.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2EA465D1C85DEABEF091A119EC1F55EDD9FB9C2F5350C9A7172380025DAB4797
+module D6344739EB20D289E4010F62AF2DA9D6C519E5F8F9BAF9969E927691A15B752C
   imports VERIFICATION
 
 // Vow_flapper
@@ -36,7 +36,7 @@ rule [Vow.flapper.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B827EC8B5A094A7CB4C256FF89D8FECBF768CC653FAA7849243E81E122EB72A9
+module 394C332F3973FC9BBD7EB9E699F425B3FEB953683D55BE49EFA927C1ABD566AD
   imports VERIFICATION
 
 // Jug_rpow-loop
@@ -36,7 +36,7 @@ rule [Jug.rpow-loop.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

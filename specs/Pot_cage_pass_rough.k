@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3C56932E6EBA5991FEC47D00A678A2F65AB8B7225B457F3A40F60AF80F3F882E
+module EB1F2D5B3F396CEEC2DA7619079B5FB4275E2E0CB77B7992DCE351D4A8DD6190
   imports VERIFICATION
 
 // Pot_cage
@@ -36,7 +36,7 @@ rule [Pot.cage.pass.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

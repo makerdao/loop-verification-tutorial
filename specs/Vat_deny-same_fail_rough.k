@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D6D0E8EFE288D73BCA6FE8F5DA8C7ED09842C37EF52EE9002CA7ED11DB3683F9
+module 679B91680132F278A0D2D9B70D0BA4D98263B78782138CB58D13A8BA7A055170
   imports VERIFICATION
 
 // Vat_deny-same
@@ -36,7 +36,7 @@ rule [Vat.deny-same.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

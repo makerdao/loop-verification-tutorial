@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DFF04FD591A5BB27FDD7D50C2009F7A17621CCA710B95E7D7D16522F86E9D69A
+module 753320F558FF1BCA8AD8BA775EA246374288AB2AC966C596110647AEB3BB72B9
   imports VERIFICATION
 
 // Dai_DOMAIN_SEPARATOR
@@ -36,7 +36,7 @@ rule [Dai.DOMAIN.SEPARATOR.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

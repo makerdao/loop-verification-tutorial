@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CC26DFD9E54B33708AA9EEC9418D523ADDBB899F1F40162D9FC6BD168FA2F4F0
+module D8FD47488F7851DAFDE55BB92EED1EA086B864DD79A76B3B05497BBD9AF256E4
   imports VERIFICATION
 
 // Dai_PERMIT_TYPEHASH
@@ -36,7 +36,7 @@ rule [Dai.PERMIT.TYPEHASH.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

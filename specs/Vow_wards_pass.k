@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DE517AE44BC95BF76A16CCEF1D63CE43D10A80C12CEE6B3CB3E91CE05F849715
+module 5991F30E7E5A19454C43403E2F5A012A82044C7BF9A05F36C268A7D82E1A6F8B
   imports VERIFICATION
 
 // Vow_wards
@@ -36,7 +36,7 @@ rule [Vow.wards.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

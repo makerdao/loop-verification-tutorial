@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D70FBC22C028416BFEF6792C9B7DB638ED45F831028EB6283C39FBDBB8E8D220
+module FA1258F60D2DF02A77C7F7C44972B2DE9FC0097485E231D27EFD5138DCF84650
   imports VERIFICATION
 
 // Cat_vow
@@ -36,7 +36,7 @@ rule [Cat.vow.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

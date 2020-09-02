@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 88BCE6F512C31704EC9903B9583345ECE6D7AC02FC46FC8D731EC08785646C9A
+module 97788B6D7187E59A3BEE0018B92928A5913B43DF747F3ABCA75FEA755FA7CFFD
   imports VERIFICATION
 
 // Flipper__exhaustiveness
@@ -36,7 +36,7 @@ rule [Flipper..exhaustiveness]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

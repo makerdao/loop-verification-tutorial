@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module ED5399D48371C7C7236A3160BC2AC971980A4F6C140D11BEA6E605213EEF634D
+module 5834B6700DDCAFE68BE418CE28A40D52CA7DD057214EA0E58ABB97BA3AEAD2C2
   imports VERIFICATION
 
 // Spotter_cage
@@ -36,7 +36,7 @@ rule [Spotter.cage.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0759AA363B2A4832185BA5A3EE8F5965E887BC67FA396098944628239664852C
+module A977ED9486CA907A00B42D93EAD6C73D87A062AB28DB885A569B20ABF0D5AF44
   imports VERIFICATION
 
 // GemJoin_wards
@@ -36,7 +36,7 @@ rule [GemJoin.wards.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

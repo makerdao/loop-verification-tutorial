@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F7C319C1BAA41FB8A2EE3AD4D39AF8B29C050E41CCD9F6864B639C2A16EAECAC
+module F7AAC463ED587B787F185D98408268FB17AECA4C459CB270BC4F5918B6C029A6
   imports VERIFICATION
 
 // Vow_deny-same
@@ -36,7 +36,7 @@ rule [Vow.deny-same.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

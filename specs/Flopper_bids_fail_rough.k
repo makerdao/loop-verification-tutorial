@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 043F783B93143EF64EE081877F5FD6809B99FFE16011416B30FF6112DCE8E46C
+module 8014670E033292F45E4A9EA998617EE68A0A3454B04ABFDF51175A8C88952B9C
   imports VERIFICATION
 
 // Flopper_bids
@@ -36,7 +36,7 @@ rule [Flopper.bids.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

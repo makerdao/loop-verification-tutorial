@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C37F28CFB9A15FF2E4DCDA07384DA9278543F0219B41BAA43A8E3956796A187D
+module 1E738E116CE374B88114C022F586ACE372D3E2955F4A85BD49D9AFFDB7A4BF92
   imports VERIFICATION
 
 // Flipper_ilk
@@ -36,7 +36,7 @@ rule [Flipper.ilk.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

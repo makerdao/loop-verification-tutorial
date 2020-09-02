@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A540E16E164CB0BA54ACBE392ABCFF23B1AF74DD18B9A52C5567BAEA2EEE14BE
+module 55AC0DA3444147367ADC95C0C1CE9A3EBB4C1FF14D66352FC230474B409B5911
   imports VERIFICATION
 
 // Dai_approve
@@ -36,7 +36,7 @@ rule [Dai.approve.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

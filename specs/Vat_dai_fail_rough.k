@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module A3E45E06C9FCA4B24975448DF1EED32831A9174BC2946B255AF1D719FC67AF01
+module 58722ECE424FF1E32BD8B3DD2B88F271F58C73054C3496BB74363C0177B2F907
   imports VERIFICATION
 
 // Vat_dai
@@ -36,7 +36,7 @@ rule [Vat.dai.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

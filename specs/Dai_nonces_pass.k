@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 522BE81B6C337200E3B3EEC0D3FEB2FF48411F10074DC0F7CF2EA115537B637C
+module DE93710AB21550A48BE73710AE54AE96BFDDD5484C50DE8130B08A40EB2A7711
   imports VERIFICATION
 
 // Dai_nonces
@@ -36,7 +36,7 @@ rule [Dai.nonces.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

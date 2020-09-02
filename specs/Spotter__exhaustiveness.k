@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 14424D22385D9FA5DBA8AE6A8B18B45E2C649A4C292BE6132FAB289E0F8CD571
+module 799C603D136CB21F53092F02217862BA5C91B1E23505C81AFA193CC53F1D72B3
   imports VERIFICATION
 
 // Spotter__exhaustiveness
@@ -36,7 +36,7 @@ rule [Spotter..exhaustiveness]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9960723BC2444670C5CAD23E44CE6080CA5547B3BFE212F13F005F6A8167D4AD
+module 67A3ACAA129B53545A60C5D84BFD402C512D43DFF0EF6C89DDE1B65747D650FE
   imports VERIFICATION
 
 // Flopper_cage
@@ -36,7 +36,7 @@ rule [Flopper.cage.pass.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

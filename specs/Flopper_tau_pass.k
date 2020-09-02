@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module FEBD048245F02853AC8D4D5B3AA38DAD5E4D80DFE10D967216073ECD28819FE3
+module D480B53AEFCD71F578D3801E7BA92BE30A8500E4ACCA4D1202157A947CEE759F
   imports VERIFICATION
 
 // Flopper_tau
@@ -36,7 +36,7 @@ rule [Flopper.tau.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

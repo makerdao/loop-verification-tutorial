@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1A45B5624C4244BADB8F897246771BC3087994ACA00E29DC0F6CB6EEE3F8E3AC
+module EFD176BA346057A66511F03E91ED4FB4D257A00E843B573C1E5039BECF7735B6
   imports VERIFICATION
 
 // DSToken_transfer
@@ -36,7 +36,7 @@ rule [DSToken.transfer.pass.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

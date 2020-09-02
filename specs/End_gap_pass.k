@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F9D60C5B432D125D29B8052CA9436B2DA04144A9D3BEE18745968D0882A844DA
+module B59E2969CC3C56DB7E72F1758764081B08B909883CBDB3E57667FD1D3BA9D36E
   imports VERIFICATION
 
 // End_gap
@@ -36,7 +36,7 @@ rule [End.gap.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

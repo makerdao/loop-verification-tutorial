@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 894F48BB8DF47836172900EE12CF8A770E98DFC5D842BEA1DEC68203ABA48D24
+module 791A54DF680B5A6DEF8F6AE53BB0F13E56912DD79AB417602016DEB832E9CB09
   imports VERIFICATION
 
 // Pot_rpow-loop
@@ -36,7 +36,7 @@ rule [Pot.rpow-loop.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

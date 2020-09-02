@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DB7E6BB8994A13C36D47456AF704D30EEF7E3CB20A09707DB5DF0F0A854DDC1A
+module 774AC296E55DDD6683245A20244147EE5FF5E0D46CF7A302B57464FB11DA706C
   imports VERIFICATION
 
 // Flapper__exhaustiveness
@@ -36,7 +36,7 @@ rule [Flapper..exhaustiveness]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 354E7E57D7C51A0EF006A289EA1B44C53EBD7B867FF18271C6F2A31F0FCA3789
+module D1225FE747163473B704DAF7EB4E096BC5594A881C9F261920E72C40ADD95CEA
   imports VERIFICATION
 
 // Spotter_vat
@@ -36,7 +36,7 @@ rule [Spotter.vat.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

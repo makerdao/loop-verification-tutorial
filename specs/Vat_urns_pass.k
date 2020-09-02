@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9ED12E292FC6769C0653674C7F3C3D4D73F23127DCFDBDB70AEDC863853C89AC
+module 3C76A8AC10343C76E174FB754971648C3A9827361EADE31AEBFB5FF3DCDE18C5
   imports VERIFICATION
 
 // Vat_urns
@@ -36,7 +36,7 @@ rule [Vat.urns.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

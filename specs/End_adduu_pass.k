@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E57A645D2A1429924695AB6D1E7F16AA087CBE623641275DDBFD50F3ACB645FB
+module 43F32736A7A58AA2534A69D830A477AAF35FE7B1D8AF421919EA1D050D87685A
   imports VERIFICATION
 
 // End_adduu
@@ -36,7 +36,7 @@ rule [End.adduu.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

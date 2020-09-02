@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 79971204D27CB92C9A8AD0817E78A53217EEB7DD0005D76B8D15357BB22809A9
+module 10CAA1D8034CDD12727861A7078EB890AB9FFC0195F8D29BCF458D7A28B176FD
   imports VERIFICATION
 
 // Flipper_bids
@@ -36,7 +36,7 @@ rule [Flipper.bids.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

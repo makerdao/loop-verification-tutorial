@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module C52CB3B19A661206CD5DF5CDD816A362FDB8A2F932A806E995B600A2F7FFC267
+module BB39A330110382716317EC84475B582CC1C09215529B09012646709CA84E5F4F
   imports VERIFICATION
 
 // DSValue_peek
@@ -36,7 +36,7 @@ rule [DSValue.peek.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

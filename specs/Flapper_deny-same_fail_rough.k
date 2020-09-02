@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 199C3FF30F01890F101739E5DA29031E9D9B4EFFE39DFA3B2C9E3AD0343923E6
+module 18DE0BC79990D7E2EC5C1109A1DB480F0F08F48B44E78B13C748291E30E8FCF4
   imports VERIFICATION
 
 // Flapper_deny-same
@@ -36,7 +36,7 @@ rule [Flapper.deny-same.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

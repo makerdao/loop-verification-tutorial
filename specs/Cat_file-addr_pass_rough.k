@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2A26FEF2F401559BC13EA620D0892B5B960C2A6D346EB580FDC20F61E8ED65F5
+module 55F97F8855F3E6D9E52F2573A8AD8E847AFECFA104225B4F56DA544A1E492001
   imports VERIFICATION
 
 // Cat_file-addr
@@ -36,7 +36,7 @@ rule [Cat.file-addr.pass.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module BADCADDDA4F878878EB9299066185F7399E067EF947B28F8FE0A1D9D6A0A9A4D
+module 3B22B07FF53E1B944B43F785719F8CDE4A7D2A2D4D74E9A529AB2C2EFB06A451
   imports VERIFICATION
 
 // End_rely-diff
@@ -36,7 +36,7 @@ rule [End.rely-diff.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

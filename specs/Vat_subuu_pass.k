@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 8B42F3F86D54C5C185ADD6AC841BF79CC224286FF116ACB3C17D6BF94EC173BE
+module 753DB6BCF1DD20E038554CD47C06BA3191C6F33D597E9EDCE271A9C3E3BD759E
   imports VERIFICATION
 
 // Vat_subuu
@@ -36,7 +36,7 @@ rule [Vat.subuu.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

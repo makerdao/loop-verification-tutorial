@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 83428BDE84E218A7FE54B054300A2186ACDBCAEF7F72FD1751433F8478CA5084
+module 6AE10FDA5203E5289A151297618AF5E6D1E69B8DE16D118F2ADD2353085EF106
   imports VERIFICATION
 
 // Spotter_file-pip
@@ -36,7 +36,7 @@ rule [Spotter.file-pip.pass.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

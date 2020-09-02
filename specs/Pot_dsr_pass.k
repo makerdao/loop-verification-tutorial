@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CE56AD41F08AF70F21C47445BDA3DDC2E689DCF2A50066931314F0E996605393
+module 15551F4AFE867825D0614A4E30C7836B0FDAAECF46DAC334915608F405560401
   imports VERIFICATION
 
 // Pot_dsr
@@ -36,7 +36,7 @@ rule [Pot.dsr.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

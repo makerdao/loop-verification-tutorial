@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CB61767DE053BCF5049B1CBE8B30CEED27560757F4B9A7A97870E3150D1DDBF0
+module 53C85E8074DAB7A4431FFEE9F4328ADDC9D2C3988F04956A9E255CCC99CB13B1
   imports VERIFICATION
 
 // Vat_gem
@@ -36,7 +36,7 @@ rule [Vat.gem.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

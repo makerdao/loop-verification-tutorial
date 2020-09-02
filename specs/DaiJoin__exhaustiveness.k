@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 148CEAB7D8B3307DA271E042F41C1F0C5EB2FB07A9F87C68472C97DF513FB8BE
+module BA2E9347B5026A0F0345775D06481C670C648A700989D5A856602BBF6CDF5AB6
   imports VERIFICATION
 
 // DaiJoin__exhaustiveness
@@ -36,7 +36,7 @@ rule [DaiJoin..exhaustiveness]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

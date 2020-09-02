@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module AD09923E889C5F8F8A753683E15B7AE15BA4B88ACE7C1B5FFC091D44B9031775
+module A439D3D001D56B86B6FEEDC08616EAB7146249131ACEDD97F530C106E3322A86
   imports VERIFICATION
 
 // Spotter_deny-same
@@ -36,7 +36,7 @@ rule [Spotter.deny-same.pass]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0FA0407793861A24AB0D6F02CCBFB0DF24B34EFD0C3370E2AB9E24C276390413
+module 973514B8324618141B4AA3945526C1E313AB6FF6ACB0E1AB27EAAA2B19AB3D41
   imports VERIFICATION
 
 // Spotter_rdiv
@@ -36,7 +36,7 @@ rule [Spotter.rdiv.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

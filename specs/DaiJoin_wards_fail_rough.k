@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3B9BFE2913B463638C6AF4919DB4A41A228EFD5EA7071E70FC61653BA6191FE6
+module E3299359C1E1EF3562F8511A34E4E10F6BB313EAD976583CDB509CAA9100312E
   imports VERIFICATION
 
 // DaiJoin_wards
@@ -36,7 +36,7 @@ rule [DaiJoin.wards.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

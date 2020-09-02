@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7D7BE96028B9FC528B38D800A2E1A4F6A43A11FA7E1B7401B1A80827B3D15A18
+module 945CFEA895C9D90212707FB630E32D2480B5838F5A110543FE0BCB503714EF40
   imports VERIFICATION
 
 // DSValue__exhaustiveness
@@ -36,7 +36,7 @@ rule [DSValue..exhaustiveness]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>

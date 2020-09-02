@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E32CFEF6897A6F3CFF7BEA3AE32E226943DE4DC614BC4590476AF28807FFC652
+module C38FDF4909379F724533CF4A791CA1F4233D666C79743BCCD4384E99CF918A47
   imports VERIFICATION
 
 // GemJoin_gem
@@ -36,7 +36,7 @@ rule [GemJoin.gem.fail.rough]:
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
         <log> _ => ?_ </log>
-        <refund> _ => ?_ </refund>
+        <refund> Vrefund => ?_ </refund>
       </substate>
       <gasPrice> _ </gasPrice>
       <origin> ORIGIN_ID </origin>
