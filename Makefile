@@ -54,7 +54,11 @@ proof_names_gas            = $(shell cat proofs-gas)
 proof_fast_names           = $(shell cat proofs-fast)
 proof_work_names           = $(shell cat proofs-work)
 
-PROVE = klab
+PROVE     = klab prove
+BUILD     = klab build-spec
+GET_GAS   = klab get-gas
+SOLVE_GAS = klab solve-gas
+HASH      = klab hash
 
 proofs-exhaustiveness: $(proof_names_exhaustiveness:=.prove)
 proofs:                $(proof_names:=.prove)
@@ -64,25 +68,25 @@ proofs-work:           $(proof_work_names:=.prove)
 
 %.build:
 	@mkdir -p $(SPECS_DIR)
-	$(PROVE) build-spec $*
+	$(KLAB_FLAGS) $(BUILD) $*
 
 %.prove: %.build $(KPROVE_SRCS)
 	@mkdir -p $(OUT_DIR)/output
-	$(PROVE) prove $* > $(OUT_DIR)/output/$@.out 2>&1
+	$(KLAB_FLAGS) $(PROVE) $* > $(OUT_DIR)/output/$@.out 2>&1
 
 %.prove-dump: %.build $(KPROVE_SRCS)
 	@mkdir -p $(OUT_DIR)/output
-	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
+	$(KLAB_FLAGS) $(PROVE) --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
 %.build-with-gas: %_rough.prove-dump
-	$(KLAB_FLAGS) klab get-gas   $*_rough
-	$(KLAB_FLAGS) klab solve-gas $*_rough
+	$(KLAB_FLAGS) $(GET_GAS)   $*_rough
+	$(KLAB_FLAGS) $(SOLVE_GAS) $*_rough
 
 %.prove-gas: %.build-with-gas
 	$(MAKE) $*.prove
 
 %.hash:
-	klab hash $*
+	$(KLAB_FLAGS) $(HASH) $*
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
