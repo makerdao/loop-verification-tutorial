@@ -2,3 +2,5 @@
 *.timestamp
 tmp/
 out/*
+log-*
+compare*
