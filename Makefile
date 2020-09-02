@@ -69,6 +69,7 @@ proofs-work: $(proof_work_names:=.prove)
 	$(PROVE) prove $* > $(OUT_DIR)/output/$@.out 2>&1
 
 %.prove-stage1:
+	$(MAKE) spec
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
