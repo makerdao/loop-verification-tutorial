@@ -59,8 +59,8 @@ proof_work_names   = $(shell cat proofs-work)
 
 PROVE = klab
 
-proofs-stage1: $(proof_names_stage1:=.prove)
-proofs-stage2: $(proof_names_stage2:=.prove)
+proofs-stage1: $(proof_names_stage1:=.prove-stage1)
+proofs-stage2: $(proof_names_stage2:=.prove-stage2)
 proofs-fast: $(proof_fast_names:=.prove)
 proofs-work: $(proof_work_names:=.prove)
 
@@ -68,11 +68,11 @@ proofs-work: $(proof_work_names:=.prove)
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove $* > $(OUT_DIR)/output/$@.out 2>&1
 
-%.prove-dump:
+%.prove-stage1:
 	@mkdir -p $(OUT_DIR)/output
 	$(PROVE) prove --dump $* > $(OUT_DIR)/output/$@.out 2>&1
 
-%_rough.klab-gas: %_rough.prove-dump
+%_rough.klab-gas: %_rough.prove-stage1
 	$(KLAB_FLAGS) klab get-gas   $*_rough
 	$(KLAB_FLAGS) klab solve-gas $*_rough
 
