@@ -154,7 +154,6 @@ Jug_ilks_pass
 Jug_init_pass
 Jug_rely-diff_pass
 Jug_rely-same_pass
-Jug_rpow-loop_pass
 Jug_vat_pass
 Jug_vow_pass
 Jug_wards_pass
