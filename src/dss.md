@@ -29,9 +29,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1236
 ```
 
 #### allowances
@@ -53,9 +50,6 @@ iff
     VCallValue == 0
 
 returns Can
-
-gas
-    1313
 ```
 
 #### collateral type data
@@ -87,9 +81,6 @@ iff
     VCallValue == 0
 
 returns Ilk_Art : Ilk_rate : Ilk_spot : Ilk_line : Ilk_dust
-
-gas
-    4594
 ```
 
 #### `urn` data
@@ -115,9 +106,6 @@ iff
     VCallValue == 0
 
 returns Ink_iu : Art_iu
-
-gas
-    2153
 ```
 
 #### internal unencumbered collateral balances
@@ -141,9 +129,6 @@ iff
     VCallValue == 0
 
 returns Gem
-
-gas
-    1352
 ```
 
 #### internal dai balances
@@ -167,9 +152,6 @@ iff
     VCallValue == 0
 
 returns Rad
-
-gas
-    1236
 ```
 
 #### internal sin balances
@@ -193,9 +175,6 @@ iff
     VCallValue == 0
 
 returns Rad
-
-gas
-    1235
 ```
 
 #### total debt
@@ -217,9 +196,6 @@ iff
     VCallValue == 0
 
 returns Debt
-
-gas
-    1052
 ```
 
 #### total bad debt
@@ -241,9 +217,6 @@ iff
     VCallValue == 0
 
 returns Vice
-
-gas
-    1095
 ```
 
 #### debt ceiling
@@ -265,9 +238,6 @@ iff
     VCallValue == 0
 
 returns Line
-
-gas
-    1116
 ```
 
 #### system liveness flag
@@ -289,9 +259,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1095
 ```
 
 ### Lemmas
@@ -313,9 +280,6 @@ iff in range uint256
 if
 
    #sizeWordStack(WS) <= 1015
-
-gas
-    (#if ( ( 0 <=Int ABI_y ) andBool ( chop(ABI_y) <=Int 0 ) ) #then ( 114 ) #else ( 128 ) #fi)
 ```
 
 ```act
@@ -333,9 +297,6 @@ iff in range uint256
 if
 
     #sizeWordStack(WS) <= 1015
-
-gas
-    (#if ( ( ABI_y <=Int 0 ) andBool ( 0 <=Int ABI_y ) ) #then ( 114 ) #else ( 128 ) #fi)
 ```
 
 ```act
@@ -355,9 +316,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    (#if ( ABI_y ==K 0 ) #then ( 96 ) #else ( 132 ) #fi)
 ```
 
 ```act
@@ -376,9 +334,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -397,9 +352,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -418,9 +370,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    (#if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi)
 ```
 
 ### Mutators
@@ -448,9 +397,6 @@ iff
 
     VCallValue == 0
     May == 1
-
-gas
-    (#if ( ( Lives ==K 0 ) orBool (notBool ( Junk_1 ==K Lives ) ) ) #then 0 #else 4200 #fi) +Int 6245
 ```
 
 
@@ -509,9 +455,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    7293
 ```
 
 ```act
@@ -539,9 +482,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 7248
 ```
 
 ```act
@@ -568,9 +508,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 7248
 ```
 
 ```act
@@ -597,9 +534,6 @@ storage
 iff
 
     VCallValue == 0
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_1 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 5601
 ```
 
 #### initialising an `ilk`
@@ -1798,9 +1732,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1257
 ```
 
 ```act
@@ -1820,9 +1751,6 @@ iff
     VCallValue == 0
 
 returns Allowed
-
-gas
-    1377
 ```
 
 ```act
@@ -1842,9 +1770,6 @@ iff
     VCallValue == 0
 
 returns Balance
-
-gas
-    1302
 ```
 
 ```act
@@ -1864,9 +1789,6 @@ iff
     VCallValue == 0
 
 returns Supply
-
-gas
-    1073
 ```
 
 ```act
@@ -1886,9 +1808,6 @@ iff
     VCallValue == 0
 
 returns Nonce
-
-gas
-    1192
 ```
 
 ```act
@@ -1900,9 +1819,6 @@ iff
     VCallValue == 0
 
 returns 18
-
-gas
-    240
 ```
 
 ```act
@@ -1914,9 +1830,6 @@ iff
     VCallValue == 0
 
 returnsRaw #asByteStackInWidthaux(32, 31, 32, #enc(#string("Dai Stablecoin")))
-
-gas
-    629
 ```
 
 ```act
@@ -1928,9 +1841,6 @@ iff
     VCallValue == 0
 
 returnsRaw #asByteStackInWidthaux(32, 31, 32, #enc(#string("1")))
-
-gas
-    694
 ```
 
 ```act
@@ -1942,9 +1852,6 @@ iff
     VCallValue == 0
 
 returnsRaw #asByteStackInWidthaux(32, 31, 32, #enc(#string("DAI")))
-
-gas
-    672
 ```
 
 ```act
@@ -1956,9 +1863,6 @@ iff
     VCallValue == 0
 
 returns keccak(#parseByteStackRaw("Permit(address holder,address spender,uint256 nonce,uint256 expiry,bool allowed)"))
-
-gas
-    323
 ```
 
 ```act
@@ -1978,9 +1882,6 @@ iff
     VCallValue == 0
 
 returns Dom
-
-gas
-    1050
 ```
 
 ### Mutators
@@ -2034,9 +1935,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6487
 ```
 
 ```act
@@ -2061,9 +1959,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6465
 ```
 
 ```act
@@ -2087,9 +1982,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6465
 ```
 
 ```act
@@ -2108,9 +2000,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -2129,9 +2018,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -2504,9 +2390,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1235
 ```
 
 #### `ilk` data
@@ -2532,9 +2415,6 @@ iff
     VCallValue == 0
 
 returns Duty : Rho
-
-gas
-    2119
 ```
 
 #### `vat` address
@@ -2556,9 +2436,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1098
 ```
 
 #### `vow` address
@@ -2580,9 +2457,6 @@ iff
     VCallValue == 0
 
 returns Vow
-
-gas
-    1053
 ```
 
 #### global interest rate
@@ -2604,9 +2478,6 @@ iff
     VCallValue == 0
 
 returns Base
-
-gas
-    1116
 ```
 
 
@@ -2658,9 +2529,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6398
 ```
 
 ```act
@@ -2685,9 +2553,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6420
 ```
 
 ```act
@@ -2711,9 +2576,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6420
 ```
 
 #### initialising an `ilk`
@@ -2917,9 +2779,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 This is the coinductive lemma.
@@ -2945,9 +2804,6 @@ This is the coinductive lemma.
 num0 n := "number of 0 in n"
 num1 n := "number of 1 in n"
 
-gas = 194 + num0(n) * 178 + num1(n) * 293
-```
-
 ```act
 behaviour rpow-loop of Jug
 lemma
@@ -2969,10 +2825,6 @@ stack
 
     _ : _ : Half : _ : Z : Base : N : X : WS => Half : _ : #rpow(Z, X, N, Base) : Base : 0 : _ : WS
 
-gas
-
-    194 + ((num0(N) * 172) + (num1(N) * 287))
-
 if
 
     Half == Base / 2
@@ -2993,10 +2845,6 @@ interface rpow(uint256 x, uint256 n, uint256 b) internal
 stack
 
     b : n : x : JMPTO : WS => JMPTO : #rpow(b, x, n, b) : WS
-
-gas
-
-    (#if ( ABI_x ==K 0 ) #then (#if ( ABI_n ==K 0 ) #then 82 #else 92 #fi) #else (#if ( ( ABI_n modInt 2 ) ==K 0 ) #then (#if ( ( ABI_n /Int 2 ) ==K 0 ) #then 150 #else ( 437 +Int ( ( ( num0(ABI_n) -Int 1 ) *Int 172 ) +Int ( num1(ABI_n) *Int 287 ) ) ) #fi) #else (#if ( ( ABI_n /Int 2 ) ==K 0 ) #then 160 #else ( 447 +Int ( ( num0(ABI_n) *Int 172 ) +Int ( ( num1(ABI_n) -Int 1 ) *Int 287 ) ) ) #fi) #fi) #fi)
 
 if
 
@@ -3037,9 +2885,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -3058,9 +2903,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -3078,9 +2920,6 @@ iff in range uint256
 if
 
     #sizeWordStack(WS) <= 1000
-
-gas
-    (#if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi)
 ```
 
 ```act
@@ -3099,9 +2938,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    (#if ( ABI_y ==K 0 ) #then ( 127 ) #else ( 179 ) #fi)
 ```
 
 
@@ -3126,9 +2962,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1235
 ```
 
 #### deposit balances
@@ -3150,9 +2983,6 @@ iff
     VCallValue == 0
 
 returns Pie_usr
-
-gas
-    1215
 ```
 
 #### total deposits
@@ -3174,9 +3004,6 @@ iff
     VCallValue == 0
 
 returns Pie_tot
-
-gas
-    1028
 ```
 
 #### savings interest rate
@@ -3198,9 +3025,6 @@ iff
     VCallValue == 0
 
 returns Dsr
-
-gas
-    1072
 ```
 
 #### savings interest rate accumulator
@@ -3222,9 +3046,6 @@ iff
     VCallValue == 0
 
 returns Chi
-
-gas
-    1093
 ```
 
 #### `Vat` address
@@ -3246,9 +3067,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1098
 ```
 
 #### `Vow` address
@@ -3270,9 +3088,6 @@ iff
     VCallValue == 0
 
 returns Vow
-
-gas
-    1142
 ```
 
 #### last `drip` time
@@ -3294,9 +3109,6 @@ iff
     VCallValue == 0
 
 returns Rho
-
-gas
-    1073
 ```
 
 #### system liveness flag
@@ -3318,9 +3130,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1094
 ```
 
 ### Mutators
@@ -3371,9 +3180,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6399
 ```
 
 ```act
@@ -3398,9 +3204,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 ```act
@@ -3424,9 +3227,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 #### setting the savings rate
@@ -3530,10 +3330,6 @@ stack
 
     _ : _ : Half : _ : Z : Base : N : X : WS => Half : _ : #rpow(Z, X, N, Base) : Base : 0 : _ : WS
 
-gas
-
-    194 + ((num0(N) * 172) + (num1(N) * 287))
-
 if
 
     Half == Base / 2
@@ -3554,10 +3350,6 @@ interface rpow(uint256 x, uint256 n, uint256 b) internal
 stack
 
     b : n : x : JMPTO : WS => JMPTO : #rpow(b, x, n, b) : WS
-
-gas
-
-    (#if ( ABI_x ==K 0 ) #then (#if ( ABI_n ==K 0 ) #then 82 #else 92 #fi) #else (#if ( ( ABI_n modInt 2 ) ==K 0 ) #then (#if ( ( ABI_n /Int 2 ) ==K 0 ) #then 150 #else ( 437 +Int ( ( ( num0(ABI_n) -Int 1 ) *Int 172 ) +Int ( num1(ABI_n) *Int 287 ) ) ) #fi) #else (#if ( ( ABI_n /Int 2 ) ==K 0 ) #then 160 #else ( 447 +Int ( ( num0(ABI_n) *Int 172 ) +Int ( ( num1(ABI_n) -Int 1 ) *Int 287 ) ) ) #fi) #fi) #fi)
 
 
 if
@@ -3778,9 +3570,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -3799,9 +3588,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -3815,9 +3601,6 @@ stack
 if
 
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_x <=Int ABI_y ) #then ( 49 ) #else ( 59 ) #fi
 ```
 
 ### Accessors
@@ -3841,9 +3624,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1280
 ```
 
 #### getting the `Vat`
@@ -3865,9 +3645,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1187
 ```
 
 #### getting the `Flapper`
@@ -3889,9 +3666,6 @@ iff
     VCallValue == 0
 
 returns Flapper
-
-gas
-    1098
 ```
 
 #### getting the `Flopper`
@@ -3913,9 +3687,6 @@ iff
     VCallValue == 0
 
 returns Flopper
-
-gas
-    1076
 ```
 
 #### getting a `sin` packet
@@ -3937,9 +3708,6 @@ iff
     VCallValue == 0
 
 returns Sin_era
-
-gas
-    1185
 ```
 
 #### getting the `Sin`
@@ -3961,9 +3729,6 @@ iff
     VCallValue == 0
 
 returns Sin
-
-gas
-    1049
 ```
 
 #### getting the `Ash`
@@ -3985,9 +3750,6 @@ iff
     VCallValue == 0
 
 returns Ash
-
-gas
-    1117
 ```
 
 #### getting the `wait`
@@ -4009,9 +3771,6 @@ iff
     VCallValue == 0
 
 returns Wait
-
-gas
-    1072
 ```
 
 #### getting the `dump`
@@ -4033,9 +3792,6 @@ iff
     VCallValue == 0
 
 returns Dump
-
-gas
-    1115
 ```
 
 #### getting the `sump`
@@ -4057,9 +3813,6 @@ iff
     VCallValue == 0
 
 returns Sump
-
-gas
-    1138
 ```
 
 #### getting the `bump`
@@ -4081,9 +3834,6 @@ iff
     VCallValue == 0
 
 returns Bump
-
-gas
-    1116
 ```
 
 #### getting the `hump`
@@ -4105,9 +3855,6 @@ iff
     VCallValue == 0
 
 returns Hump
-
-gas
-    1051
 ```
 
 #### getting the `live` flag
@@ -4129,9 +3876,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1050
 ```
 
 ### Mutators
@@ -4188,9 +3932,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    7288
 ```
 
 ```act
@@ -4215,9 +3956,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6443
 ```
 
 ```act
@@ -4241,9 +3979,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6443
 ```
 
 #### setting `Vow` parameters
@@ -5009,9 +4744,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1213
 ```
 
 #### `ilk` data
@@ -5037,9 +4769,6 @@ iff
     VCallValue == 0
 
 returns Flip : Chop : Lump
-
-gas
-    2977
 ```
 
 #### liveness
@@ -5061,9 +4790,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1005
 ```
 
 #### `vat` address
@@ -5085,9 +4811,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1076
 ```
 
 #### `vow` address
@@ -5109,9 +4832,6 @@ iff
     VCallValue == 0
 
 returns Vow
-
-gas
-    1120
 ```
 
 ### Mutators
@@ -5162,9 +4882,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6465
 ```
 
 ```act
@@ -5189,9 +4906,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 ```act
@@ -5215,9 +4929,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 #### setting contract addresses
@@ -5366,9 +5077,6 @@ iff in range uint256
 if
 
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 ```act
@@ -5382,9 +5090,6 @@ stack
 if
 
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_x <=Int ABI_y ) #then ( 49 ) #else ( 59 ) #fi
 ```
 
 ```act
@@ -5707,9 +5412,6 @@ storage
 iff
   Ward == 1
   VCallValue == 0
-
-gas
-    (#if ( ( Live ==K 0 ) orBool (notBool ( Junk_1 ==K Live ) ) ) #then 0 #else 4200 #fi) +Int 6307
 ```
 
 ## Flip: liquidation auction
@@ -5731,9 +5433,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1258
 ```
 
 #### bid data
@@ -5767,9 +5466,6 @@ iff
     VCallValue == 0
 
 returns Bid : Lot : Guy : Tic : End : Usr : Gal : Tab
-
-gas
-    7364
 ```
 
 #### cdp engine
@@ -5791,9 +5487,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1143
 ```
 
 #### collateral type
@@ -5815,9 +5508,6 @@ iff
     VCallValue == 0
 
 returns Ilk
-
-gas
-    1027
 ```
 
 #### minimum bid increment
@@ -5839,9 +5529,6 @@ iff
     VCallValue == 0
 
 returns Beg
-
-gas
-    1050
 ```
 
 #### auction time-to-live
@@ -5864,9 +5551,6 @@ iff
     VCallValue == 0
 
 returns Ttl
-
-gas
-    1120
 ```
 
 #### maximum auction duration
@@ -5889,9 +5573,6 @@ iff
     VCallValue == 0
 
 returns Tau
-
-gas
-    1169
 ```
 
 #### kick counter
@@ -5913,9 +5594,6 @@ iff
     VCallValue == 0
 
 returns Kicks
-
-gas
-    1093
 ```
 
 ### Mutators
@@ -5968,9 +5646,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6399
 ```
 
 ```act
@@ -5995,9 +5670,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6443
 ```
 
 ```act
@@ -6021,9 +5693,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6443
 ```
 
 #### Auction parameters
@@ -6071,9 +5740,6 @@ iff in range uint48
 if
 
     #sizeWordStack(WS) <= 100
-
-gas
-    66
 ```
 
 ```act
@@ -6092,9 +5758,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 ```act
@@ -6606,9 +6269,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1235
 ```
 
 #### `vat` address
@@ -6630,9 +6290,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1054
 ```
 
 #### the associated `ilk`
@@ -6654,9 +6311,6 @@ iff
     VCallValue == 0
 
 returns Ilk
-
-gas
-    1093
 ```
 
 #### gem address
@@ -6678,9 +6332,6 @@ iff
     VCallValue == 0
 
 returns Gem
-
-gas
-    1142
 ```
 
 ```act
@@ -6700,9 +6351,6 @@ iff
     VCallValue == 0
 
 returns Dec
-
-gas
-    1049
 ```
 
 ```act
@@ -6722,9 +6370,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1005
 ```
 
 ### Mutators
@@ -6775,9 +6420,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6421
 ```
 
 #### revoking authorisation
@@ -6803,9 +6445,6 @@ iff
 
 if
     usr =/= CALLER_ID
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 ```act
@@ -6828,9 +6467,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 #### depositing into the system
@@ -6975,9 +6611,6 @@ iff
 
     VCallValue == 0
     May == 1
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6263
 ```
 
 # DaiJoin
@@ -7007,9 +6640,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1213
 ```
 
 #### `vat` address
@@ -7031,9 +6661,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1054
 ```
 
 #### `dai` address
@@ -7055,9 +6682,6 @@ iff
     VCallValue == 0
 
 returns Dai
-
-gas
-    1141
 ```
 
 #### `live` flag
@@ -7079,9 +6703,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1005
 ```
 
 ### Mutators
@@ -7131,9 +6752,6 @@ iff
 if
 
     usr == CALLER_ID
-
-gas
-    6421
 ```
 
 #### revoking authorisation
@@ -7159,9 +6777,6 @@ iff
 if
 
     usr =/= CALLER_ID
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 ```act
@@ -7184,9 +6799,6 @@ iff
 if
 
     usr == CALLER_ID
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6398
 ```
 
 #### depositing into the system
@@ -7207,9 +6819,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 ```act
@@ -7354,9 +6963,6 @@ iff
 
     May == 1
     VCallValue == 0
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6263
 ```
 
 # Flapper
@@ -7386,9 +6992,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1258
 ```
 
 #### bid data
@@ -7416,9 +7019,6 @@ iff
   VCallValue == 0
 
 returns Bid : Lot : Guy : Tic : End
-
-gas
-    4839
 ```
 
 #### CDP Engine
@@ -7440,9 +7040,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1121
 ```
 
 #### MKR Token
@@ -7464,9 +7061,6 @@ iff
     VCallValue == 0
 
 returns Gem
-
-gas
-    1142
 ```
 
 #### minimum bid increment
@@ -7488,9 +7082,6 @@ iff
     VCallValue == 0
 
 returns Beg
-
-gas
-    1116
 ```
 
 #### auction time-to-live
@@ -7513,9 +7104,6 @@ iff
     VCallValue == 0
 
 returns Ttl
-
-gas
-    1098
 ```
 
 #### maximum auction duration
@@ -7538,9 +7126,6 @@ iff
     VCallValue == 0
 
 returns Tau
-
-gas
-    1169
 ```
 
 #### kick counter
@@ -7562,9 +7147,6 @@ iff
     VCallValue == 0
 
 returns Kicks
-
-gas
-    1093
 ```
 
 #### liveness flag
@@ -7586,9 +7168,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1028
 ```
 
 ### Mutators
@@ -7641,9 +7220,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6443
 ```
 
 ```act
@@ -7668,9 +7244,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6421
 ```
 
 ```act
@@ -7694,9 +7267,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6421
 ```
 
 #### Auction parameters
@@ -7746,9 +7316,6 @@ iff in range uint48
 if
 
     #sizeWordStack(WS) <= 100
-
-gas
-    66
 ```
 
 ```act
@@ -7767,9 +7334,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 ```act
@@ -8189,9 +7753,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1191
 ```
 
 
@@ -8221,9 +7782,6 @@ iff
     VCallValue == 0
 
 returns Bid : Lot : Guy : Tic : End
-
-gas
-    4839
 ```
 
 #### CDP Engine
@@ -8245,9 +7803,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1121
 ```
 
 #### MKR Token
@@ -8269,9 +7824,6 @@ iff
     VCallValue == 0
 
 returns Gem
-
-gas
-    1164
 ```
 
 #### Vow address
@@ -8293,9 +7845,6 @@ iff
     VCallValue == 0
 
 returns Vow
-
-gas
-    1098
 ```
 
 #### minimum bid increment
@@ -8317,9 +7866,6 @@ iff
     VCallValue == 0
 
 returns Beg
-
-gas
-    1028
 ```
 
 ```act
@@ -8339,9 +7885,6 @@ iff
     VCallValue == 0
 
 returns Pad
-
-gas
-    1050
 ```
 
 #### auction time-to-live
@@ -8364,9 +7907,6 @@ iff
     VCallValue == 0
 
 returns Ttl
-
-gas
-    1165
 ```
 
 #### maximum auction duration
@@ -8389,9 +7929,6 @@ iff
     VCallValue == 0
 
 returns Tau
-
-gas
-    1169
 ```
 
 #### kick counter
@@ -8413,9 +7950,6 @@ iff
     VCallValue == 0
 
 returns Kicks
-
-gas
-    1093
 ```
 
 #### liveness flag
@@ -8437,9 +7971,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1072
 ```
 
 ### Mutators
@@ -8492,9 +8023,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6443
 ```
 
 ```act
@@ -8519,9 +8047,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6465
 ```
 
 ```act
@@ -8545,9 +8070,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6465
 ```
 
 ```act
@@ -8565,9 +8087,6 @@ iff in range uint48
 if
 
     #sizeWordStack(WS) <= 100
-
-gas
-    66
 ```
 
 ```act
@@ -8586,9 +8105,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 #### Auction parameters
@@ -9078,9 +8594,6 @@ iff
 
 if
     usr == CALLER_ID
-
-gas
-    6421
 ```
 
 ```act
@@ -9105,9 +8618,6 @@ iff
 if
 
     CALLER_ID =/= usr
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6421
 ```
 
 ```act
@@ -9131,9 +8641,6 @@ iff
 if
 
     CALLER_ID == usr
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6421
 ```
 
 ### Math Lemmas
@@ -9154,9 +8661,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 ```act
@@ -9175,9 +8679,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 100
-
-gas
-    54
 ```
 
 
@@ -9197,9 +8698,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 ```act
@@ -9213,9 +8711,6 @@ stack
 if
 
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_x <=Int ABI_y ) #then ( 49 ) #else ( 59 ) #fi
 ```
 
 ```act
@@ -9234,9 +8729,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 127 ) #else ( 179 ) #fi
 ```
 
 ```act
@@ -9259,9 +8751,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    179
 ```
 
 
@@ -9284,9 +8773,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1236
 ```
 
 ```act
@@ -9306,9 +8792,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1144
 ```
 
 ```act
@@ -9328,9 +8811,6 @@ iff
     VCallValue == 0
 
 returns Cat
-
-gas
-    1097
 ```
 
 #### `vow` address
@@ -9352,9 +8832,6 @@ iff
     VCallValue == 0
 
 returns Vow
-
-gas
-    1099
 ```
 
 #### `pot` address
@@ -9376,9 +8853,6 @@ iff
     VCallValue == 0
 
 returns Pot
-
-gas
-    1121
 ```
 
 #### `spot` address
@@ -9400,9 +8874,6 @@ iff
     VCallValue == 0
 
 returns Spot
-
-gas
-    1164
 ```
 
 #### liveness
@@ -9424,9 +8895,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1095
 ```
 
 ### Setting `End` parameters
@@ -9508,9 +8976,6 @@ iff
     VCallValue == 0
 
 returns When
-
-gas
-    1116
 ```
 
 ### Processing period
@@ -9532,9 +8997,6 @@ iff
     VCallValue == 0
 
 returns Wait
-
-gas
-    1095
 ```
 
 ### Total Outstanding Debt
@@ -9556,9 +9018,6 @@ iff
     VCallValue == 0
 
 returns Debt
-
-gas
-    1052
 ```
 
 ### Ilk Data
@@ -9580,9 +9039,6 @@ iff
     VCallValue == 0
 
 returns Ray
-
-gas
-    1251
 ```
 
 ```act
@@ -9602,9 +9058,6 @@ iff
     VCallValue == 0
 
 returns Wad
-
-gas
-    1229
 ```
 
 ```act
@@ -9624,9 +9077,6 @@ iff
     VCallValue == 0
 
 returns Wad
-
-gas
-    1230
 ```
 
 ```act
@@ -9646,9 +9096,6 @@ iff
     VCallValue == 0
 
 returns Ray
-
-gas
-    1231
 ```
 
 ```act
@@ -9668,9 +9115,6 @@ iff
     VCallValue == 0
 
 returns Wad
-
-gas
-    1237
 ```
 
 ```act
@@ -9690,9 +9134,6 @@ iff
     VCallValue == 0
 
 returns Wad
-
-gas
-    1372
 ```
 
 ## Behaviours
@@ -10985,9 +10426,6 @@ iff
   VCallValue == 0
 
 returns Supply
-
-gas
-    1125
 ```
 
 ```act
@@ -11004,9 +10442,6 @@ iff
   VCallValue == 0
 
 returns BalanceOf
-
-gas
-    1307
 ```
 
 ```act
@@ -11023,9 +10458,6 @@ iff
   VCallValue == 0
 
 returns Allowance
-
-gas
-    1409
 ```
 
 ```act
@@ -11274,9 +10706,6 @@ iff
   VCallValue == 0
 
 returns Value : Ok
-
-gas
-    2012
 ```
 
 ```act
@@ -11297,9 +10726,6 @@ iff
   Ok == 1
 
 returns Value
-
-gas
-    2043
 ```
 
 # Spotter
@@ -11327,9 +10753,6 @@ iff
     VCallValue == 0
 
 returns May
-
-gas
-    1235
 ```
 
 #### ilks
@@ -11353,9 +10776,6 @@ iff
     VCallValue == 0
 
 returns Pip : Mat
-
-gas
-    2145
 ```
 
 #### `vat` address
@@ -11377,9 +10797,6 @@ iff
     VCallValue == 0
 
 returns Vat
-
-gas
-    1120
 ```
 
 #### `par` value
@@ -11401,9 +10818,6 @@ iff
     VCallValue == 0
 
 returns Par
-
-gas
-    1094
 ```
 
 #### shutdown flag
@@ -11425,9 +10839,6 @@ iff
     VCallValue == 0
 
 returns Live
-
-gas
-    1027
 ```
 
 ### Mutators
@@ -11477,9 +10888,6 @@ iff
 if
 
     usr == CALLER_ID
-
-gas
-    6487
 ```
 
 ```act
@@ -11503,9 +10911,6 @@ iff
 if
 
     usr =/= CALLER_ID
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6420
 ```
 
 ```act
@@ -11528,9 +10933,6 @@ iff
 if
 
     usr == CALLER_ID
-
-gas
-    (#if (notBool ( Junk_0 ==K 1 ) ) #then 0 #else 4200 #fi) +Int 6420
 ```
 
 #### change governance parameters
@@ -11624,9 +11026,6 @@ iff
 
     May == 1
     VCallValue == 0
-
-gas
-    (#if ( ( Junk_0 ==K 0 ) orBool (notBool ( Junk_2 ==K Junk_0 ) ) ) #then 0 #else 4200 #fi) +Int 6196
 ```
 
 #### update `spot` value
@@ -11647,9 +11046,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    #if ( ABI_y ==K 0 ) #then ( 54 ) #else ( 106 ) #fi
 ```
 
 ```act
@@ -11672,9 +11068,6 @@ if
 
     // TODO: strengthen
     #sizeWordStack(WS) <= 1000
-
-gas
-    179
 ```
 
 ```act
