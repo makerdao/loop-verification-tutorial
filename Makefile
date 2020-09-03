@@ -23,10 +23,10 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc \
-	    build build-exhaustiveness build-gas build-fast build-work \
-	    prove prove-exhaustiveness prove-gas prove-fast prove-work \
-        clean dapp-clean spec-clean doc-clean log-clean gen-spec
+.PHONY: all deps spec dapp kevm klab doc                                \
+        build build-exhaustiveness build-gas build-fast build-work      \
+        prove prove-exhaustiveness prove-gas prove-fast prove-work      \
+        clean dapp-clean spec-clean doc-clean log-clean gen-spec mkdirs
 
 all: deps spec
 
