@@ -27,7 +27,7 @@ export PATH
 .PHONY: all deps spec dapp kevm klab doc \
 	    build build-exhaustiveness build-gas build-fast build-work \
 	    prove prove-exhaustiveness prove-gas prove-fast prove-work \
-        clean dapp-clean spec-clean doc-clean log-clean
+        clean dapp-clean spec-clean doc-clean log-clean gen-spec
 
 all: deps spec
 
@@ -98,6 +98,14 @@ build-work:           $(proof_work_names:=.build)
 
 %.hash:
 	$(KLAB_FLAGS) $(HASH) $*
+
+%.gen-spec:
+	@mkdir -p $(OUT_DIR)/output
+	@mkdir -p specs
+	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
+	cp $(SPECS_DIR)/$(shell klab hash $*).k specs/$*.k
+
+gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
