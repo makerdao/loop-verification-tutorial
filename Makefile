@@ -13,7 +13,6 @@ SPECS_DIR = $(OUT_DIR)/specs
 ACTS_DIR = $(OUT_DIR)/acts
 DOC_DIR = $(OUT_DIR)/doc
 
-KLAB_FLAGS = KLAB_OUT=$(OUT_DIR)
 KPROVE_SRCS = $(SPECS_DIR)/dss-verification.k
 
 SMT_PRELUDE = $(OUT_DIR)/prelude.smt2
@@ -84,27 +83,28 @@ mkdirs:
 	@mkdir -p specs
 
 %.build: mkdirs
-	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
+	$(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove: %.build $(KPROVE_SRCS)
-	$(KLAB_FLAGS) $(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
+	$(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove-dump: %.build $(KPROVE_SRCS)
-	$(KLAB_FLAGS) $(PROVE) --dump $* > $(OUT_DIR)/output/$@ 2>&1
+	$(PROVE) --dump $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.build-with-gas: %_rough.prove-dump
-	$(KLAB_FLAGS) $(GET_GAS)   $*_rough
-	$(KLAB_FLAGS) $(SOLVE_GAS) $*_rough
+	$(GET_GAS)   $*_rough
+	$(SOLVE_GAS) $*_rough
 
 %.prove-gas: %.build-with-gas
 	$(MAKE) $*.prove
 
 %.hash:
-	$(KLAB_FLAGS) $(HASH) $*
+	$(HASH) $*
 
 %.gen-spec: mkdirs
-	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
-	$(KLAB_FLAGS) cp $(SPECS_DIR)/$(shell klab hash $*).k specs/$*.k
+	$(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
+	$(HASH) $*
+	cp $(SPECS_DIR)/$$($(HASH) $*).k specs/$*.k
 
 gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
 
