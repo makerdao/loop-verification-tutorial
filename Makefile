@@ -74,13 +74,16 @@ build-gas:            $(proof_names_gas:=.build)
 build-fast:           $(proof_fast_names:=.build)
 build-work:           $(proof_work_names:=.build)
 
-%.build:
-	@mkdir -p $(KLAB_OUT)/specs
-	@mkdir -p $(KLAB_OUT)/acts
-	@mkdir -p $(KLAB_OUT)/gas
-	@mkdir -p $(KLAB_OUT)/meta/name
-	@mkdir -p $(KLAB_OUT)/meta/data
-	@mkdir -p $(KLAB_OUT)/output
+mkdirs:
+	@mkdir -p $(OUT_DIR)/specs
+	@mkdir -p $(OUT_DIR)/acts
+	@mkdir -p $(OUT_DIR)/gas
+	@mkdir -p $(OUT_DIR)/meta/name
+	@mkdir -p $(OUT_DIR)/meta/data
+	@mkdir -p $(OUT_DIR)/output
+	@mkdir -p specs
+
+%.build: mkdirs
 	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove: %.build $(KPROVE_SRCS)
@@ -99,11 +102,9 @@ build-work:           $(proof_work_names:=.build)
 %.hash:
 	$(KLAB_FLAGS) $(HASH) $*
 
-%.gen-spec:
-	@mkdir -p $(OUT_DIR)/output
-	@mkdir -p specs
+%.gen-spec: mkdirs
 	$(KLAB_FLAGS) $(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
-	cp $(SPECS_DIR)/$(shell klab hash $*).k specs/$*.k
+	$(KLAB_FLAGS) cp $(SPECS_DIR)/$(shell klab hash $*).k specs/$*.k
 
 gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
 
@@ -115,7 +116,6 @@ $(SPEC_MANIFEST): $(SRCS) $(DAPP_SRCS) $(KPROVE_SRCS)
 	$(KLAB_FLAGS) klab build
 
 $(SPECS_DIR)/%.k: src/%.k
-	mkdir -p $(SPECS_DIR)
 	cp $< $@
 
 spec: $(SPEC_MANIFEST)
