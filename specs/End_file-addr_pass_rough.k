@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0FC733D7BDB547041A06A7B59F66CB07D3AAE0B86AD66B82486343B436D1F662
+module 0315CE85D37CA1F7F9BB80DAF5EB32385E4AEC88F9154C2BFCF337EFFEE44E60
   imports VERIFICATION
 
 // End_file-addr
@@ -77,7 +77,7 @@ rule [End.file-addr.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #End.wards[CALLER_ID] <- May ] [ #End.vat <- (#if ABI_what ==Int #string2Word("vat")  #then ABI_data #else Vat #fi) ] [ #End.cat <- (#if ABI_what ==Int #string2Word("cat")  #then ABI_data #else Cat #fi) ] [ #End.vow <- (#if ABI_what ==Int #string2Word("vow")  #then ABI_data #else Vow #fi) ] [ #End.pot <- (#if ABI_what ==Int #string2Word("pot")  #then ABI_data #else Pot #fi) ] [ #End.spot <- (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi) ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #End.vat <- (#if ABI_what ==Int #string2Word("vat")  #then ABI_data #else Vat #fi) ] [ #End.cat <- (#if ABI_what ==Int #string2Word("cat")  #then ABI_data #else Cat #fi) ] [ #End.vow <- (#if ABI_what ==Int #string2Word("vow")  #then ABI_data #else Vow #fi) ] [ #End.pot <- (#if ABI_what ==Int #string2Word("pot")  #then ABI_data #else Pot #fi) ] [ #End.spot <- (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi) ]  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>

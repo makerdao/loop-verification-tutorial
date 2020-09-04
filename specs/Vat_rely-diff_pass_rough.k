@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 9C0BD50F1F4DDE65F33E03EE55062030D61E00469ADFA75E17601974080A38F4
+module 52E9170375D631FA64E29C0164B22C4A5DA87815349E6EF47F355B87196A71C5
   imports VERIFICATION
 
 // Vat_rely-diff
@@ -77,7 +77,7 @@ rule [Vat.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.wards[CALLER_ID] <- May ] [ #Vat.wards[ABI_usr] <- 1 ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Vat.wards[ABI_usr] <- 1 ]  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>

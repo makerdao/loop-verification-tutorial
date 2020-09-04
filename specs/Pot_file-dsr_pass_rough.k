@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1C1301D88B51D2B812722304FBD2D4D2B03DBD9B298BA9B47069F3E6A8630618
+module BBB3B28D9B43C3A0F4F0DF1C8BFB15BAB32A967BDA4D142A066B636C928C1DB3
   imports VERIFICATION
 
 // Pot_file-dsr
@@ -77,7 +77,7 @@ rule [Pot.file-dsr.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Pot.wards[CALLER_ID] <- May ] [ #Pot.dsr <- ABI_data ]  [ #Pot.rho <- Rho ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Pot.dsr <- ABI_data ]   </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>

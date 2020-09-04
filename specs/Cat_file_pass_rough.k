@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E9E3513CF578A5C935455111A1E2ED8F6EFAAD156B5EE13E0D7460F4C260AEA4
+module F5A6C9AE7F3C2A711E118C9D23889C38C9DAD61E5189BE8B4023D9ECB0143079
   imports VERIFICATION
 
 // Cat_file
@@ -77,7 +77,7 @@ rule [Cat.file.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Cat.wards[CALLER_ID] <- May ] [ #Cat.ilks[ABI_ilk].chop <- (#if ABI_what ==Int #string2Word("chop") #then ABI_data #else Chop #fi) ] [ #Cat.ilks[ABI_ilk].lump <- (#if ABI_what ==Int #string2Word("lump") #then ABI_data #else Lump #fi) ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Cat.ilks[ABI_ilk].chop <- (#if ABI_what ==Int #string2Word("chop") #then ABI_data #else Chop #fi) ] [ #Cat.ilks[ABI_ilk].lump <- (#if ABI_what ==Int #string2Word("lump") #then ABI_data #else Lump #fi) ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module FB7A8C4F48FFED564C6EE8DBBF76ED12C4B4DB31D91E7C969588E9FB8C7CEFBC
+module 0FC28E3D93EBD8F6907D43916C81B083A32AA39A30548A579C4839B3831B64DB
   imports VERIFICATION
 
 // Flipper_bids
@@ -77,7 +77,7 @@ rule [Flipper.bids.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flipper.bids[ABI_n].bid <- Bid ] [ #Flipper.bids[ABI_n].lot <- Lot ]  [ #Flipper.bids[ABI_n].usr <- Usr ] [ #Flipper.bids[ABI_n].gal <- Gal ] [ #Flipper.bids[ABI_n].tab <- Tab ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE       </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>

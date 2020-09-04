@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 02AD6E03BFA8C6E1F3AB907C67426EE26C5782E7721D5D23DA66399244577E87
+module 313B99B23E8BD8676F618A3140AF3A17DE90F000465C8D849C92F2C8B2434F7F
   imports VERIFICATION
 
 // Flapper_file
@@ -77,7 +77,7 @@ rule [Flapper.file.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flapper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flapper.wards[CALLER_ID] <- May ] [ #Flapper.beg <- (#if ABI_what ==Int #string2Word("beg") #then ABI_data #else Beg #fi) ] [ #Flapper.ttl_tau <- (#if ABI_what ==Int #string2Word("ttl") #then #WordPackUInt48UInt48(ABI_data, Tau) #else (#if ABI_what ==Int #string2Word("tau") #then #WordPackUInt48UInt48(Ttl, ABI_data) #else #WordPackUInt48UInt48(Ttl, Tau) #fi) #fi) ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flapper.beg <- (#if ABI_what ==Int #string2Word("beg") #then ABI_data #else Beg #fi) ] [ #Flapper.ttl_tau <- (#if ABI_what ==Int #string2Word("ttl") #then #WordPackUInt48UInt48(ABI_data, Tau) #else (#if ABI_what ==Int #string2Word("tau") #then #WordPackUInt48UInt48(Ttl, ABI_data) #else #WordPackUInt48UInt48(Ttl, Tau) #fi) #fi) ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flapper => ?_ </nonce>
         </account>

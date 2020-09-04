@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module B63CAD3FC33ECC2EE452F1D0495D3E0D0A4CF7EDCADF32F6A75DC4B10AAB0C84
+module 5A0944DE0735DF1493E11BF39B77786F1F0B0D06F08799D617B03D60CE998E88
   imports VERIFICATION
 
 // Spotter_file-pip
@@ -77,7 +77,7 @@ rule [Spotter.file-pip.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Spotter.wards[CALLER_ID] <- May ] [ #Spotter.ilks[ABI_ilk].pip <- ABI_pip_ ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Spotter.ilks[ABI_ilk].pip <- ABI_pip_ ]  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>

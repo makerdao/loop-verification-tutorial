@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 8E30435842112DC9ADEE149D4095046B2E5EB4424EE9FE994BFB6AB2734AD502
+module 6E00B5F0AAEDAB5E6679870C549E19FAA9128C2707D5117D684FC452F3E5D2B3
   imports VERIFICATION
 
 // DSValue_peek
@@ -77,7 +77,7 @@ rule [DSValue.peek.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSValue_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #DSValue.val <- Value ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE   </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSValue => ?_ </nonce>
         </account>
