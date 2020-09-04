@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4F25063EC7CC67BBEBE2645CA2DE2012374EB13439E49A899330D0E822B28BE2
+module 4F9191165E5693F534172079353E62D238FDD9738AA51120949CAB799CA4BF52
   imports VERIFICATION
 
 // Flopper_bids
@@ -77,7 +77,7 @@ rule [Flopper.bids.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE    </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>

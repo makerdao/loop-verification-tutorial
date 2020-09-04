@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 17BB3A270F05B37183B783A2E4E25A02E22F0271A71BD1CF245E0B0EAD50F531
+module A7B74A2CDAAC90913DD4F1246D69FB4A3B5996AA32281B8995CB39BD9BA84231
   imports VERIFICATION
 
 // Jug_file-vow
@@ -77,7 +77,7 @@ rule [Jug.file-vow.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Jug.vow <- ABI_data ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Jug.vow <- ABI_data ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 794E196CAE207754F8C2821044819BAED32B9043E95344CA80233A4DDE229886
+module 53207EBC9E11E68965C7E9801F927B3DEDC19D481E1AEAE0A7B14AB6D6890215
   imports VERIFICATION
 
 // Pot_deny-diff
@@ -77,7 +77,7 @@ rule [Pot.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Pot.wards[ABI_usr] <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Pot.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>

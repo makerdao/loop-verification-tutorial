@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 81252BB27CA0D4DAFE24D759E5E448F935FA84A950090B308EB6F125BDA1F6A7
+module C76EFA34DA6C1125FAC2975AE48E22C5862F2B6181C3032A810F0B2B780589D3
   imports VERIFICATION
 
 // Cat_cage
@@ -77,7 +77,7 @@ rule [Cat.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Cat.live <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Cat.live <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7E43413BFD2808B063C13BB08D9E1BB6121442414D25B751BD1FF0AADF8375CC
+module 12C6C86079B5481B18F0F74EDD0B4231D12E0F44BA818FC010DAD82C12065366
   imports VERIFICATION
 
 // Spotter_deny-diff
@@ -77,7 +77,7 @@ rule [Spotter.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Spotter.wards[ABI_usr] <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Spotter.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>

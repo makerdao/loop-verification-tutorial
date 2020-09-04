@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 3DE8EBA32387AA72D18F4D941A7E7939FDAFD5677D33FB34ACE9DF09DBE262BF
+module E301C537F24C60DC11D83CADA60A5B86FC20D460C0B2C269AB3844F74CD26A11
   imports VERIFICATION
 
 // Vat_ilks
@@ -77,7 +77,7 @@ rule [Vat.ilks.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE      </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 1DFB208EEAFAC085FCBAD95705DC3E871CFEEC817620BAE1C22F4D0FCFF0AFFD
+module 43A76D2F354C0CE349FCE21135A0996595FA93BEA45A7AE66120F3925E6F5134
   imports VERIFICATION
 
 // Flipper_deny-diff
@@ -77,7 +77,7 @@ rule [Flipper.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flipper.wards[ABI_usr] <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flipper.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>

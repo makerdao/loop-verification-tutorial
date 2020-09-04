@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 52D76734CC9109269F502DE52FE9D10C2F64E6447706A071DC0C6E11347A3AF7
+module FAE054AE9A2134728F51F0FAB7B6874F40741EF6F9F6804F2B29626E8E28D3E0
   imports VERIFICATION
 
 // Dai_deny-diff
@@ -77,7 +77,7 @@ rule [Dai.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Dai_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Dai.wards[ABI_usr] <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Dai.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Dai => ?_ </nonce>
         </account>

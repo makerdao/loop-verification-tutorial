@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F5F136ACA88B143FA4EE7274FAD5A07ADF0AB27941F3468A0E8B727795C28EA7
+module 9F8BDE67F32EF6E295E799294B0610F95ECAA0300217BE311E4E3BB60EC9C544
   imports VERIFICATION
 
 // Vow_file-data
@@ -77,7 +77,7 @@ rule [Vow.file-data.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Vow.wait <- (#if ABI_what ==Int #string2Word("wait") #then ABI_data #else Wait #fi) ] [ #Vow.dump <- (#if ABI_what ==Int #string2Word("dump") #then ABI_data #else Dump #fi) ] [ #Vow.sump <- (#if ABI_what ==Int #string2Word("sump") #then ABI_data #else Sump #fi) ] [ #Vow.bump <- (#if ABI_what ==Int #string2Word("bump") #then ABI_data #else Bump #fi) ] [ #Vow.hump <- (#if ABI_what ==Int #string2Word("hump") #then ABI_data #else Hump #fi) ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vow.wait <- (#if ABI_what ==Int #string2Word("wait") #then ABI_data #else Wait #fi) ] [ #Vow.dump <- (#if ABI_what ==Int #string2Word("dump") #then ABI_data #else Dump #fi) ] [ #Vow.sump <- (#if ABI_what ==Int #string2Word("sump") #then ABI_data #else Sump #fi) ] [ #Vow.bump <- (#if ABI_what ==Int #string2Word("bump") #then ABI_data #else Bump #fi) ] [ #Vow.hump <- (#if ABI_what ==Int #string2Word("hump") #then ABI_data #else Hump #fi) ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>

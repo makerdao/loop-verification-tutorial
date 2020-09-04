@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2EC8EAD05E7A7FE3E0E973C1BE0BE30472B814C36EE000F3A454C1D9D88ECD9F
+module 71A4687496C0BC49816FF6E0209C2DBE10D15531909EB1504F92A425D45E8724
   imports VERIFICATION
 
 // DaiJoin_rely-diff
@@ -77,7 +77,7 @@ rule [DaiJoin.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #DaiJoin.wards[ABI_usr] <- 1 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DaiJoin.wards[ABI_usr] <- 1 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>

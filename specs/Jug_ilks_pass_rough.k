@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6E1BCE4834559D3127DD67CA7E0A1BD3FE02CEF304EB43926EF01F93204548C8
+module 78EF01E2D6986339AAA4A9B178947056FECBA948AA1BA5A885E6EC08D994391C
   imports VERIFICATION
 
 // Jug_ilks
@@ -77,7 +77,7 @@ rule [Jug.ilks.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE   </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>

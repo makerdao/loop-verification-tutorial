@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 7061BBE4392AA1C60C6FFDAF9F4209969E8E8FC8CCB3F9CFB4F5DE51CF006240
+module 5CCF2DA0FA70B282786F1B4E92E876834436ED846567E9AC7A9ADB22282649EF
   imports VERIFICATION
 
 // Cat_rely-diff
@@ -77,7 +77,7 @@ rule [Cat.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Cat.wards[ABI_usr] <- 1 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Cat.wards[ABI_usr] <- 1 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>

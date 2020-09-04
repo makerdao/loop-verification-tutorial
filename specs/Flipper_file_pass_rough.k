@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6CD7CB22702B2935BC75FA97C03A7EC81243FC8BD19EBA9FF0D9FBD33FAACF41
+module A73C52C051569ADE88C5196A19D164031E9AA280426C1E52FF83864A1F7E26D2
   imports VERIFICATION
 
 // Flipper_file
@@ -77,7 +77,7 @@ rule [Flipper.file.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flipper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flipper.beg <- (#if ABI_what ==Int #string2Word("beg") #then ABI_data #else Beg #fi) ] [ #Flipper.ttl_tau <- (#if ABI_what ==Int #string2Word("ttl") #then #WordPackUInt48UInt48(ABI_data, Tau) #else (#if ABI_what ==Int #string2Word("tau") #then #WordPackUInt48UInt48(Ttl, ABI_data) #else #WordPackUInt48UInt48(Ttl, Tau) #fi) #fi) ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flipper.beg <- (#if ABI_what ==Int #string2Word("beg") #then ABI_data #else Beg #fi) ] [ #Flipper.ttl_tau <- (#if ABI_what ==Int #string2Word("ttl") #then #WordPackUInt48UInt48(ABI_data, Tau) #else (#if ABI_what ==Int #string2Word("tau") #then #WordPackUInt48UInt48(Ttl, ABI_data) #else #WordPackUInt48UInt48(Ttl, Tau) #fi) #fi) ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flipper => ?_ </nonce>
         </account>

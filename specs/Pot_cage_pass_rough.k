@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 62B110B9226173159BD5515E4AA281B44C524E04D24F985212118F5543418D90
+module EB9A865024D3D4F07E933735123F0F2531170F7DE93B8C9A8FA071FC082A29FF
   imports VERIFICATION
 
 // Pot_cage
@@ -77,7 +77,7 @@ rule [Pot.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Pot.dsr <- #Ray ] [ #Pot.live <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Pot.dsr <- #Ray ] [ #Pot.live <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>

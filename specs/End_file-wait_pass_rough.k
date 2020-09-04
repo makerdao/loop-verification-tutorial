@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module D65ACC54C1A4452AC151AF1456D3622B7C642F9775503B14BD7B69F828B5C42C
+module 064DBC51D266C58697B2588823A1278C26140747EBA53D0DDAE1426C191F3C98
   imports VERIFICATION
 
 // End_file-wait
@@ -77,7 +77,7 @@ rule [End.file-wait.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #End.wait <- ABI_data ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #End.wait <- ABI_data ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>

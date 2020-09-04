@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 37A8BF2F23645C7C5284BA145AE6CCF1FC45251C1B3AA67A20AFDD39A1BCD9ED
+module 0A192AF12F942FEC8FCBAE7B796EAC9B71D578321CD01369D40D070F7A0E882B
   imports VERIFICATION
 
 // DSToken_transfer
@@ -77,7 +77,7 @@ rule [DSToken.transfer.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[CALLER_ID] <- Gem_c -Int ABI_wad ] [ #DSToken.balances[ABI_usr] <- Gem_u +Int ABI_wad ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[CALLER_ID] <- Gem_c -Int ABI_wad ] [ #DSToken.balances[ABI_usr] <- Gem_u +Int ABI_wad ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>

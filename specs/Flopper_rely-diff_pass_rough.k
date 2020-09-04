@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 38B61B69F9EF9D86D908BDAEC8B8E0333D50EBCEB50337A23A7FDE3226515228
+module 07A58E606947E7213F07CE75196561CF21DF588A2582513C0CFE9F688A273EE3
   imports VERIFICATION
 
 // Flopper_rely-diff
@@ -77,7 +77,7 @@ rule [Flopper.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flopper.wards[ABI_usr] <- 1 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flopper.wards[ABI_usr] <- 1 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module E287CDE7FCB7BD7F144770E4186276022F981E66D87E7524D5E2AF03FC16C42E
+module 59932B633814F9A35E2AA0FA236F2F6D001A4733B265690B2C9CA7DB850218B4
   imports VERIFICATION
 
 // Vow_rely-same
@@ -77,7 +77,7 @@ rule [Vow.rely-same.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vow.wards[CALLER_ID] <- 1 ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vow.wards[CALLER_ID] <- 1 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>

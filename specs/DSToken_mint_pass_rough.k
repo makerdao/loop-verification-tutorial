@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 72B45F11AF8E55A437CB9C203AE2811332AA975C03D236742C4DF3299BF92DBD
+module E1A21963E03B3E325FF67CF5E8129F1BD9BAE52C16E336DDE4959AAF9B17787D
   imports VERIFICATION
 
 // DSToken_mint
@@ -77,7 +77,7 @@ rule [DSToken.mint.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[ABI_dst] <- Gem_d  +Int ABI_wad ] [ #DSToken.supply <- Supply +Int ABI_wad ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[ABI_dst] <- Gem_d  +Int ABI_wad ] [ #DSToken.supply <- Supply +Int ABI_wad ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DE206A42F90065966F68ECB849CB4B61586324F2D03711DF59438C907ECC2EF1
+module 5D61C89925571DAB5E57E0DDA8B07DEB0E3FD2996F4817B30B02026B8B19BC3F
   imports VERIFICATION
 
 // Cat_file-addr
@@ -77,7 +77,7 @@ rule [Cat.file-addr.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Cat.vow <- ABI_data ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Cat.vow <- ABI_data ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>

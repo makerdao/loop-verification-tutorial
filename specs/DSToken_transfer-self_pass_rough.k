@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 4E59EA9A4ED91CF00664B5FCFF3463874E28C7AFC896526D4EABF56995FF545C
+module 4B25EA54D487FEB4B8893F8C96D6B3B15E842BD40B7A0F944A93EF84446476B8
   imports VERIFICATION
 
 // DSToken_transfer-self
@@ -77,7 +77,7 @@ rule [DSToken.transfer-self.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE   </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>

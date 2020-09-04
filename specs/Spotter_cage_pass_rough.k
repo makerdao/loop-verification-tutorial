@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module ED1DC4CE2626FA8F593CCCA39451436DBE1F15798B413BA9F4A4CC93C1A242A5
+module F8B980F26E80375E548BF65FF13CDFE1508B210D642DE7E935F89FC617FA0D30
   imports VERIFICATION
 
 // Spotter_cage
@@ -77,7 +77,7 @@ rule [Spotter.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Spotter_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Spotter.live <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Spotter.live <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Spotter => ?_ </nonce>
         </account>

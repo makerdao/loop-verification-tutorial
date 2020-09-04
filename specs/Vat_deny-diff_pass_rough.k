@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 580259C876B0D7AF50DA858C4FDC8ED5959E42818081DE8A1F9974D8EC57AD27
+module BB1D1513145EC9688A07D939BFB76D95E27475FE8F43C84C2123001C871D36AC
   imports VERIFICATION
 
 // Vat_deny-diff
@@ -77,7 +77,7 @@ rule [Vat.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Vat.wards[ABI_usr] <- 0 ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CC83E7536B2C22752E3B0E88EA19824F98EA2339900CF500306F478B0E386990
+module A7368985CAAD0393C1F68C9D0807A5A026D86C391D6A199ADDDBBE5814A3A471
   imports VERIFICATION
 
 // Jug_rely-diff
@@ -77,7 +77,7 @@ rule [Jug.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Jug_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Jug.wards[ABI_usr] <- 1 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Jug.wards[ABI_usr] <- 1 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Jug => ?_ </nonce>
         </account>

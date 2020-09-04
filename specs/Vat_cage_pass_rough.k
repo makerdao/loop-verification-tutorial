@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 033D500D9DF31D9F0070F30072E4F1177A4E558AAF35134318004225328BDC24
+module 7CFAC36704E7B36767BAC2E5A382B532C17A1FEAC68C22F1F1F6FB0031C39964
   imports VERIFICATION
 
 // Vat_cage
@@ -77,7 +77,7 @@ rule [Vat.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Vat.live <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.live <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>

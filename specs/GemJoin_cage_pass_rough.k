@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 2A202C8B01CC8F512503CD67671B4DD81AFBFD0EDAA1A643FD848038CA45CCC9
+module BD129532E2E271F699C20289E5080B910BB90634E690F494319827D93CE100F3
   imports VERIFICATION
 
 // GemJoin_cage
@@ -77,7 +77,7 @@ rule [GemJoin.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #GemJoin.live <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #GemJoin.live <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>

@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 953B40A62D90603FD83C2A66A016F38303109F86889E15E7270B531E885DF24B
+module C70CF9FF1EA8FB55DBC632F2900DC3F3F3D31BD4C64FEF8467414584016F162E
   imports VERIFICATION
 
 // End_deny-diff
@@ -77,7 +77,7 @@ rule [End.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> End_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #End.wards[ABI_usr] <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #End.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_End => ?_ </nonce>
         </account>

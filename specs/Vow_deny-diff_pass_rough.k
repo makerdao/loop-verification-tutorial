@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module DF0E38F7AB06EAFA56E341D135034DB5C99E0ED9415D31DEA549CC9B8E4B16B1
+module 0E7E1250448BD3C90174C53F884B49C988F0D209CB672D238131433504603D23
   imports VERIFICATION
 
 // Vow_deny-diff
@@ -77,7 +77,7 @@ rule [Vow.deny-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vow_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Vow.wards[ABI_usr] <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vow.wards[ABI_usr] <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vow => ?_ </nonce>
         </account>

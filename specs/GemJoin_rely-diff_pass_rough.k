@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module CA279002365B74FCB58865175CB3F296E3D027500297EF443440C0A70EEA42A6
+module E0E37CA5EC19FB382F8AED1567AA7CC9639608F018CDB38851DD4EAC18001198
   imports VERIFICATION
 
 // GemJoin_rely-diff
@@ -77,7 +77,7 @@ rule [GemJoin.rely-diff.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> GemJoin_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #GemJoin.wards[ABI_usr] <- 1 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #GemJoin.wards[ABI_usr] <- 1 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_GemJoin => ?_ </nonce>
         </account>

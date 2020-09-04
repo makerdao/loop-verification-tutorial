@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 6DE6BB005CF40F5B1C137B46EE70D999B28C4A097C395E2FA347C3BEF0AE7C4E
+module CA0C328506C91BDAAC7244F08AC7A8611CED68107C9F9086100EFDDC988135D9
   imports VERIFICATION
 
 // DSToken_approve
@@ -77,7 +77,7 @@ rule [DSToken.approve.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.allowance[CALLER_ID][ABI_usr] <- ABI_wad ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.allowance[CALLER_ID][ABI_usr] <- ABI_wad ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>

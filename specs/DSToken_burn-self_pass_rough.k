@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 0DBD1729C33426EEE334790F9E2F71DC1C7E948E1B276A742C8420ED2EDECFEB
+module 62AD0DF618A3AFD57E39E5E3BD9134D53F075603DC2A3B3FFCA1FEAB4E7C0579
   imports VERIFICATION
 
 // DSToken_burn-self
@@ -77,7 +77,7 @@ rule [DSToken.burn-self.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DSToken_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #DSToken.balances[ABI_src] <- Gem_s  -Int ABI_wad ] [ #DSToken.supply <- Supply -Int ABI_wad ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DSToken.balances[ABI_src] <- Gem_s  -Int ABI_wad ] [ #DSToken.supply <- Supply -Int ABI_wad ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DSToken => ?_ </nonce>
         </account>

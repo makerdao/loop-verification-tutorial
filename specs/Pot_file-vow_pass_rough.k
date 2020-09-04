@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module EE419A2A84C08828C706D731A1810D16F3CBF8F5129D1CBC598B183256BA152B
+module 84423A1C70E90D37980397AE49F87552411599C34A54CF931AA0D7AA3CAAFBD9
   imports VERIFICATION
 
 // Pot_file-vow
@@ -77,7 +77,7 @@ rule [Pot.file-vow.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Pot_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Pot.vow <- ABI_addr ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Pot.vow <- ABI_addr ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Pot => ?_ </nonce>
         </account>

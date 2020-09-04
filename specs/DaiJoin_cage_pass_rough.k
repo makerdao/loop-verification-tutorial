@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 64EAD6EA26F178B46CDC490406C242BA1AD9DD03A373E1D2F83670451D24746A
+module 45DA555D0C177F0002F491FE74B1790BA5E52DB3C65B2F6A072A4FA64BBC415F
   imports VERIFICATION
 
 // DaiJoin_cage
@@ -77,7 +77,7 @@ rule [DaiJoin.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> DaiJoin_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #DaiJoin.live <- 0 ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #DaiJoin.live <- 0 ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_DaiJoin => ?_ </nonce>
         </account>

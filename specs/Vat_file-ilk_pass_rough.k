@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module F8BAB6B432E2D120FDE99F04C4527C5C36031AC8BC1F4D908BE796B0044E368D
+module 2CE2FF6380538D6E5C3A102509E718BCDF3CB3A3B38580D60CD45E82674E8DC5
   imports VERIFICATION
 
 // Vat_file-ilk
@@ -77,7 +77,7 @@ rule [Vat.file-ilk.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Vat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Vat.ilks[ABI_ilk].spot <- (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi) ] [ #Vat.ilks[ABI_ilk].line <- (#if ABI_what ==Int #string2Word("line") #then ABI_data #else Line #fi) ] [ #Vat.ilks[ABI_ilk].dust <- (#if ABI_what ==Int #string2Word("dust") #then ABI_data #else Dust #fi) ]  </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Vat.ilks[ABI_ilk].spot <- (#if ABI_what ==Int #string2Word("spot") #then ABI_data #else Spot #fi) ] [ #Vat.ilks[ABI_ilk].line <- (#if ABI_what ==Int #string2Word("line") #then ABI_data #else Line #fi) ] [ #Vat.ilks[ABI_ilk].dust <- (#if ABI_what ==Int #string2Word("dust") #then ABI_data #else Dust #fi) ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Vat => ?_ </nonce>
         </account>

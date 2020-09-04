@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 970E94DAD83EB6F09D81FD461B9FB00B5B88AE19356BC1FEAD2F8C09A0D0B075
+module 20B96B3CD2C6692099E723A5DAAEC3B14185C183E04E91AD9E81CB33B12C61F8
   imports VERIFICATION
 
 // Flopper_cage
@@ -77,7 +77,7 @@ rule [Flopper.cage.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Flopper_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  [ #Flopper.live <- 0 ] [ #Flopper.vow <- CALLER_ID ] </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE [ #Flopper.live <- 0 ] [ #Flopper.vow <- CALLER_ID ] </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Flopper => ?_ </nonce>
         </account>

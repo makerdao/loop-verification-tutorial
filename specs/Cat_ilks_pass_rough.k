@@ -1,6 +1,6 @@
 requires "dss-verification.k"
 
-module 291EC9B772CD8F9A5AF3DDECF85E6F64091CC1A6E3277D16733379CAA21C1453
+module D99C7C4A7A2BF926470D6FACE52BCA8D710FE968193A1C1816EE880A5E09FA86
   imports VERIFICATION
 
 // Cat_ilks
@@ -77,7 +77,7 @@ rule [Cat.ilks.pass.rough]:
           <acctID> ACCT_ID </acctID>
           <balance> ACCT_ID_balance </balance>
           <code> Cat_bin_runtime </code>
-          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE    </storage>
+          <storage> ACCT_ID_STORAGE => ACCT_ID_STORAGE  </storage>
           <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
           <nonce> Nonce_Cat => ?_ </nonce>
         </account>
