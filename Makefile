@@ -81,7 +81,7 @@ mkdirs:
 	@mkdir -p $(OUT_DIR)/meta/name
 	@mkdir -p $(OUT_DIR)/meta/data
 	@mkdir -p $(OUT_DIR)/output
-	@mkdir -p specs
+	@mkdir -p $(CURDIR)/specs
 
 %.build: mkdirs
 	$(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
@@ -92,11 +92,11 @@ mkdirs:
 %.prove-dump: %.build $(KPROVE_SRCS)
 	$(PROVE) --dump $* > $(OUT_DIR)/output/$@ 2>&1
 
-%.build-with-gas: %_rough.prove-dump
-	$(GET_GAS)   $*_rough
-	$(SOLVE_GAS) $*_rough
+%.build-gas: %.prove-dump
+	$(GET_GAS)   $*
+	$(SOLVE_GAS) $*
 
-%.prove-gas: %.build-with-gas
+%.prove-gas: %_rough.build-gas
 	$(MAKE) $*.prove
 
 %.hash:
@@ -116,7 +116,6 @@ dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
 $(SPEC_MANIFEST): mkdirs $(SRCS) $(DAPP_SRCS) $(KPROVE_SRCS)
-	mkdir -p $(SPECS_DIR)
 	$(KLAB_FLAGS) klab build
 
 $(SPECS_DIR)/%.k: src/%.k
