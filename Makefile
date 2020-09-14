@@ -25,7 +25,7 @@ export PATH
 
 .PHONY: all deps spec dapp kevm klab doc                                \
         build build-exhaustiveness build-gas build-fast build-work      \
-        prove prove-exhaustiveness prove-gas prove-fast prove-work      \
+        prove-stage1 prove-stage2 prove-fast prove-work                 \
         clean dapp-clean spec-clean doc-clean log-clean gen-spec mkdirs
 
 all: deps spec
@@ -49,11 +49,8 @@ klab:
 	    && npm install       \
 	    && make deps-haskell
 
-proof_names_exhaustiveness = $(shell cat proofs-exhaustiveness)
-proof_names                = $(shell cat proofs)
-proof_names_gas            = $(shell cat proofs-gas)
-proof_fast_names           = $(shell cat proofs-fast)
-proof_work_names           = $(shell cat proofs-work)
+proof_names_stage1 = $(shell cat proofs-stage1)
+proof_names_stage2 = $(shell cat proofs-stage2)
 
 KLAB      = klab
 PROVE     = $(KLAB) prove
@@ -62,17 +59,11 @@ GET_GAS   = $(KLAB) get-gas
 SOLVE_GAS = $(KLAB) solve-gas
 HASH      = $(KLAB) hash
 
-prove-exhaustiveness: $(proof_names_exhaustiveness:=.prove)
-prove:                $(proof_names:=.prove)
-prove-gas:            $(proof_names_gas:=.prove-gas)
-prove-fast:           $(proof_fast_names:=.prove)
-prove-work:           $(proof_work_names:=.prove)
+build-stage1: $(proof_names_stage1:=.build)
+build-stage2: $(proof_names_stage2:=.build)
 
-build-exhaustiveness: $(proof_names_exhaustiveness:=.build)
-build:                $(proof_names:=.build)
-build-gas:            $(proof_names_gas:=.build)
-build-fast:           $(proof_fast_names:=.build)
-build-work:           $(proof_work_names:=.build)
+prove-stage1: $(proof_names_stage1:=.prove)
+prove-stage2: $(proof_names_stage2:=.prove-gas)
 
 mkdirs:
 	@mkdir -p $(OUT_DIR)/specs
