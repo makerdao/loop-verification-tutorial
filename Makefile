@@ -55,11 +55,12 @@ proof_names_gas            = $(shell cat proofs-gas)
 proof_fast_names           = $(shell cat proofs-fast)
 proof_work_names           = $(shell cat proofs-work)
 
-PROVE     = klab prove
-BUILD     = klab build-spec
-GET_GAS   = klab get-gas
-SOLVE_GAS = klab solve-gas
-HASH      = klab hash
+KLAB      = klab
+PROVE     = $(KLAB) prove
+BUILD     = $(KLAB) build-spec
+GET_GAS   = $(KLAB) get-gas
+SOLVE_GAS = $(KLAB) solve-gas
+HASH      = $(KLAB) hash
 
 prove-exhaustiveness: $(proof_names_exhaustiveness:=.prove)
 prove:                $(proof_names:=.prove)
@@ -106,12 +107,15 @@ mkdirs:
 	$(HASH) $*
 	cp $(SPECS_DIR)/$$($(HASH) $*).k specs/$*.k
 
+%.klab-view:
+	$(KLAB) debug $$($(HASH) $*)
+
 gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
-$(SPEC_MANIFEST): $(SRCS) $(DAPP_SRCS) $(KPROVE_SRCS)
+$(SPEC_MANIFEST): mkdirs $(SRCS) $(DAPP_SRCS) $(KPROVE_SRCS)
 	mkdir -p $(SPECS_DIR)
 	$(KLAB_FLAGS) klab build
 
