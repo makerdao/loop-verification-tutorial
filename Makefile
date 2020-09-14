@@ -24,8 +24,8 @@ PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
 .PHONY: all deps spec dapp kevm klab doc                                \
-        build build-exhaustiveness build-gas build-fast build-work      \
-        prove-stage1 prove-stage2 prove-fast prove-work                 \
+        build-stage1 build-stage2 build-gas-stage1                      \
+        prove-stage1 prove-stage2                                       \
         clean dapp-clean spec-clean doc-clean log-clean gen-spec mkdirs
 
 all: deps spec
@@ -64,6 +64,8 @@ build-stage2: $(proof_names_stage2:=.build)
 
 prove-stage1: $(proof_names_stage1:=.prove)
 prove-stage2: $(proof_names_stage2:=.prove-gas)
+
+build-gas-stage1: $(proof_names_stage1:=.build-gas)
 
 mkdirs:
 	@mkdir -p $(OUT_DIR)/specs
