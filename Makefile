@@ -49,9 +49,6 @@ klab:
 	    && npm install       \
 	    && make deps-haskell
 
-proof_names_stage1 = $(shell cat proofs-stage1)
-proof_names_stage2 = $(shell cat proofs-stage2)
-
 KLAB      = klab
 PROVE     = $(KLAB) prove
 BUILD     = $(KLAB) build-spec
@@ -59,11 +56,17 @@ GET_GAS   = $(KLAB) get-gas
 SOLVE_GAS = $(KLAB) solve-gas
 HASH      = $(KLAB) hash
 
+proof_names_stage1 = $(shell cat proofs-stage1)
+proof_names_stage2 = $(shell cat proofs-stage2)
+proof_names_stage3 = $(shell cat proofs-stage3)
+
 build-stage1: $(proof_names_stage1:=.build)
 build-stage2: $(proof_names_stage2:=.build)
+build-stage3: $(proof_names_stage3:=.build)
 
 prove-stage1: $(proof_names_stage1:=.prove)
 prove-stage2: $(proof_names_stage2:=.prove-gas)
+prove-stage3: $(proof_names_stage3:=.prove-gas)
 
 build-gas-stage1: $(proof_names_stage1:=.build-gas)
 
