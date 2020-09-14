@@ -88,7 +88,7 @@ mkdirs:
 	$(SOLVE_GAS) $*
 
 %.prove-gas: %_rough.build-gas
-	$(MAKE) $*.prove
+	$(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.hash:
 	$(HASH) $*
