@@ -32,7 +32,6 @@ DaiJoin_vat_pass
 DaiJoin_wards_pass
 Dai_name_pass
 Dai_nonces_pass
-Dai_permit_pass
 Dai_PERMIT_TYPEHASH_pass
 Dai_rely-diff_pass
 Dai_rely-same_pass
@@ -173,7 +172,6 @@ Pot_rely-diff_pass
 Pot_rely-same_pass
 Pot_rho_pass
 Pot_rmul_pass
-Pot_rpow-loop_pass
 Pot_subuu_pass
 Pot_vat_pass
 Pot_vow_pass
