@@ -24,8 +24,8 @@ PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
 .PHONY: all deps spec dapp kevm klab doc                                \
-        build-stage1 build-stage2 build-gas-stage1                      \
-        prove-stage1 prove-stage2                                       \
+        build-stage1-rough build-stage1-non-rough build-stage2-rough    \
+        prove-stage1-rough prove-stage1-non-rough prove-stage2-rough    \
         clean dapp-clean spec-clean doc-clean log-clean gen-spec mkdirs
 
 all: deps spec
@@ -49,26 +49,27 @@ klab:
 	    && npm install       \
 	    && make deps-haskell
 
-KLAB      = klab
-PROVE     = $(KLAB) prove
-BUILD     = $(KLAB) build-spec
-GET_GAS   = $(KLAB) get-gas
-SOLVE_GAS = $(KLAB) solve-gas
-HASH      = $(KLAB) hash
+KLAB       = klab
+PROVE      = $(KLAB) prove
+PROVE_DUMP = $(KLAB) prove --dump
+BUILD      = $(KLAB) build-spec
+GET_GAS    = $(KLAB) get-gas
+SOLVE_GAS  = $(KLAB) solve-gas
+HASH       = $(KLAB) hash
 
-proof_names_stage1 = $(shell cat proofs-stage1)
-proof_names_stage2 = $(shell cat proofs-stage2)
-proof_names_stage3 = $(shell cat proofs-stage3)
+proofs_stage1_rough     = $(shell cat proofs-stage1-rough)
+proofs_stage1_non_rough = $(shell cat proofs-stage1-non-rough)
+proofs_stage2_rough     = $(shell cat proofs-stage2-rough)
 
-build-stage1: $(proof_names_stage1:=.build)
-build-stage2: $(proof_names_stage2:=.build)
-build-stage3: $(proof_names_stage3:=.build)
+build-exhaustiveness:   $(proofs_exhaustiveness:=.build)
+build-stage1-rough:     $(proofs_stage1_rough:=.build)
+build-stage1-non-rough: $(proofs_stage1_non_rough:=.build)
+build-stage2-rough:     $(proofs_stage2_rough:=.build)
 
-prove-stage1: $(proof_names_stage1:=.prove)
-prove-stage2: $(proof_names_stage2:=.prove-gas)
-prove-stage3: $(proof_names_stage3:=.prove-gas)
-
-build-gas-stage1: $(proof_names_stage1:=.build-gas)
+prove-exhaustiveness:   $(proofs_exhaustiveness:=.prove)
+prove-stage1-rough:     $(proofs_stage1_rough:=.prove-rough)
+prove-stage1-non-rough: $(proofs_stage1_non_rough:=.prove-non-rough)
+prove-stage2-rough:     $(proofs_stage2_rough:=.prove-rough)
 
 mkdirs:
 	@mkdir -p $(OUT_DIR)/specs
@@ -86,13 +87,20 @@ mkdirs:
 	$(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.prove-dump: %.build $(KPROVE_SRCS)
-	$(PROVE) --dump $* > $(OUT_DIR)/output/$@ 2>&1
+	$(PROVE_DUMP) $* > $(OUT_DIR)/output/$@ 2>&1
 
-%.build-gas: %.prove-dump
+%.build-gas: %_rough.prove-dump
+	$(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
+
+%.prove-gas: %.build $(KPROVE_SRCS)
+	$(PROVE_DUMP) $* > $(OUT_DIR)/output/$@ 2>&1
+
+%.prove-rough: $(KPROVE_SRCS)
+	$(PROVE_DUMP) $* > $(OUT_DIR)/output/$@ 2>&1
 	$(GET_GAS)   $*
 	$(SOLVE_GAS) $*
 
-%.prove-gas: %_rough.build-gas
+%.prove-non-rough:
 	$(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
 
 %.hash:
