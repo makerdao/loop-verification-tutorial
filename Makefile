@@ -24,8 +24,6 @@ PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
 .PHONY: all deps spec dapp kevm klab doc                                \
-        build-stage1-rough build-stage1-non-rough build-stage2-rough    \
-        prove-stage1-rough prove-stage1-non-rough prove-stage2-rough    \
         clean dapp-clean spec-clean doc-clean log-clean gen-spec mkdirs
 
 all: deps spec
@@ -56,52 +54,12 @@ BUILD      = $(KLAB) build-spec
 GET_GAS    = $(KLAB) get-gas
 SOLVE_GAS  = $(KLAB) solve-gas
 HASH       = $(KLAB) hash
+KLAB_MAKE  = $(KLAB) make
 
-proofs_stage1_rough     = $(shell cat proofs-stage1-rough)
-proofs_stage1_non_rough = $(shell cat proofs-stage1-non-rough)
-proofs_stage2_rough     = $(shell cat proofs-stage2-rough)
+include.mak:
+	$(KLAB_MAKE) > include.mak
 
-build-exhaustiveness:   $(proofs_exhaustiveness:=.build)
-build-stage1-rough:     $(proofs_stage1_rough:=.build)
-build-stage1-non-rough: $(proofs_stage1_non_rough:=.build)
-build-stage2-rough:     $(proofs_stage2_rough:=.build)
-
-prove-exhaustiveness:   $(proofs_exhaustiveness:=.prove)
-prove-stage1-rough:     $(proofs_stage1_rough:=.prove-rough)
-prove-stage1-non-rough: $(proofs_stage1_non_rough:=.prove-non-rough)
-prove-stage2-rough:     $(proofs_stage2_rough:=.prove-rough)
-
-mkdirs:
-	@mkdir -p $(OUT_DIR)/specs
-	@mkdir -p $(OUT_DIR)/acts
-	@mkdir -p $(OUT_DIR)/gas
-	@mkdir -p $(OUT_DIR)/meta/name
-	@mkdir -p $(OUT_DIR)/meta/data
-	@mkdir -p $(OUT_DIR)/output
-	@mkdir -p $(CURDIR)/specs
-
-%.build: mkdirs
-	$(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
-
-%.prove: %.build $(KPROVE_SRCS)
-	$(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
-
-%.prove-dump: %.build $(KPROVE_SRCS)
-	$(PROVE_DUMP) $* > $(OUT_DIR)/output/$@ 2>&1
-
-%.build-gas: %_rough.prove-dump
-	$(BUILD) $* > $(OUT_DIR)/output/$@ 2>&1
-
-%.prove-gas: %.build $(KPROVE_SRCS)
-	$(PROVE_DUMP) $* > $(OUT_DIR)/output/$@ 2>&1
-
-%.prove-rough: $(KPROVE_SRCS)
-	$(PROVE_DUMP) $* > $(OUT_DIR)/output/$@ 2>&1
-	$(GET_GAS)   $*
-	$(SOLVE_GAS) $*
-
-%.prove-non-rough:
-	$(PROVE) $* > $(OUT_DIR)/output/$@ 2>&1
+include include.mak
 
 %.hash:
 	$(HASH) $*
