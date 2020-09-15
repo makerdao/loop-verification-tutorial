@@ -23,8 +23,8 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc                                   \
-        clean dapp-clean spec-clean doc-clean log-clean gen-spec mkoutdirs
+.PHONY: all deps spec dapp kevm klab doc                                 \
+        clean dapp-clean spec-clean doc-clean log-clean gen-spec outdirs
 
 all: deps spec
 
@@ -56,7 +56,7 @@ SOLVE_GAS  = $(KLAB) solve-gas
 HASH       = $(KLAB) hash
 KLAB_MAKE  = $(KLAB) make
 
-mkoutdirs:
+outdirs:
 	@mkdir -p $(OUT_DIR)/specs
 	@mkdir -p $(OUT_DIR)/acts
 	@mkdir -p $(OUT_DIR)/gas
@@ -64,8 +64,9 @@ mkoutdirs:
 	@mkdir -p $(OUT_DIR)/meta/data
 	@mkdir -p $(OUT_DIR)/output
 	@mkdir -p $(CURDIR)/specs
+	cp src/dss-verification.k out/specs/dss-verification.k
 
-include.mak:
+include.mak: src/dss.md Makefile
 	$(KLAB_MAKE) > include.mak
 
 include include.mak
