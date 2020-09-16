@@ -23,7 +23,7 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc                                 \
+.PHONY: all deps spec dapp kevm klab doc prove-work                      \
         clean dapp-clean spec-clean doc-clean log-clean gen-spec outdirs
 
 all: deps spec
@@ -70,6 +70,9 @@ include.mak: src/dss.md Makefile
 	$(KLAB_MAKE) > include.mak
 
 include include.mak
+
+prove-work: KLAB=profile log-prove-work timeout 1200 klab
+prove-work: $(shell cat proofs-work)
 
 %.hash:
 	$(HASH) $*
