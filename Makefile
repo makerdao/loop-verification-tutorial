@@ -33,13 +33,13 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(KLAB_EVMS_PATH)/deps/k/k-distribution/target/release/k/bin:$(PATH)
 export PATH
 
-include.mak: src/dss.md Makefile
+include.mak: src/dss.md Makefile $(KLAB_OUT_LOCAL)/specs/verification.k deps/klab/libexec/klab-make
 	$(KLAB_MAKE) > include.mak
 
 include include.mak
 
-.PHONY: all deps spec dapp kevm klab doc prove-work                              \
-        clean dapp-clean spec-clean doc-clean log-clean gen-spec gen-gas outdirs
+.PHONY: all deps spec dapp kevm klab doc prove-work                      \
+        clean dapp-clean spec-clean doc-clean log-clean gen-spec gen-gas
 
 all: deps spec
 
@@ -56,25 +56,24 @@ kevm:
 	    && make deps RELEASE=true           \
 	    && make build-java RELEASE=true -j4
 
-klab:
+klab: deps/klab/libexec/klab-make
+
+deps/klab/libexec/klab-make:
 	git submodule update --init --recursive -- deps/klab
 	cd deps/klab/            \
 	    && npm install       \
 	    && make deps-haskell
 
 $(KLAB_OUT_LOCAL)/specs/verification.k: src/verification.k
-	mkdir -p $(KLAB_OUT)/specs
-	cp $< $@
-
-outdirs:
-	@mkdir -p $(OUT_DIR)/specs
-	@mkdir -p $(OUT_DIR)/acts
-	@mkdir -p $(OUT_DIR)/gas
-	@mkdir -p $(OUT_DIR)/meta/name
-	@mkdir -p $(OUT_DIR)/meta/data
-	@mkdir -p $(OUT_DIR)/output
+	@mkdir -p $(KLAB_OUT_LOCAL)/specs
+	@mkdir -p $(KLAB_OUT_LOCAL)/specs
+	@mkdir -p $(KLAB_OUT_LOCAL)/acts
+	@mkdir -p $(KLAB_OUT_LOCAL)/gas
+	@mkdir -p $(KLAB_OUT_LOCAL)/meta/name
+	@mkdir -p $(KLAB_OUT_LOCAL)/meta/data
+	@mkdir -p $(KLAB_OUT_LOCAL)/output
 	@mkdir -p $(CURDIR)/specs
-	cp src/dss-verification.k out/specs/dss-verification.k
+	cp $< $@
 
 prove-work: KLAB=profile log-prove-work timeout 1200 klab
 prove-work: $(shell cat proofs-work)
