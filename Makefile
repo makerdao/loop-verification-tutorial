@@ -1,7 +1,6 @@
 DAPP_DIR = $(CURDIR)/dss
 SRC_DIR = $(CURDIR)/src
 SRCS = $(addprefix $(SRC_DIR)/, dss.md lemmas.k.md storage.k.md prelude.smt2.md)
-SPECS_SRCS = $(CURDIR)/dss.md
 DAPP_SRCS = $(wildcard $(DAPP_DIR)/src/*)
 # if KLAB_OUT isn't defined, default is to use out/
 OUT_DIR_LOCAL  = out
@@ -33,7 +32,9 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(KLAB_EVMS_PATH)/deps/k/k-distribution/target/release/k/bin:$(PATH)
 export PATH
 
-include.mak: src/dss.md Makefile $(KLAB_OUT_LOCAL)/specs/verification.k deps/klab/libexec/klab-make
+SPEC_SRCS = src/dss.md $(KLAB_OUT_LOCAL)/specs/verification.k
+
+include.mak: Makefile deps/klab/makefile.timestamp $(SPEC_SRCS)
 	$(KLAB_MAKE) > include.mak
 
 include include.mak
@@ -56,13 +57,14 @@ kevm:
 	    && make deps RELEASE=true           \
 	    && make build-java RELEASE=true -j4
 
-klab: deps/klab/libexec/klab-make
+klab: deps/klab/makefile.timestamp
 
-deps/klab/libexec/klab-make:
+deps/klab/makefile.timestamp:
 	git submodule update --init --recursive -- deps/klab
-	cd deps/klab/            \
-	    && npm install       \
-	    && make deps-haskell
+	cd deps/klab/                   \
+	    && npm install              \
+	    && make deps-haskell        \
+	    && touch makefile.timestamp
 
 $(KLAB_OUT_LOCAL)/specs/verification.k: src/verification.k
 	@mkdir -p $(KLAB_OUT_LOCAL)/specs
