@@ -23,8 +23,8 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 PATH := $(CURDIR)/deps/klab/bin:$(KLAB_EVMS_PATH)/deps/k/k-distribution/target/release/k/bin:$(PATH)
 export PATH
 
-.PHONY: all deps spec dapp kevm klab doc prove-work                      \
-        clean dapp-clean spec-clean doc-clean log-clean gen-spec outdirs
+.PHONY: all deps spec dapp kevm klab doc prove-work                              \
+        clean dapp-clean spec-clean doc-clean log-clean gen-spec gen-gas outdirs
 
 all: deps spec
 
@@ -87,9 +87,11 @@ prove-work: $(shell cat proofs-work)
 
 gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
 
-%.gen-gas:
+%_pass_rough.gen-gas: %_pass.build
 	cat $(OUT_DIR)/gas/$$($(HASH) $*).raw.kast.json | jq '{ "format": "KAST", "version": 1.0, "term": . }' > $(OUT_DIR)/gas/$*.json
 	kast --directory deps/evm-semantics/.build/defn/java --input json --output pretty --sort Int $(OUT_DIR)/gas/$*.json > specs/$*.gas
+
+gen-gas: $(pass_rough_specs:=.gen-gas)
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
