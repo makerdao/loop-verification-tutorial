@@ -20,7 +20,7 @@ RULES = $(OUT_DIR)/rules.k
 
 SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 
-PATH := $(CURDIR)/deps/klab/bin:$(PATH)
+PATH := $(CURDIR)/deps/klab/bin:$(KLAB_EVMS_PATH)/deps/k/k-distribution/target/release/k/bin:$(PATH)
 export PATH
 
 .PHONY: all deps spec dapp kevm klab doc prove-work                      \
@@ -86,6 +86,10 @@ prove-work: $(shell cat proofs-work)
 	$(KLAB) debug $$($(HASH) $*)
 
 gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
+
+%.gen-gas:
+	cat $(OUT_DIR)/gas/$$($(HASH) $*).raw.kast.json | jq '{ "format": "KAST", "version": 1.0, "term": . }' > $(OUT_DIR)/gas/$*.json
+	kast --directory deps/evm-semantics/.build/defn/java --input json --output pretty --sort Int $(OUT_DIR)/gas/$*.json > specs/$*.gas
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
