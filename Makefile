@@ -1,9 +1,12 @@
 DAPP_DIR = $(CURDIR)/dss
 SRC_DIR = $(CURDIR)/src
 SRCS = $(addprefix $(SRC_DIR)/, dss.md lemmas.k.md storage.k.md prelude.smt2.md)
+SPECS_SRCS = $(CURDIR)/dss.md
 DAPP_SRCS = $(wildcard $(DAPP_DIR)/src/*)
 # if KLAB_OUT isn't defined, default is to use out/
-OUT_DIR        = $(CURDIR)/out
+OUT_DIR_LOCAL  = out
+KLAB_OUT_LOCAL = $(OUT_DIR_LOCAL)
+OUT_DIR        = $(CURDIR)/$(OUT_DIR_LOCAL)
 KLAB_OUT       = $(OUT_DIR)
 KLAB_EVMS_PATH = $(CURDIR)/deps/evm-semantics
 export KLAB_OUT
@@ -13,7 +16,14 @@ SPECS_DIR = $(OUT_DIR)/specs
 ACTS_DIR = $(OUT_DIR)/acts
 DOC_DIR = $(OUT_DIR)/doc
 
-KPROVE_SRCS = $(SPECS_DIR)/dss-verification.k
+KLAB       = klab
+PROVE      = $(KLAB) prove
+PROVE_DUMP = $(KLAB) prove --dump
+BUILD      = $(KLAB) build-spec
+GET_GAS    = $(KLAB) get-gas
+SOLVE_GAS  = $(KLAB) solve-gas
+HASH       = $(KLAB) hash
+KLAB_MAKE  = $(KLAB) make
 
 SMT_PRELUDE = $(OUT_DIR)/prelude.smt2
 RULES = $(OUT_DIR)/rules.k
@@ -22,6 +32,11 @@ SPEC_MANIFEST = $(SPECS_DIR)/specs.manifest
 
 PATH := $(CURDIR)/deps/klab/bin:$(KLAB_EVMS_PATH)/deps/k/k-distribution/target/release/k/bin:$(PATH)
 export PATH
+
+include.mak: src/dss.md Makefile
+	$(KLAB_MAKE) > include.mak
+
+include include.mak
 
 .PHONY: all deps spec dapp kevm klab doc prove-work                              \
         clean dapp-clean spec-clean doc-clean log-clean gen-spec gen-gas outdirs
@@ -47,14 +62,9 @@ klab:
 	    && npm install       \
 	    && make deps-haskell
 
-KLAB       = klab
-PROVE      = $(KLAB) prove
-PROVE_DUMP = $(KLAB) prove --dump
-BUILD      = $(KLAB) build-spec
-GET_GAS    = $(KLAB) get-gas
-SOLVE_GAS  = $(KLAB) solve-gas
-HASH       = $(KLAB) hash
-KLAB_MAKE  = $(KLAB) make
+$(KLAB_OUT_LOCAL)/specs/verification.k: src/verification.k
+	mkdir -p $(KLAB_OUT)/specs
+	cp $< $@
 
 outdirs:
 	@mkdir -p $(OUT_DIR)/specs
@@ -65,11 +75,6 @@ outdirs:
 	@mkdir -p $(OUT_DIR)/output
 	@mkdir -p $(CURDIR)/specs
 	cp src/dss-verification.k out/specs/dss-verification.k
-
-include.mak: src/dss.md Makefile
-	$(KLAB_MAKE) > include.mak
-
-include include.mak
 
 prove-work: KLAB=profile log-prove-work timeout 1200 klab
 prove-work: $(shell cat proofs-work)
@@ -96,7 +101,7 @@ gen-gas: $(pass_rough_specs:=.gen-gas)
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
-$(SPEC_MANIFEST): mkdirs $(SRCS) $(DAPP_SRCS) $(KPROVE_SRCS)
+$(SPEC_MANIFEST): mkdirs $(SRCS) $(DAPP_SRCS) $(SPECS_SRCS)
 	$(KLAB_FLAGS) klab build
 
 $(SPECS_DIR)/%.k: src/%.k
