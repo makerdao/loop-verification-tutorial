@@ -18,6 +18,7 @@ DOC_DIR = $(OUT_DIR)/doc
 KLAB       = klab
 PROVE      = $(KLAB) prove
 PROVE_DUMP = $(KLAB) prove --dump
+PROVE_ARGS = --concrete-rules $(shell cat $(KLAB_EVMS_PATH)/tests/specs/mcd/concrete-rules.txt | tr '\n' ',')
 BUILD      = $(KLAB) build-spec
 GET_GAS    = $(KLAB) get-gas
 SOLVE_GAS  = $(KLAB) solve-gas
