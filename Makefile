@@ -64,7 +64,6 @@ deps/klab/makefile.timestamp:
 	git submodule update --init --recursive -- deps/klab
 	cd deps/klab/                   \
 	    && npm install              \
-	    && make deps-haskell        \
 	    && touch makefile.timestamp
 
 $(KLAB_OUT_LOCAL)/specs/verification.k: src/verification.k
