@@ -93,9 +93,12 @@ prove-work: $(shell cat proofs-work)
 
 gen-spec: $(proof_names:=.gen-spec) $(proof_names_exhaustiveness:=.gen-spec)
 
-%.gen-gas: $(KLAB_OUT_LOCAL)/gas/%
+$(KLAB_OUT_LOCAL)/gas/%.json: $(KLAB_OUT_LOCAL)/gas/%
 	cat $(KLAB_OUT_LOCAL)/gas/$$($(HASH) $*).raw.kast.json | jq '{ "format": "KAST", "version": 1.0, "term": . }' > $(KLAB_OUT_LOCAL)/gas/$*.json
-	kast --directory deps/evm-semantics/.build/defn/java --input json --output pretty --sort Int $(KLAB_OUT_LOCAL)/gas/$*.json > specs/$*.gas
+
+specs/%.gas: $(KLAB_OUT_LOCAL)/gas/%.json
+	# kast --directory deps/evm-semantics/.build/defn/java --input json --output pretty --sort Int $(KLAB_OUT_LOCAL)/gas/$*.json > specs/$*.gas
+	python3 write-gas.py $< > $@
 
 gen-gas: $(pass_rough_specs:=.gen-gas)
 
