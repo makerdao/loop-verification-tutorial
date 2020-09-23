@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D2B1B02857679E8171FC6B044BCC798C8B6F969264FADD2569A992BF24F34502
+module E84FB61B8451C7D5E2BC960843F511378DC1E7C6DB34628B7EEDFB03943E17D2
   imports VERIFICATION
 
 // Vat_can
@@ -27,7 +27,7 @@ rule [Vat.can.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,9 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_dst)
   andBool (#rangeUInt(256, Can)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))))
+  andBool ((VCallValue ==Int 0)))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.can[ABI_src][ABI_dst]) ==Int Can
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.can[ABI_src][ABI_dst]) ==Int Junk_0 

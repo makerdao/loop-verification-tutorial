@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 17DC622B22DD29D64D804127A1A5BB7E98D33CDA3FCAD77CE2E608983C36DCB1
+module 020A4EA7C2534E21456789E20F6E8B3B3A88BA9A4B8CABC866BBB404E36D40C8
   imports VERIFICATION
 
 // Flopper_muluu
@@ -27,7 +27,7 @@ rule [Flopper.muluu.fail.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  => ?_ </wordStack>
         <localMem> _ </localMem>
         <pc> 8685 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_x)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))
 
 
   andBool notBool (

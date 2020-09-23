@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module A6D5DE8EAE589E303C38BEA385F9D978CAF44595C0B30DAC309C13DE94BCCD3A
+module B0688AD11DBDA0853C678C49BCB2FCA7A3379770D052030DD7AC8D982D307679
   imports VERIFICATION
 
 // End_minuu
@@ -27,7 +27,7 @@ rule [End.minuu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : #if ABI_x <=Int ABI_y #then ABI_x #else ABI_y #fi : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 14801 => 14826 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_x)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))
 
  
 

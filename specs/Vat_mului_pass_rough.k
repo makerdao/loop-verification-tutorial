@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module CFD53D658935F390C4EBC26FC98B7BE20754C9DE1D81E8F192AF3ECAA720EA16
+module AAB407F71F0A7E06135CF7CC4DDFA94570B2F9C20832D518CCB41EE0F0376C09
   imports VERIFICATION
 
 // Vat_mului
@@ -27,7 +27,7 @@ rule [Vat.mului.pass.rough]:
         <wordStack> chop(ABI_y) : ABI_x : JMPTO : WS  =>  JMPTO : chop(ABI_x *Int ABI_y) : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 13175 => 13233 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,9 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeSInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
   andBool ((#rangeSInt(256, ABI_x))
-  andBool ((#rangeSInt(256, ABI_x *Int ABI_y)))))))))
+  andBool ((#rangeSInt(256, ABI_x *Int ABI_y))))))))
 
  
 

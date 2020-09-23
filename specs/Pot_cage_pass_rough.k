@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module EB9A865024D3D4F07E933735123F0F2531170F7DE93B8C9A8FA071FC082A29FF
+module 0FF27A13931474061DA1913C102B6854C796EDCADE4877ADF34335AA5CCC666E
   imports VERIFICATION
 
 // Pot_cage
@@ -27,7 +27,7 @@ rule [Pot.cage.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,12 +184,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Dsr)
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))
+  andBool ((VCallValue ==Int 0))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Pot.dsr) ==Int Dsr

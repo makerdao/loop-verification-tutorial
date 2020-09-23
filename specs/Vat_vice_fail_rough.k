@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 3F1D0FA9DF69E6D5E2F8A6897201A1DD6F1CF869D64835FC782152CBC6A98C90
+module CF2AD3B9BD32233B056A1C8CC3DD2EB52BDA3482E3679DA4044A5BFE9ABCEBBA
   imports VERIFICATION
 
 // Vat_vice
@@ -27,7 +27,7 @@ rule [Vat.vice.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Vice)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.vice) ==Int Vice
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.vice) ==Int Junk_0

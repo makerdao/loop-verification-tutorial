@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 76EB53FE5B68AD8065BCC3FD94D179A516A7E4E85B0C9D2070AA84FAEFB1866D
+module BE52CAC71A3F99FCE2ACDDCB85901EDA275783623BC403C0D260E106A3F15E26
   imports VERIFICATION
 
 // Vat_sin
@@ -27,7 +27,7 @@ rule [Vat.sin.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, Rad)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.sin[ABI_usr]) ==Int Rad
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.sin[ABI_usr]) ==Int Junk_0 

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module F5FEC496A255238135F24B0206D3D0EEDE064EA22F8B29597217CD6B28C90D8A
+module B94D50B06497AC912905ED2691F5E6768D68BBA083E25B14FA1FE0359FCAF4CF
   imports VERIFICATION
 
 // Cat_muluu
@@ -27,7 +27,7 @@ rule [Cat.muluu.fail.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  => ?_ </wordStack>
         <localMem> _ </localMem>
         <pc> 6020 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_x)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))
 
 
   andBool notBool (

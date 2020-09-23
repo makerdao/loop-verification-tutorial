@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module FD955E36F823710635FD623C9EA5F13DC5692789905D65F934A3153098F7F58B
+module 82B25B546A8CEC4EA23A8E81EA347B7354BE0A58F11383856CDA19CE427C437B
   imports VERIFICATION
 
 // Dai_subuu
@@ -27,7 +27,7 @@ rule [Dai.subuu.fail.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  => ?_ </wordStack>
         <localMem> _ </localMem>
         <pc> 7799 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_x)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 100)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))
 
 
   andBool notBool (

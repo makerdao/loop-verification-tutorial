@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module F69EDE9DEE41BA36E3D09582FC05A8A9C5FC069F4D373BB4F9ECECFD94596D8A
+module 698A106532D004E311F7CC6A1B3F8AA0F58C052BDB65AB756BB8FC598AA4EAD1
   imports VERIFICATION
 
 // Pot_chi
@@ -27,7 +27,7 @@ rule [Pot.chi.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Chi)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.chi) ==Int Chi
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.chi) ==Int Junk_0 

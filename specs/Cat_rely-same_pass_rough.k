@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C25236E14F45FDDB28A011FDB2949A00FCD54608EFE6AC081B999C41CB0F102A
+module EE8058DA64F689F4B5EC771C93D845859D5ACC08A368D232E3CBB55667717264
   imports VERIFICATION
 
 // Cat_rely-same
@@ -27,7 +27,7 @@ rule [Cat.rely-same.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((ABI_usr ==Int CALLER_ID)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))
+  andBool ((VCallValue ==Int 0))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0 

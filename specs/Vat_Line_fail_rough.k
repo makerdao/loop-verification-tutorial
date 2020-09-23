@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C2B0F9CEF405935A5A90CE7A2EF5A748DCA3343F514BC22953DF4A11DB057DFF
+module 37FC26DA85BFF29CA197706B7CF881949565EEF91727B5F25A48951F06D52B76
   imports VERIFICATION
 
 // Vat_Line
@@ -27,7 +27,7 @@ rule [Vat.Line.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Line)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.Line) ==Int Line
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.Line) ==Int Junk_0

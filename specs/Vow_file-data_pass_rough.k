@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 9F8BDE67F32EF6E295E799294B0610F95ECAA0300217BE311E4E3BB60EC9C544
+module 7787A17A1F0A4E41EBDF364AAD1A8D5F8F9D14507DAA70925AC42D491755A1B3
   imports VERIFICATION
 
 // Vow_file-data
@@ -27,7 +27,7 @@ rule [Vow.file-data.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -189,7 +189,6 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Bump)
   andBool (#rangeUInt(256, Hump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -198,7 +197,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Junk_5)
   andBool ((May ==Int 1)
   andBool (((ABI_what ==Int #string2Word("wait")) orBool (ABI_what ==Int #string2Word("dump")) orBool (ABI_what ==Int #string2Word("sump")) orBool (ABI_what ==Int #string2Word("bump")) orBool (ABI_what ==Int #string2Word("hump")))
-  andBool ((VCallValue ==Int 0))))))))))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vow.wait) ==Int Wait

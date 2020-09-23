@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 2C2E2E04C2FFD4FED6F9515E4448ED9B3CBEE0EB682FFAEAD150BE53532DB737
+module 1C5CB397BBB4D16B78AB1D5813786E1CA9E6723B8AE3AA2B0CBFC2E5D955A2A6
   imports VERIFICATION
 
 // GemJoin_dec
@@ -27,7 +27,7 @@ rule [GemJoin.dec.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Dec)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.dec) ==Int Dec
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.dec) ==Int Junk_0 

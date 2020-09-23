@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 166087188DFFE0A9B533DAFE9ED46F91C06CA53D92D9DC9B5451B42A99698FF5
+module 4C5DBADE4EC145FE7B26852B8C4AA55DCAE688BDDBC5D12D804A586CA0B1F393
   imports VERIFICATION
 
 // Flipper_deny-diff
@@ -27,7 +27,7 @@ rule [Flipper.deny-diff.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[ABI_usr]) ==Int Junk_0

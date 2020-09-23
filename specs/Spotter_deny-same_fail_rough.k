@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 4ECA97ED8C9A1754A7B0A23D36C96A085187D56DE3B9B872A141340C5F2D47DB
+module 2DA73B0B74BCE9A996AFD73B899B4C8FAA5E23ACDE20C53C4186DBBE8736135D
   imports VERIFICATION
 
 // Spotter_deny-same
@@ -27,7 +27,7 @@ rule [Spotter.deny-same.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((ABI_usr ==Int CALLER_ID)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))))
+  andBool (#rangeUInt(256, Junk_0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_0

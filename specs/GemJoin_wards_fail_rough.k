@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C036BEF2185C721A595DA32898F2629C47DCEDC04D34F3433E54660574CE87A8
+module D6172099809498674C364B4C7604F1A79628323EA721F53ADBE1EDB2C64593FC
   imports VERIFICATION
 
 // GemJoin_wards
@@ -27,7 +27,7 @@ rule [GemJoin.wards.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[ABI_usr]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_0

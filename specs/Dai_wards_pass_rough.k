@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 85CA07852A4DCDF882B906E195FD4CDEBF1ED64B14CA0B3A3208A3B820CD7C38
+module A2D46DCCCC06D1BBD9DACC812CB0B59F4CC7A22C06B446F727ABCE16FC938809
   imports VERIFICATION
 
 // Dai_wards
@@ -27,7 +27,7 @@ rule [Dai.wards.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[ABI_usr]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[ABI_usr]) ==Int Junk_0 

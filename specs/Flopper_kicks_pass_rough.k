@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 506C875B4E7B1336445CA5067EEE657CE25B53EE376141CA78E089468800808E
+module 9AB744759E108C476B0FE80327678B847F538F89ADDA3560013833F6CF06CBE5
   imports VERIFICATION
 
 // Flopper_kicks
@@ -27,7 +27,7 @@ rule [Flopper.kicks.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Kicks)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.kicks) ==Int Kicks
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.kicks) ==Int Junk_0 

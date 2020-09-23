@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module BE029047D5EAEC70908DEC24CF2155BEC8B831772315891F4BA0BCD92D2A66FF
+module 5DBA16B990AA13A55CD1279B4B95C82912B99B36584FEB23913044B8BB624131
   imports VERIFICATION
 
 // Dai_version
@@ -27,7 +27,7 @@ rule [Dai.version.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -181,8 +181,7 @@ andBool #rangeUInt(256, VCallValue)
 andBool #rangeUInt(256, VChainId)
 
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool ((VCallValue ==Int 0))))
+  andBool ((VCallValue ==Int 0)))
 
  
 

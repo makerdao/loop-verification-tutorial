@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 282F244F1E535A33CF7C8CB44FB7EE79D45633F202F48A43AC1E18EEA67F1243
+module D4D40227F4D955979C964644C44A625A84D3426452362FC4671A180B8AAEB25C
   imports VERIFICATION
 
 // Vat_deny-diff
@@ -27,7 +27,7 @@ rule [Vat.deny-diff.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,11 +185,10 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Live)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
-  andBool (#rangeUInt(256, Junk_3)))))))))))
+  andBool (#rangeUInt(256, Junk_3))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[ABI_usr]) ==Int Junk_0

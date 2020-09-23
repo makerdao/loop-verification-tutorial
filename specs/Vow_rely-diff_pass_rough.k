@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 2283CD0BA36929C116A577728D2508BD0DCF27F5646226785EC19D15FCBB0E55
+module 3B1C837ECD732DA4685A40CCC7D4457A530B3F59293D139CA48CFAD8ED5F339D
   imports VERIFICATION
 
 // Vow_rely-diff
@@ -27,7 +27,7 @@ rule [Vow.rely-diff.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,14 +185,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Live)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[ABI_usr]) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 9DC3F67FB2CFD27C046521743386582AD42F606FCFD3CA5266AC507514340B74
+module D19AC17358CE5FA6F76E690F59C12F016D0B1769A44AB507A5344E0228E22800
   imports VERIFICATION
 
 // Flopper_rely-diff
@@ -27,7 +27,7 @@ rule [Flopper.rely-diff.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[ABI_usr]) ==Int Junk_0

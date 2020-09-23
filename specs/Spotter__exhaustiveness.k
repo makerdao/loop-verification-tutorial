@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 6568864DC1B525A368A6280E27AE693D926CF3963848C3362F159643EC51F5B9
+module 9F059B87D59A97D2AA385ED8DB9A4999798EC179E480D97FEDACC1B152D3CA31
   imports VERIFICATION
 
 // Spotter__exhaustiveness
@@ -11,7 +11,7 @@ rule [Spotter..exhaustiveness]:
   <schedule> ISTANBUL </schedule>
   <ethereum>
     <evm>
-      <output> _ => VOutput </output>
+      <output> _ => ?_ </output>
       <statusCode> _ => EVMC_REVERT </statusCode>
       <endPC> _ => ?_ </endPC>
       <callStack> VCallStack </callStack>
@@ -22,16 +22,16 @@ rule [Spotter..exhaustiveness]:
         <jumpDests> #computeValidJumpDests(Spotter_bin_runtime) </jumpDests>
         <id> ACCT_ID </id>
         <caller> CALLER_ID </caller>
-        <callData> VCallData </callData>
+        <callData> #abiCallData("poke", #bytes32(ABI_ilk)) ++ CD => ?_ </callData>
         <callValue> VCallValue </callValue>
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
-        <static> VStatic </static>
-        <callDepth> VCallDepth </callDepth>
+        <static> false </static>
+        <callDepth> VCallDepth => ?_ </callDepth>
       </callState>
       <substate>
         <selfDestruct> VSelfDestruct </selfDestruct>
@@ -62,7 +62,18 @@ rule [Spotter..exhaustiveness]:
     </evm>
     <network>
       <chainID> VChainId </chainID>
-      <activeAccounts> VActiveAccounts </activeAccounts>
+      <activeAccounts> SetItem(ACCT_ID)
+      SetItem(Pip)
+      SetItem(Vat)
+      SetItem(1)
+      SetItem(2)
+      SetItem(3)
+      SetItem(4)
+      SetItem(5)
+      SetItem(6)
+      SetItem(7)
+      SetItem(8)
+      SetItem(9) _ </activeAccounts>
       <accounts> _ </accounts>
       <txOrder> _ </txOrder>
       <txPending> _ </txPending>
@@ -99,7 +110,6 @@ andBool 1230844619 =/=Int #asWord(VCallData [ 0 .. 4 ])
 andBool 352601615 =/=Int #asWord(VCallData [ 0 .. 4 ])
 andBool 1710941022 =/=Int #asWord(VCallData [ 0 .. 4 ])
 andBool 911646327 =/=Int #asWord(VCallData [ 0 .. 4 ])
-andBool 3207937467 =/=Int #asWord(VCallData [ 0 .. 4 ])
-andBool VGas >=Int 40000000 
+andBool 3207937467 =/=Int #asWord(VCallData [ 0 .. 4 ]) 
 
 endmodule

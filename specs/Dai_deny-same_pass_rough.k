@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 7363CA884F810A2D44957B066787C32898249BBF5BFF3AE540AFA91C3B9BE59C
+module AAA725FD582A9DF2F6F4FD5898425C01BEDB9FA04FDA15EE0C6582A5BEF98492
   imports VERIFICATION
 
 // Dai_deny-same
@@ -27,7 +27,7 @@ rule [Dai.deny-same.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Could)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID ==Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool ((Could ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))
+  andBool ((VCallValue ==Int 0))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[CALLER_ID]) ==Int Could
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.wards[CALLER_ID]) ==Int Junk_0 

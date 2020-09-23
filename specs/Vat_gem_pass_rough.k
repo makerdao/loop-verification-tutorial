@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 1D9508EF4CA0939316F7BE2F599D3ACAE690F7C5E99F69CA4702C45B5AE01EE7
+module 20845C9CDC94EF9C5C7985828D02F66F87E983EF455C829314BAC1F406F8BEBA
   imports VERIFICATION
 
 // Vat_gem
@@ -27,7 +27,7 @@ rule [Vat.gem.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,9 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, Gem)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))))
+  andBool ((VCallValue ==Int 0)))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.gem[ABI_ilk][ABI_usr]) ==Int Gem
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.gem[ABI_ilk][ABI_usr]) ==Int Junk_0 

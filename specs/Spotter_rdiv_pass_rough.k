@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 6D6F0AB50C89F57D42157BC8C77E17FFDEEAA1C27ECEB2E5FEE5C8BBDEF345E3
+module 970A87EDBE5571FE814BB2EF290E795CEBCB0E33E72ED2EFBB2C3172B1E9A815
   imports VERIFICATION
 
 // Spotter_rdiv
@@ -27,7 +27,7 @@ rule [Spotter.rdiv.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : (ABI_x *Int #Ray) /Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 4151 => 4191 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,9 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
   andBool (((ABI_y =/=Int 0))
-  andBool ((#rangeUInt(256, ABI_x *Int #Ray)))))))))
+  andBool ((#rangeUInt(256, ABI_x *Int #Ray))))))))
 
  
 

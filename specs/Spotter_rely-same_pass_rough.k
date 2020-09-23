@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module AF6ACE6BF43A7077A216849AAD3D54365D27550FC3505A21AA24E589DBBD8540
+module F110EB3E34186FB6AA284A618826BDD684A2F203CBAF4E0BBB4FB5056189BDA9
   imports VERIFICATION
 
 // Spotter_rely-same
@@ -27,7 +27,7 @@ rule [Spotter.rely-same.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((ABI_usr ==Int CALLER_ID)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))
+  andBool ((VCallValue ==Int 0))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.wards[CALLER_ID]) ==Int Junk_0 

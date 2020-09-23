@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 76A5CF990CAA7B9B0957CB66D4D20099335C9CF9FEAFF08A282DEDDE6B4E226B
+module F6A7E246DBB77E9D7959572789EE6633A2FA9D86B96067A0D074ED887F6E318D
   imports VERIFICATION
 
 // Dai_rely-diff
@@ -27,7 +27,7 @@ rule [Dai.rely-diff.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Dai.wards[ABI_usr]) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8805D827DCF7DE2DB15B6C17A27BF36BF1E0D3B8771274D9BCD482A5E205EB41
+module C678036257C6616F6D1BAF73DB16D0F40626326648054DCF1AC1E0B5769D76B8
   imports VERIFICATION
 
 // Flipper_kicks
@@ -27,7 +27,7 @@ rule [Flipper.kicks.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Kicks)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.kicks) ==Int Kicks
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.kicks) ==Int Junk_0

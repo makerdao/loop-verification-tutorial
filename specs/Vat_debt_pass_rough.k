@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D528A49FB7CD98FD88BDEE8B11DACB8D905114B568703B517FD3A58CC71AE964
+module 809B1801E585140C5F1D4692FDA9FE9E13C3B4B6CCF0F46016D7D2E9831C054E
   imports VERIFICATION
 
 // Vat_debt
@@ -27,7 +27,7 @@ rule [Vat.debt.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Debt)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.debt) ==Int Debt
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.debt) ==Int Junk_0 

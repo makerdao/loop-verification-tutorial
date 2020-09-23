@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D2EF042E7D1D2500EAF53DFAECA86196BDAA78EF38922B21C998EF21346FF090
+module 24FFDC37E50726DFFE66E139CEEFADB22F583984837554AA320914D9E635D932
   imports VERIFICATION
 
 // End_file-addr
@@ -27,7 +27,7 @@ rule [End.file-addr.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -195,7 +195,6 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vow)
   andBool (#notPrecompileAddress(Pot)
   andBool (#notPrecompileAddress(Spot)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -206,7 +205,7 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool (((ABI_what ==Int #string2Word("vat")) orBool (ABI_what ==Int #string2Word("cat")) orBool (ABI_what ==Int #string2Word("vow")) orBool (ABI_what ==Int #string2Word("pot")) orBool (ABI_what ==Int #string2Word("spot"))))))))))))))))))))))))))))))
+  andBool (((ABI_what ==Int #string2Word("vat")) orBool (ABI_what ==Int #string2Word("cat")) orBool (ABI_what ==Int #string2Word("vow")) orBool (ABI_what ==Int #string2Word("pot")) orBool (ABI_what ==Int #string2Word("spot")))))))))))))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat

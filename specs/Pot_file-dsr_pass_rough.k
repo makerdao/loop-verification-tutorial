@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module A0CA1F8FB064CC837AF862F60AA41E4CFEB8789B3874E3D394FD8847C4CA82E5
+module CFC7EAE696E0ED8BA70A16AF33B910D91817F746DAE7A4F706C885A43F6A0C13
   imports VERIFICATION
 
 // Pot_file-dsr
@@ -27,7 +27,7 @@ rule [Pot.file-dsr.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -186,7 +186,6 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Dsr)
   andBool (#rangeUInt(48, Rho)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -195,7 +194,7 @@ andBool #rangeUInt(256, VChainId)
   andBool ((Live ==Int 1)
   andBool ((ABI_what ==Int #string2Word("dsr"))
   andBool ((Rho ==Int TIME)
-  andBool ((VCallValue ==Int 0)))))))))))))))))
+  andBool ((VCallValue ==Int 0))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Pot.dsr) ==Int Dsr

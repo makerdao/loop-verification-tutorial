@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module A7368985CAAD0393C1F68C9D0807A5A026D86C391D6A199ADDDBBE5814A3A471
+module 10832575B5A8A06A2F3AD66258BFCDF926CA51D1A931ED0799653E73A3CA04A2
   imports VERIFICATION
 
 // Jug_rely-diff
@@ -27,7 +27,7 @@ rule [Jug.rely-diff.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,12 +184,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))
+  andBool ((VCallValue ==Int 0))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[ABI_usr]) ==Int Junk_0

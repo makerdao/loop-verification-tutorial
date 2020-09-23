@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 07DBDB210970CA8FCB042B62DE730C0DFA916068078B2DB3FB261DA044CE342F
+module 65C6597329894B76410F637E48EB78723F5C9D3B4D14EDCFFB43FDF21A2DD301
   imports VERIFICATION
 
 // Vow_Ash
@@ -27,7 +27,7 @@ rule [Vow.Ash.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Ash)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.Ash) ==Int Ash
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.Ash) ==Int Junk_0

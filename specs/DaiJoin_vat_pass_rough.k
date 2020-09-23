@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module A48B27FDA54A6ADF556AD79151031C612012D821B0B22EE6386FC673DB4B74EE
+module 159CD71AAB90A4D92BA93FC82B565CFC5A84642655FB76056DF1B7C9590F4BC6
   imports VERIFICATION
 
 // DaiJoin_vat
@@ -27,7 +27,7 @@ rule [DaiJoin.vat.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vat)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vat)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.vat) ==Int Vat
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.vat) ==Int Junk_0 

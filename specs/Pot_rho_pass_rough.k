@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 86CB1086E388254BFD90DE7D0C85BCE8D3E58E4B5703B0B29537C7F5D4297561
+module BC2BD4C79619D19FD11EB5D8458581A954FEC45157BF46E730E605B4D1AACC47
   imports VERIFICATION
 
 // Pot_rho
@@ -27,7 +27,7 @@ rule [Pot.rho.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Rho)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.rho) ==Int Rho
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.rho) ==Int Junk_0 

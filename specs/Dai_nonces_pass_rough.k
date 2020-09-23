@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B677D3853598332E27206D62DCF60170FC1ED5D3D36407323CCC20495D58200C
+module 218C7ADEF825057E38082B1BA6F42B34140A85404D92C96ED19A0117684A958C
   imports VERIFICATION
 
 // Dai_nonces
@@ -27,7 +27,7 @@ rule [Dai.nonces.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_who)
   andBool (#rangeUInt(256, Nonce)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_who]) ==Int Nonce
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.nonces[ABI_who]) ==Int Junk_0 

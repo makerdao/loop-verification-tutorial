@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module CD62B69AAF9FE358A5901124FBE924E404CF7CB853A1EEC6C4788747BE2B1CAD
+module A2690D66FF852EA6093B67C0A9824BF12D642EC6CE00DF151F35A1EA62FA3FBD
   imports VERIFICATION
 
 // DSToken_transferFrom
@@ -27,7 +27,7 @@ rule [DSToken.transferFrom.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -191,11 +191,10 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((#notPrecompileAddress(Owner))
   andBool ((ABI_src =/=Int ABI_dst)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
-  andBool (#rangeUInt(256, Junk_3)))))))))))))))))
+  andBool (#rangeUInt(256, Junk_3))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Allowance
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_src]) ==Int Gem_s

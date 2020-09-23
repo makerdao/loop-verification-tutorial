@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 10BEDCDDE40450386788519F75FCD6458083723D4BED258C5C52614670234404
+module BB2DC762FEEB3B0D71D87E5C13CB376CFD4D20F6035B371B7CD9385ABDD75682
   imports VERIFICATION
 
 // Vat_rely-same
@@ -27,7 +27,7 @@ rule [Vat.rely-same.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,12 +185,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Live)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((ABI_usr ==Int CALLER_ID)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live

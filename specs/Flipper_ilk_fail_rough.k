@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 7D4088E5982ED3DCD0E7F27852EFA0BDFC4366BC0649B26535C1F6F5C6C662A3
+module 40CF10878530661A3B16932137CE9D6E3137AE75FCEA9F04178856147B664877
   imports VERIFICATION
 
 // Flipper_ilk
@@ -27,7 +27,7 @@ rule [Flipper.ilk.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Ilk)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.ilk) ==Int Ilk
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ilk) ==Int Junk_0

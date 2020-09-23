@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module F1EA262FBAE048F9902D40520A153BD7D688845F6D49DEF0855B5E42857FF3A5
+module F64660B8E4602902DF967016C1111A7D43F17C509AF2866C7A6A8C36E6DDD277
   imports VERIFICATION
 
 // Flipper_tau
@@ -27,7 +27,7 @@ rule [Flipper.tau.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(48, Ttl)
   andBool (#rangeUInt(48, Tau)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.ttl_tau) ==Int #WordPackUInt48UInt48(Ttl, Tau)
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.ttl_tau) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 12E11ECA2F47BA6C91C9FFC36A6642C57A6F0DB4D46CCF01C51CD081428DF0F6
+module 34287CEA47DFDF3F727EDD93CC4C6E48B44F959B8CE37EFC41382B085379F912
   imports VERIFICATION
 
 // Cat_deny-same
@@ -27,7 +27,7 @@ rule [Cat.deny-same.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Could)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID ==Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool ((Could ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))
+  andBool ((VCallValue ==Int 0))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int Could
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.wards[CALLER_ID]) ==Int Junk_0 

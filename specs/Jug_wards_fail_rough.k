@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module CDFD32E0E7F7563236CDC63EA967AD09ED6E428960A2441DC279884CCFC52E26
+module AA778C3D60A70A913AB86519296B7D258B7FC8EA33AB3C522531F6B35F1D06A6
   imports VERIFICATION
 
 // Jug_wards
@@ -27,7 +27,7 @@ rule [Jug.wards.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[ABI_usr]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[ABI_usr]) ==Int Junk_0

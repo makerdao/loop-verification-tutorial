@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module ED6245B2BDB04510B3C2D9C806EE782C64869D1BD277AC3C3C4722F9AA8D1F06
+module 29FD6BAA7A18CF297C04E19B36CA84258778C29DC8524CC322D9FF900A9585A1
   imports VERIFICATION
 
 // Jug_adduu
@@ -27,7 +27,7 @@ rule [Jug.adduu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x +Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 4288 => 4313 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x +Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x +Int ABI_y)))))))
 
  
 

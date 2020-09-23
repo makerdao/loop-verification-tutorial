@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 1511D9D01E521FFE5408FEC93461AE92B47DD8562E9791B3956E641222D6F419
+module 567690A8BA9D2C27F6FBDA2631981BE160B79801DA937881B4C9AF073A8F3BB0
   imports VERIFICATION
 
 // End_rely-diff
@@ -27,7 +27,7 @@ rule [End.rely-diff.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #End.wards[ABI_usr]) ==Int Junk_0

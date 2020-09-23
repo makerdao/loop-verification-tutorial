@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module A70C3BE2EB2E3AC0A0FFBACA3300D82EC844C9D479E15AA2CD463E99B3CD52F5
+module A0564A9A696B0B46985D5143FC588E1F15B381DA2E0866C16BF3DBF8681839A1
   imports VERIFICATION
 
 // DSToken_mint
@@ -27,7 +27,7 @@ rule [DSToken.mint.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -190,10 +190,9 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#notPrecompileAddress(Owner))
   andBool ((Owner ==Int CALLER_ID)
   andBool ((ACCT_ID =/=Int CALLER_ID)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_dst]) ==Int Gem_d
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.supply) ==Int Supply

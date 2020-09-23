@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module BA516E1E90E43FE54838303E51F6CD8A5DC9D1C2399C9CAB9AC8F7BAB2C91C14
+module 85E1D936E4A146F3370DC06DA884E25CF3CF60FE4D3620BD2AA13BD7331C0393
   imports VERIFICATION
 
 // End_bag
@@ -27,7 +27,7 @@ rule [End.bag.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, Wad)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.bag[ABI_usr]) ==Int Wad
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.bag[ABI_usr]) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module E5D8E0CD714AEF9162118BF6C84153AFE482858367178EAE6BE4B047A646C664
+module 260E963607521FCAECD1588CE6433F5BC0A7D5A093F5F69B01364070E63D9022
   imports VERIFICATION
 
 // Vow_adduu
@@ -27,7 +27,7 @@ rule [Vow.adduu.fail.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  => ?_ </wordStack>
         <localMem> _ </localMem>
         <pc> 9777 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_x)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 100)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))
 
 
   andBool notBool (

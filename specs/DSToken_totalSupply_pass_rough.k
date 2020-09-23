@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module CBD640A06576D39EA65E9BAF757A6D49C12AA2240C889BFCE1B809DE8194DEC7
+module D924E7E1EBF1B32F31D62084A2F316143E16EA0B7FD5F6FD61067E476483B495
   imports VERIFICATION
 
 // DSToken_totalSupply
@@ -27,7 +27,7 @@ rule [DSToken.totalSupply.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Supply)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.supply) ==Int Supply
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.supply) ==Int Junk_0 

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B3D4EC1B6A2EBBC02D2D74A2FB56F6447C7E8B12E36E020BEEE8CB383740CE87
+module 90ED938F1FDE7CEC9203EA62402A8C12800732A5FE8121753BB487ADD7769A55
   imports VERIFICATION
 
 // Pot_rmul
@@ -27,7 +27,7 @@ rule [Pot.rmul.fail.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  => ?_ </wordStack>
         <localMem> _ </localMem>
         <pc> 5145 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_x)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))
 
 
   andBool notBool (

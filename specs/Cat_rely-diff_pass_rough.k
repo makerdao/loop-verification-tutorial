@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 5CCF2DA0FA70B282786F1B4E92E876834436ED846567E9AC7A9ADB22282649EF
+module DC5403F8C73CFB53B3E67A151C8129749C70B6A9CA48BBCE59FFAC9C7B2A9435
   imports VERIFICATION
 
 // Cat_rely-diff
@@ -27,7 +27,7 @@ rule [Cat.rely-diff.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,12 +184,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID =/=Int ABI_usr)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))
+  andBool ((VCallValue ==Int 0))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[ABI_usr]) ==Int Junk_0

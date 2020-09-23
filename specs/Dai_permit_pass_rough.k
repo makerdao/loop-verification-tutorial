@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 0070EAD4AACE2B71FE8C7C53F3E8AA5D1E54E19CAC81264728610D8696C34765
+module DCEF649172E22D8D55A0EB704B2036B59B3B969503C9B875E85686F7C24C55E1
   imports VERIFICATION
 
 // Dai_permit
@@ -27,7 +27,7 @@ rule [Dai.permit.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -193,7 +193,6 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeBytes(32, Domain_separator)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((#rangeUInt(256, Nonce +Int 1))
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -202,7 +201,7 @@ andBool #rangeUInt(256, VChainId)
   andBool ((ABI_ttl ==Int 0 orBool TIME <=Int ABI_ttl)
   andBool ((VCallValue ==Int 0)
   andBool ((ABI_n ==Int Nonce)
-  andBool ((VCallDepth <Int 1024))))))))))))))))))))))))
+  andBool ((VCallDepth <Int 1024)))))))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Nonce
   andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Domain_separator

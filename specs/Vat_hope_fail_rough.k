@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module BF747248C5D95413C982F275FD0F93794261327555FD73AE99F5905266B81BAB
+module BFD0AEEB7C6B4124E1CC2E61779818026D72FB4953FF522406515D36A7D225A1
   imports VERIFICATION
 
 // Vat_hope
@@ -27,7 +27,7 @@ rule [Vat.hope.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeAddress(ABI_usr)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool (#rangeUInt(256, Junk_1))))))
+  andBool (#rangeUInt(256, Junk_1)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.can[CALLER_ID][ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.can[CALLER_ID][ABI_usr]) ==Int Junk_1

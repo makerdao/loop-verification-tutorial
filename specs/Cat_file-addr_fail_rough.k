@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module DF75440D66D1CE235E16F448567B3A8ACACAD845EBF128327328EA565901D4C8
+module 8DF2714E4BEC8211AC268F6ABB178A3C702A99E0499AE386B35410A4A02EB349
   imports VERIFICATION
 
 // Cat_file-addr
@@ -27,7 +27,7 @@ rule [Cat.file-addr.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -186,9 +186,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vow)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vow)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool (#rangeUInt(256, Junk_1))))))))))
+  andBool (#rangeUInt(256, Junk_1)))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Cat.vow) ==Int Vow

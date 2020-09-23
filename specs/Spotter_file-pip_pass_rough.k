@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 58ABED8838C8CAF2FB2408C0F088ABAB1DB45DE00A01A452E3DC64AC44B457C2
+module FCBCA7C97862B45DD175813096D59CF4CB32C0DB301386B89714207B1562F109
   imports VERIFICATION
 
 // Spotter_file-pip
@@ -27,7 +27,7 @@ rule [Spotter.file-pip.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -188,14 +188,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Pip)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Pip)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
   andBool ((Live ==Int 1)
-  andBool ((ABI_what ==Int #string2Word("pip"))))))))))))))))))
+  andBool ((ABI_what ==Int #string2Word("pip")))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip

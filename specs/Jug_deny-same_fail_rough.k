@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 19F600614B3A91512EC4B61474FCC51D5111FC7AA57F7F9D2F80EDAFE9119122
+module 70E3E371C0F7B98D53C9B0592894A6889162EF763AA43D4669CF587120E44497
   imports VERIFICATION
 
 // Jug_deny-same
@@ -27,7 +27,7 @@ rule [Jug.deny-same.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Could)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((CALLER_ID ==Int ABI_usr)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))))
+  andBool (#rangeUInt(256, Junk_0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int Could
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[CALLER_ID]) ==Int Junk_0

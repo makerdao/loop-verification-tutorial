@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 1F629D9B3CAE1AF59F491323F7A4A702C12D1C5C27087DFAD2FFFCE86F5E8049
+module DE2BD576F6372F0E79503F50F5D3DACB3A45C15AE72261691FA2E18CF9ACD32A
   imports VERIFICATION
 
 // DaiJoin_dai
@@ -27,7 +27,7 @@ rule [DaiJoin.dai.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Dai)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Dai)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.dai) ==Int Dai
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.dai) ==Int Junk_0

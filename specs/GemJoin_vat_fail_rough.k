@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8A04852D7950BC7A6C955AD74DF106A1A11D2C9B35B92F4C2E14B40CBF0FA9D8
+module 5D56DA273E55D05316E757B4AEDDC935A8C6F38F0106ECDBE92F51E65020EF8F
   imports VERIFICATION
 
 // GemJoin_vat
@@ -27,7 +27,7 @@ rule [GemJoin.vat.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vat)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vat)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.vat) ==Int Vat
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.vat) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 1BBA2DA44037A80F44B3C1955391250B7B57BD2949DD6DC9F2D4F64197B71425
+module CC5A85448AD41FC19E6BCDA4ED92CC4A2A915F7C10C5152DCDFF3B5BFD4F1DDB
   imports VERIFICATION
 
 // DSToken_balanceOf
@@ -27,7 +27,7 @@ rule [DSToken.balanceOf.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, BalanceOf)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_usr]) ==Int BalanceOf
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DSToken.balances[ABI_usr]) ==Int Junk_0

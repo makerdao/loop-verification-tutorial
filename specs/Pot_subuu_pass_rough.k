@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 3B6D51618348448704D5B5120C15B7A1D786571302164D3E312076556F02164C
+module DDFBD1A2CF84F5EAEC8713B10D20465C2528C6F7114418BC677DC294C328658F
   imports VERIFICATION
 
 // Pot_subuu
@@ -27,7 +27,7 @@ rule [Pot.subuu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x -Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 4921 => 4946 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x -Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x -Int ABI_y)))))))
 
  
 

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 648F6C9AA595373A8D709DF7E145BC5AAB173941E5D8315F117B84CAC2E94557
+module EC46A8ECD7E9425E3766D6C685F2FF71DAA69C217497FA7B2AC28EAD93673E98
   imports VERIFICATION
 
 // Flipper_bids
@@ -27,7 +27,7 @@ rule [Flipper.bids.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -193,13 +193,12 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Guy)
   andBool (#notPrecompileAddress(Usr)
   andBool (#notPrecompileAddress(Gal)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
-  andBool (#rangeUInt(256, Junk_5)))))))))))))))))))))
+  andBool (#rangeUInt(256, Junk_5))))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].bid) ==Int Bid
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.bids[ABI_n].lot) ==Int Lot

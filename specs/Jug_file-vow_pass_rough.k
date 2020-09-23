@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module A7B74A2CDAAC90913DD4F1246D69FB4A3B5996AA32281B8995CB39BD9BA84231
+module 38E1EB8939EC41AC3E1D604532B48DA23681A08116B30E5385A37AB982E07914
   imports VERIFICATION
 
 // Jug_file-vow
@@ -27,7 +27,7 @@ rule [Jug.file-vow.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -186,12 +186,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vow)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vow)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool ((ABI_what ==Int #string2Word("vow"))))))))))))))
+  andBool ((ABI_what ==Int #string2Word("vow")))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Jug.vow) ==Int Vow

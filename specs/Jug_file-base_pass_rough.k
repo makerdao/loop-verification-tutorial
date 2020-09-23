@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 82D808482A6DC2E437798AB26C89F4E30B4433A1A9B126DEE4FB5C059B5CCFA2
+module C5114543414BEE66CD75BE887C19EF3F2009B807489C2BB361F8CA1DFD8940C3
   imports VERIFICATION
 
 // Jug_file-base
@@ -27,7 +27,7 @@ rule [Jug.file-base.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,12 +185,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool (#rangeUInt(256, Base)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((May ==Int 1)
   andBool ((ABI_what ==Int #string2Word("base"))
-  andBool ((VCallValue ==Int 0))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Jug.base) ==Int Base

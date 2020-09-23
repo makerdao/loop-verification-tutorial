@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8EA1A5D4FB9013BBDE1640C2C2CF44E38F403C64B3C3C2AA47E4E6EB11C3A94B
+module 076184F251E5BA0A15F6502AD7DDCB9F8EAC8CCE6145DA0118F33A8D9740DE72
   imports VERIFICATION
 
 // Flipper_muluu
@@ -27,7 +27,7 @@ rule [Flipper.muluu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x *Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 11396 => 11439 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))
 
  
 

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 630B9BF9BA4D214A7864A8F5DC9D2725D1580C033583D83DAA68A2F6BDA5BCD8
+module F68E60692E04EE13A91AB3A731B845D289DEE466967CF9F31AF1FF2BDDE9C570
   imports VERIFICATION
 
 // Vat_cage
@@ -27,7 +27,7 @@ rule [Vat.cage.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool (#rangeUInt(256, Lives)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool (#rangeUInt(256, Junk_1)))))))
+  andBool (#rangeUInt(256, Junk_1))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Lives

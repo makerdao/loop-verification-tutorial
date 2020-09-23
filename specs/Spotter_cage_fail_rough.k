@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8D9D3FCAAE1232E41162043452D55B4A9C646BA08B9D721822E1AEC572E9D2D0
+module 098DFD241E022132BA44D163C854CE9D45A1D1F816EB47BF0FE5DA07020876D1
   imports VERIFICATION
 
 // Spotter_cage
@@ -27,7 +27,7 @@ rule [Spotter.cage.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -182,10 +182,9 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))
+  andBool (#rangeUInt(256, Junk_2))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.live) ==Int Junk_0

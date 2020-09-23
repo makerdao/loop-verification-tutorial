@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 2ABD91D51E6583F2D3D0550006A120D118E02EC6896E1DEF8F08A3DCAB1AA66B
+module 8ABC1132B9D3C9CD75B0449ABAE7BF5DD7BD12DA3705182F65AFC74156899903
   imports VERIFICATION
 
 // End_wait
@@ -27,7 +27,7 @@ rule [End.wait.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Wait)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.wait) ==Int Wait
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wait) ==Int Junk_0

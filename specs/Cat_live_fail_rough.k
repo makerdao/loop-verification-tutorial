@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D03BCDEFE12F6D0B6341055064574563BB62B389CCEF7F041FB0C76A985BD248
+module A60D26FEFBBBB3D6A5740C2A9E629FD7E74FEA16B3A1EF510F4F492AA08BAD54
   imports VERIFICATION
 
 // Cat_live
@@ -27,7 +27,7 @@ rule [Cat.live.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Cat.live) ==Int Junk_0

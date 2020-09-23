@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 45DA555D0C177F0002F491FE74B1790BA5E52DB3C65B2F6A072A4FA64BBC415F
+module B4DD8B7D3D0F21813853FA131F6D7FC69B6D88A0621CEFFB836AB9E4242DD5CE
   imports VERIFICATION
 
 // DaiJoin_cage
@@ -27,7 +27,7 @@ rule [DaiJoin.cage.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -182,12 +182,11 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))
+  andBool ((VCallValue ==Int 0))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.live) ==Int Junk_0

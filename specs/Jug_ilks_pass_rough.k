@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 78EF01E2D6986339AAA4A9B178947056FECBA948AA1BA5A885E6EC08D994391C
+module 4AA4E9A1F5A7940FFB6421D41E4708C48CB46ABE7704C30A5C2D8D2B17BAD071
   imports VERIFICATION
 
 // Jug_ilks
@@ -27,7 +27,7 @@ rule [Jug.ilks.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -185,10 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Duty)
   andBool (#rangeUInt(48, Rho)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0))))))))))
+  andBool ((VCallValue ==Int 0)))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty
   andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Rho

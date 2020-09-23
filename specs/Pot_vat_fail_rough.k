@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module FF6897F345753B8F3F55EFD13803E87BA790638B7DD70B36ACBDD46F57B5F90D
+module A00507FDB630B294A8763B461E0342FB82BD7D4669D7A51F10EDEEC7835D9FED
   imports VERIFICATION
 
 // Pot_vat
@@ -27,7 +27,7 @@ rule [Pot.vat.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vat)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vat)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.vat) ==Int Vat
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.vat) ==Int Junk_0

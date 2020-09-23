@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module F7992D6F97ED1521B9046DA6B7920374D8A75DAC6699BF498B0FABB0F29FEC09
+module 57D0D539C3488898C64E2D86ABEAB30DAB5B10B313D9084E8AFA5358D77D39A1
   imports VERIFICATION
 
 // End_wards
@@ -27,7 +27,7 @@ rule [End.wards.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_usr)
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.wards[ABI_usr]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.wards[ABI_usr]) ==Int Junk_0 

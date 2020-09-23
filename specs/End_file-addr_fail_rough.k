@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 423DF9EA68EA71893977D8E2DD54E7637B3FA9B2FBC148436ABEFF303055E744
+module B7C51719EA32C170D35BF726EF9CDAF855BF78D047AA47264741EA6FDA008996
   imports VERIFICATION
 
 // End_file-addr
@@ -27,7 +27,7 @@ rule [End.file-addr.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -195,14 +195,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#notPrecompileAddress(Vow)
   andBool (#notPrecompileAddress(Pot)
   andBool (#notPrecompileAddress(Spot)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
   andBool (#rangeUInt(256, Junk_5)
-  andBool (#rangeUInt(256, Junk_6))))))))))))))))))))))))
+  andBool (#rangeUInt(256, Junk_6)))))))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat

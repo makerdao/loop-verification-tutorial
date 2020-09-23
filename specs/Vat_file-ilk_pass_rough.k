@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 2CE2FF6380538D6E5C3A102509E718BCDF3CB3A3B38580D60CD45E82674E8DC5
+module AFFF8B96D2CAA930D4DE24BDCDAF38F1E2ED732B17C5F02B3F1CA61CD82DD6D5
   imports VERIFICATION
 
 // Vat_file-ilk
@@ -27,7 +27,7 @@ rule [Vat.file-ilk.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -189,7 +189,6 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Dust)
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -198,7 +197,7 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((Live ==Int 1)
   andBool (((ABI_what ==Int #string2Word("spot")) orBool (ABI_what ==Int #string2Word("line")) orBool (ABI_what ==Int #string2Word("dust")))
-  andBool ((VCallValue ==Int 0))))))))))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Spot

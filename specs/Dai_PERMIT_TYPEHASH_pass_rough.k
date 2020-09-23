@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 51AE032A30A1983372D2FE9219CBB8EE57EC6BF4CB2B811672B4E689319B5C35
+module 8B84AA897309F221EEE26839E537D95E1E31698F56566444053198026954FE55
   imports VERIFICATION
 
 // Dai_PERMIT_TYPEHASH
@@ -27,7 +27,7 @@ rule [Dai.PERMIT.TYPEHASH.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -181,8 +181,7 @@ andBool #rangeUInt(256, VCallValue)
 andBool #rangeUInt(256, VChainId)
 
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool ((VCallValue ==Int 0))))
+  andBool ((VCallValue ==Int 0)))
 
  
 

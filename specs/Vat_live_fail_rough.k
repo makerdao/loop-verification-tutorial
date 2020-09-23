@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 2446B6B5FD4E8FC1767BED4208C1BBFF27284F81102A14FCF51FE3BA2BA65F5E
+module 5586FFA0EEB46957D9C7B60371426F01D7102EC4DB647C2DA05F102DEF183A2F
   imports VERIFICATION
 
 // Vat_live
@@ -27,7 +27,7 @@ rule [Vat.live.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.live) ==Int Junk_0

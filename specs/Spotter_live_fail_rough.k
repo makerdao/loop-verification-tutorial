@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8601E6CF0A0723F57A4E697C8DE9233F922A5C75C372B943D8CD58EA5C687C4B
+module 584CCD9594DB1050FD01DD4ACF6AD1A52FA5DE59D6BE032F98BFBF38B3C14784
   imports VERIFICATION
 
 // Spotter_live
@@ -27,7 +27,7 @@ rule [Spotter.live.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.live) ==Int Junk_0

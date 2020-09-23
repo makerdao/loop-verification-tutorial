@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 20B96B3CD2C6692099E723A5DAAEC3B14185C183E04E91AD9E81CB33B12C61F8
+module 6BF8F26BE8A4B58D6734FD300E4D4ABC7BEFFDF55564AA03A25C7F3C3914ABF0
   imports VERIFICATION
 
 // Flopper_cage
@@ -27,7 +27,7 @@ rule [Flopper.cage.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,12 +185,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vow)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vow)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((Ward ==Int 1)
-  andBool ((VCallValue ==Int 0))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int Ward
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.live) ==Int Live

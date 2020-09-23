@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D873E625F2A2F0E21E7749A3304F0B1D16D7A9E0E6B0A5C04BFB0373E08C895E
+module 84DE5CD0416F0EC8AEFEF34C61B3DC078FFBBC19447FA80B7AA1F412431D3844
   imports VERIFICATION
 
 // Pot_muluu
@@ -27,7 +27,7 @@ rule [Pot.muluu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x *Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 4877 => 4920 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))
 
  
 

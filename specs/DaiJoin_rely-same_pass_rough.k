@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C0F0925D5E6D3B60E95FB37A97F6FDE2465CEA053277575CAB9CBD2BC2E67665
+module F00B64900FBDF695865271DD75525DE8B876C25BE991F3C3417A72053B80B8A5
   imports VERIFICATION
 
 // DaiJoin_rely-same
@@ -27,7 +27,7 @@ rule [DaiJoin.rely-same.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,10 +184,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((ABI_usr ==Int CALLER_ID)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool ((VCallValue ==Int 0)
-  andBool ((May ==Int 1)))))))))
+  andBool ((May ==Int 1))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.wards[CALLER_ID]) ==Int Junk_0 

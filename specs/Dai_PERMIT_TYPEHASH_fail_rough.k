@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 03AD4089B186FFDFA7766E157AE92FC67E407BA9EAAC0B54F3460F84C0BB5F01
+module E6DFCE35001FA8242E1D4218AA3E39F8B804F931F2D4D9555A5D35C062B68602
   imports VERIFICATION
 
 // Dai_PERMIT_TYPEHASH
@@ -27,7 +27,7 @@ rule [Dai.PERMIT.TYPEHASH.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -180,8 +180,7 @@ andBool VCallDepth <=Int 1024
 andBool #rangeUInt(256, VCallValue)
 andBool #rangeUInt(256, VChainId)
 
-  andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000))
+  andBool (#sizeByteArray(CD) <=Int 1250000000)
 
 
   andBool notBool (

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module DEE266C754D63A76261600D2E927179159872A3CEC2CFEA30CE33EE4DA863E39
+module F85BBF0D5D63005D184DFF2933F59C0DA4D06607A53FBF369236D13327BD6C68
   imports VERIFICATION
 
 // Spotter_muluu
@@ -27,7 +27,7 @@ rule [Spotter.muluu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x *Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 4107 => 4150 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))
 
  
 

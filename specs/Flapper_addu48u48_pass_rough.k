@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 845A75D17F9F5EF447B28D91A7DDCD3AFE32EC0BFFA166A83E1479789C96F3E6
+module 590C4E07C2F7F0424B9372C76E677433C9DACF5DAE288C5B0C3719B624BA4277
   imports VERIFICATION
 
 // Flapper_addu48u48
@@ -27,7 +27,7 @@ rule [Flapper.addu48u48.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x +Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 8945 => 8986 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(48, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(48, ABI_x +Int ABI_y))))))))
+  andBool ((#rangeUInt(48, ABI_x +Int ABI_y)))))))
 
  
 

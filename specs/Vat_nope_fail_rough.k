@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C6BF8EEFDD90784BBCA169323C067F958A70441AE451648586A01BE89EB03DF5
+module CD7DF22FC710C7D66EABE5D48AF4BF69C934012F4019BB68937FD2F5369F1522
   imports VERIFICATION
 
 // Vat_nope
@@ -27,7 +27,7 @@ rule [Vat.nope.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeAddress(ABI_usr)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool (#rangeUInt(256, Junk_1))))))
+  andBool (#rangeUInt(256, Junk_1)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.can[CALLER_ID][ABI_usr]) ==Int Junk_0
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vat.can[CALLER_ID][ABI_usr]) ==Int Junk_1

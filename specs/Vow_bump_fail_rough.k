@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 6E5A363562E902B5C38D6296D2697762586EF9105FC0157439D6B07D30BF1385
+module 09C83ECF2C434ABD5E5EAF15E3E5A283B7C5EF137C7796389A03072C041EB3FC
   imports VERIFICATION
 
 // Vow_bump
@@ -27,7 +27,7 @@ rule [Vow.bump.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Bump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.bump) ==Int Bump
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.bump) ==Int Junk_0

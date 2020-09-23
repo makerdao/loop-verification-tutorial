@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 2EBB5B57E48BFEA10E7DF06F7F598104D25353B6E1B92D3F0066B664B2D0113E
+module 9503CAF0F0A195628B667163591DB0C8F320160CDAA05B619C736EB95102B62D
   imports VERIFICATION
 
 // Cat_file
@@ -27,7 +27,7 @@ rule [Cat.file.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -187,13 +187,12 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Chop)
   andBool (#rangeUInt(256, Lump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool ((ABI_what ==Int #string2Word("chop") orBool ABI_what ==Int #string2Word("lump"))))))))))))))))
+  andBool ((ABI_what ==Int #string2Word("chop") orBool ABI_what ==Int #string2Word("lump")))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Chop

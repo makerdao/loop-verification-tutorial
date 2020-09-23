@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module DA8FD1256F48B10DA1EE7C3FD3B7BE0CD6248BE722884D51A622C72E3DB94D42
+module BA689BC94BAAA85C93526FFC2BE38642C8B6FF436B5CDB709278E3B28F780B79
   imports VERIFICATION
 
 // Vat_adduu
@@ -27,7 +27,7 @@ rule [Vat.adduu.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : ABI_x +Int ABI_y : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 13086 => 13111 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 100)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x +Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x +Int ABI_y)))))))
 
  
 

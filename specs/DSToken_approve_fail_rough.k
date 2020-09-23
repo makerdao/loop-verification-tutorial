@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 0C7BCB57353D784177F51E436ED20D5E8AED86BFEEB5DB912DC417951C4AB0CB
+module AD456FE02455F33777C411719D6661EBECE186861ED352BDCC9684515A354960
   imports VERIFICATION
 
 // DSToken_approve
@@ -27,7 +27,7 @@ rule [DSToken.approve.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -187,9 +187,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Owner)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Owner)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool (#rangeUInt(256, Junk_1)))))))))))
+  andBool (#rangeUInt(256, Junk_1))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[CALLER_ID][ABI_usr]) ==Int Allowed
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.owner_stopped) ==Int #WordPackAddrUInt8(Owner, Stopped)

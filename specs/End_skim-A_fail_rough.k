@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B03437FB5AD83D46222678C849D97203D5C6C158E92F3ADF7C25CE03B180A986
+module AA264695D0959FCE45E1C1C51E722EC8AF9B5B2F9A5741796AB0A1F20B9BB345
   imports VERIFICATION
 
 // End_skim-A
@@ -27,7 +27,7 @@ rule [End.skim-A.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeBytes(32, ABI_ilk)
   andBool (#rangeAddress(ABI_urn)
-  andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000))))
+  andBool (#sizeByteArray(CD) <=Int 1250000000)))
 
 
   andBool notBool (

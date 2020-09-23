@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D72FECA783B8793AF75835E2E7D0D152427ABAB9DC319564346F0A56705FD2EB
+module 810A313A388D1FF8E172AD75A55C06460F5DEB59EFD27B6E9DA2426F8B48A7A9
   imports VERIFICATION
 
 // End_rmul
@@ -27,7 +27,7 @@ rule [End.rmul.pass.rough]:
         <wordStack> ABI_y : ABI_x : JMPTO : WS  =>  JMPTO : (ABI_x *Int ABI_y) /Int #Ray : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 14623 => 14663 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_y)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000
-  andBool ((#rangeUInt(256, ABI_x *Int ABI_y))))))))
+  andBool ((#rangeUInt(256, ABI_x *Int ABI_y)))))))
 
  
 

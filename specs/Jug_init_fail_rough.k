@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 79865F0F9C1FCCB3A8EC563CF7B13D7A5FDBACB522B48FBDD00952D5BCFFD1CA
+module 96E7FAFE7CFA3E74E21C32F3EB6AB29C942DA1529B13B9834D8E0ADF0E0A3D84
   imports VERIFICATION
 
 // Jug_init
@@ -27,7 +27,7 @@ rule [Jug.init.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,10 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Duty)
   andBool (#rangeUInt(256, Rho)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2))))))))))
+  andBool (#rangeUInt(256, Junk_2)))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B388EF39DD33B0D6EBC9F1536A8757B64E91BFA0E1E7FDEC468927D7BD840AE6
+module A10136D6C8BB6522075B208DAA20B51199637BCEFBF8D548F9758AC53BA70DD2
   imports VERIFICATION
 
 // GemJoin_live
@@ -27,7 +27,7 @@ rule [GemJoin.live.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #GemJoin.live) ==Int Junk_0 

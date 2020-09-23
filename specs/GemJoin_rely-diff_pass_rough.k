@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module E0E37CA5EC19FB382F8AED1567AA7CC9639608F018CDB38851DD4EAC18001198
+module DD35E835D043EE17AF2A13659894D4D6C4A84104787AB8CCFE3145A39AAB632C
   imports VERIFICATION
 
 // GemJoin_rely-diff
@@ -27,7 +27,7 @@ rule [GemJoin.rely-diff.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,12 +184,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((ABI_usr =/=Int CALLER_ID)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))))
+  andBool ((VCallValue ==Int 0))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[ABI_usr]) ==Int Junk_0

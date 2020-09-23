@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module CEC6F610D3F444A6BA987A56188664B3F4500C4173E47736DE5B5508346B1181
+module 607A53A4E607B9417D6A3DDBA48D716332801A0A405F03FF274E4DB4558A79B3
   imports VERIFICATION
 
 // Vow_file-data
@@ -27,7 +27,7 @@ rule [Vow.file-data.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -189,13 +189,12 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Bump)
   andBool (#rangeUInt(256, Hump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool (#rangeUInt(256, Junk_4)
-  andBool (#rangeUInt(256, Junk_5)))))))))))))))))
+  andBool (#rangeUInt(256, Junk_5))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vow.wait) ==Int Wait

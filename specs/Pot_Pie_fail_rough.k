@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D4C75687C94FBA46785B81277DFEC8FBA2391F49EC4F07C032046E406AC5BDED
+module 0454F21DE4CC7CD49114BCBA69923BA7C0BE9DD2BC0B35B9B1FBCA88EE1EA397
   imports VERIFICATION
 
 // Pot_Pie
@@ -27,7 +27,7 @@ rule [Pot.Pie.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Pie_tot)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.Pie) ==Int Pie_tot
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.Pie) ==Int Junk_0

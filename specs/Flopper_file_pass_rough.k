@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 6034483EAD5706DE5803CDE971A3EAFBC721FD78B5FC79AAC007C8B272C8E991
+module C905DEB2F2781A39571AC06AF1BD0073AA9F60ACB73A4177458926A274150564
   imports VERIFICATION
 
 // Flopper_file
@@ -27,7 +27,7 @@ rule [Flopper.file.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -189,14 +189,13 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(48, Tau)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool (((ABI_what =/=Int #string2Word("ttl") andBool ABI_what =/=Int #string2Word("tau")) orBool #rangeUInt(48, ABI_data))
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
-  andBool (((ABI_what ==Int #string2Word("beg")) orBool (ABI_what ==Int #string2Word("pad")) orBool (ABI_what ==Int #string2Word("ttl")) orBool (ABI_what ==Int #string2Word("tau"))))))))))))))))))))
+  andBool (((ABI_what ==Int #string2Word("beg")) orBool (ABI_what ==Int #string2Word("pad")) orBool (ABI_what ==Int #string2Word("ttl")) orBool (ABI_what ==Int #string2Word("tau")))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.beg) ==Int Beg

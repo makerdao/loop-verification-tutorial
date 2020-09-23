@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 220205A9B3A0BF90BA9F756C0D2B231EF12E81069F11629166DC62D0478EB97D
+module D5B4E022C81BEE023E14BCC5A20B2B0539410D5B470D528F84EF83579CECB385
   imports VERIFICATION
 
 // Flopper_file
@@ -27,7 +27,7 @@ rule [Flopper.file.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -189,11 +189,10 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(48, Tau)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool (((ABI_what =/=Int #string2Word("ttl") andBool ABI_what =/=Int #string2Word("tau")) orBool #rangeUInt(48, ABI_data))
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
-  andBool (#rangeUInt(256, Junk_3)))))))))))))))
+  andBool (#rangeUInt(256, Junk_3))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.beg) ==Int Beg

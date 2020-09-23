@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D99C7C4A7A2BF926470D6FACE52BCA8D710FE968193A1C1816EE880A5E09FA86
+module 99C0F4F6C4FF1ADF8FF993544F0FED7B89CE92712A6D26EB1B53FBBC41447664
   imports VERIFICATION
 
 // Cat_ilks
@@ -27,7 +27,7 @@ rule [Cat.ilks.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -186,11 +186,10 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Lump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Flip)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
-  andBool ((VCallValue ==Int 0))))))))))))
+  andBool ((VCallValue ==Int 0)))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].flip) ==Int Flip
   andBool #lookup(ACCT_ID_STORAGE, #Cat.ilks[ABI_ilk].chop) ==Int Chop

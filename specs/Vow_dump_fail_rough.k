@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module BF78841A39D222493271397DFA73E436B10F6F1A585CB1EF52E5120A71C581AB
+module 744DF957B951AB769E8CE15938E7CF1FC2C408B893BA68224642AB4C5564BB9D
   imports VERIFICATION
 
 // Vow_dump
@@ -27,7 +27,7 @@ rule [Vow.dump.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Dump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.dump) ==Int Dump
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.dump) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 0563403E7D594A41C10033020C1CC9FC51C44F7EC63FFCE3CF6CA2DDB442ADDF
+module F1BF65E8818BDE2E1093227197E0685F09F9E8D7196B4DED8994AEE770FE850B
   imports VERIFICATION
 
 // Dai_allowance
@@ -27,7 +27,7 @@ rule [Dai.allowance.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -184,9 +184,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_spender)
   andBool (#rangeUInt(256, Allowed)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))))
+  andBool ((VCallValue ==Int 0)))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[ABI_holder][ABI_spender]) ==Int Allowed
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[ABI_holder][ABI_spender]) ==Int Junk_0 

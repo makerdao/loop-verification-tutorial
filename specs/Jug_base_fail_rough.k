@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 24C671171DABDC34F95A30A35074786184AB583F6DF767787FB3D9DD2F6AFB3B
+module E0E21E2A3D24398099FB75CCE57902A98F515C772DD9A8C26B40D2077617015D
   imports VERIFICATION
 
 // Jug_base
@@ -27,7 +27,7 @@ rule [Jug.base.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Base)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.base) ==Int Base
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.base) ==Int Junk_0

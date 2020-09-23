@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 00DF27A46CE8BAB62AF2EFA847CC9F793E97788E4D52D3679D6BF2E543A283F6
+module AD854CF2309FD7D9EAA363657E787E6530BE773BA1D66845DF1938D59764F1F5
   imports VERIFICATION
 
 // Flipper_beg
@@ -27,7 +27,7 @@ rule [Flipper.beg.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Beg)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.beg) ==Int Beg
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flipper.beg) ==Int Junk_0 

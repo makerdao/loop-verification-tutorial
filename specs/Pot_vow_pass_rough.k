@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D85E5A9CCCC90BE044F6C8CC1B31A970DC4B4D27B40E8022F3AE1039A633AE1A
+module 941EB52D75934B03CE495DEB0451FE74349C3A2C9619F537925A7AE8B4CF41A6
   imports VERIFICATION
 
 // Pot_vow
@@ -27,7 +27,7 @@ rule [Pot.vow.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vow)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vow)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.vow) ==Int Vow
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.vow) ==Int Junk_0 

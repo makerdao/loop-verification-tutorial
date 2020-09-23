@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 375DBDF497867A12B518B8946818E816A466A9AF9BBDDDED73E9B9F892CE5E99
+module F10C73F1A6507DEA2BE01E82867E068B95DDD57F295E78866171094846558FB0
   imports VERIFICATION
 
 // Spotter_par
@@ -27,7 +27,7 @@ rule [Spotter.par.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Par)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.par) ==Int Par
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.par) ==Int Junk_0

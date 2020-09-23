@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B935A6EA3E1C07A9F9F2A9F9678F0BC5EA0E51E82EAF14A2FBBE991E56E349C6
+module 26F6441D6E456C0E95DB3B731EF3FC6590AF8AED1CB8C07CDD7EEC1B5FF95030
   imports VERIFICATION
 
 // Dai_permit
@@ -27,7 +27,7 @@ rule [Dai.permit.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -193,10 +193,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeBytes(32, Domain_separator)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool ((#rangeUInt(256, Nonce +Int 1))
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2))))))))))))))))))
+  andBool (#rangeUInt(256, Junk_2)))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.nonces[ABI_hodler]) ==Int Nonce
   andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Domain_separator

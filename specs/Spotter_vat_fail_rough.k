@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 032EF0D8D7E4DCF28AA8F9E9C569275E8D6292CCC4D4CA963CA62D5D4DAE8FAA
+module 781B565B9EAC40C292967DCAE371648D6E402FF2EBF7BE747A906201C02B0464
   imports VERIFICATION
 
 // Spotter_vat
@@ -27,7 +27,7 @@ rule [Spotter.vat.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vat)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vat)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.vat) ==Int Vat
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Spotter.vat) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module E213ACA0A315FF66F87889EE57C7D22E46F05F5D6D1CB71A7FBAD50C75B83B24
+module 54D87FC80F23B949CEF9613F120BBAD5789150185078A759B8DD8B9EAA1D9D32
   imports VERIFICATION
 
 // Flipper_file
@@ -27,7 +27,7 @@ rule [Flipper.file.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -188,10 +188,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(48, Tau)
   andBool ((#sizeByteArray(CD) <=Int 1250000000)
   andBool (((ABI_what =/=Int #string2Word("ttl") andBool ABI_what =/=Int #string2Word("tau")) orBool #rangeUInt(48, ABI_data))
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Flipper.beg) ==Int Beg

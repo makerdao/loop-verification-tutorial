@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 67B9A1736C8BB2B959652506DA381FB47CF36DDEA226214A60C7E23DB91555A9
+module C5675BA3EB7158414B98A08438829E2C4CC4D3816B0C86E73E30F714298843A5
   imports VERIFICATION
 
 // Flapper_gem
@@ -27,7 +27,7 @@ rule [Flapper.gem.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Gem)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Gem)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flapper.gem) ==Int Gem
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.gem) ==Int Junk_0

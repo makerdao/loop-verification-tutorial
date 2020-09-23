@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module BBC85FC6B97634463A1E18FDAD32CF41A9B6824851C52D622B8DA0716B056E79
+module 40C7F02DCCDF2D73B121AAD352DC481F975583878F4C007B9005055FB5CF1AB3
   imports VERIFICATION
 
 // Dai_approve
@@ -27,7 +27,7 @@ rule [Dai.approve.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -184,8 +184,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, ABI_wad)
   andBool (#rangeUInt(256, Allowed)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))))
+  andBool (#rangeUInt(256, Junk_0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.allowance[CALLER_ID][ABI_usr]) ==Int Allowed
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.allowance[CALLER_ID][ABI_usr]) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8918EFC6B454EC51DC103EFDDFF2C0BFC4803B23A2EB3B1179136C84583023EF
+module 936B4AC9A3F960F050A2A1DF69DEE8D3AEED3CB56B16D1669098B200B459DD58
   imports VERIFICATION
 
 // Spotter_ilks
@@ -27,7 +27,7 @@ rule [Spotter.ilks.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -185,10 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Mat)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Pip)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0))))))))))
+  andBool ((VCallValue ==Int 0)))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Mat

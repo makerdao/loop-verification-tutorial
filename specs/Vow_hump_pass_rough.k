@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 429E71A17C43B1C0261EDA5E0AA9323571832A0FD6F5E4F3CAA69AB014CE5EB9
+module B2A8D7B99370BF57A26F5BBD6FFF8CB27E2EA4D94A0E71D4E0DAFDD5C5A4AC54
   imports VERIFICATION
 
 // Vow_hump
@@ -27,7 +27,7 @@ rule [Vow.hump.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Hump)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vow.hump) ==Int Hump
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Vow.hump) ==Int Junk_0 

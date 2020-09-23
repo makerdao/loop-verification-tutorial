@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 038734115485DB662B1156B2641BD266D74097A62E2248E7AF8F1FBA4B975D85
+module 822BE0294540AD2C33282A7BE969BE1839F963944CB393B1EB641873D43D3C41
   imports VERIFICATION
 
 // Dai_DOMAIN_SEPARATOR
@@ -27,7 +27,7 @@ rule [Dai.DOMAIN.SEPARATOR.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Dom)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Dom
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.DOMAIN_SEPARATOR) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module E328658DF503ADF2C2B074F5FDC6B1D854FC2311EFF1798AF457A664B66A0493
+module 7F3F1BB0070AE598BAFE1BABA176EC141356D0D5F5AA0C7255E20658C672D69F
   imports VERIFICATION
 
 // End_skim-C
@@ -27,7 +27,7 @@ rule [End.skim-C.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -199,9 +199,8 @@ andBool #rangeUInt(256, VChainId)
   andBool ((ACCT_ID =/=Int Vat)
   andBool ((VCallValue ==Int 0)
   andBool ((Tag =/=Int 0)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool (#rangeUInt(256, Junk_1))))))))))))))
+  andBool (#rangeUInt(256, Junk_1)))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.vat) ==Int Vat
   andBool #lookup(ACCT_ID_STORAGE, #End.tag[ABI_ilk]) ==Int Tag

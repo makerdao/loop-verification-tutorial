@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 43B2ECBC7D3B2DBE25E8C536524D6B3307EF6A279C4ED92C65E9BBB2084C3174
+module 070A7D2A099ED3E7B162AF822D323F9A609527B0EFEF081A8D9769BD32076347
   imports VERIFICATION
 
 // Flapper_live
@@ -27,7 +27,7 @@ rule [Flapper.live.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flapper.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flapper.live) ==Int Junk_0

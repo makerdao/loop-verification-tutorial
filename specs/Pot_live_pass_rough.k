@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module F50F2088A1252FF6C04C412BA9C1EE460302B2D6106726016720BAC85E997038
+module A72944D5CF0B15745A6EDCB5F3C0C41C93D5D21DFDFF6C85D2BC24D50F8FB1F0
   imports VERIFICATION
 
 // Pot_live
@@ -27,7 +27,7 @@ rule [Pot.live.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.live) ==Int Junk_0 

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 444386AEB3E0F69299D19C395C44FE87373C2A044FF7CED49FE5343EB5FA0AA2
+module BC8A2A9DD92424D38138B3946688120E7E3F45BD1382F37FF5A2F473B317EF2A
   imports VERIFICATION
 
 // End_debt
@@ -27,7 +27,7 @@ rule [End.debt.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Debt)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.debt) ==Int Debt
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.debt) ==Int Junk_0 

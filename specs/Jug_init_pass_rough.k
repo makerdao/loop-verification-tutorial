@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 8EB2F3273BF48BC01115A80DC1335BD938E553B4C2EEC3C3B1ED75CCB4C2875A
+module F38D4F55B344A5CEAEDB363706607CD22C98B3081F274D99A756252A5EB3FEC7
   imports VERIFICATION
 
 // Jug_init
@@ -27,7 +27,7 @@ rule [Jug.init.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -185,13 +185,12 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Duty)
   andBool (#rangeUInt(256, Rho)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((May ==Int 1)
   andBool ((Duty ==Int 0)
-  andBool ((VCallValue ==Int 0)))))))))))))
+  andBool ((VCallValue ==Int 0))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty

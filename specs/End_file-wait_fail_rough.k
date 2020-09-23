@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 9C334F9067A1B371D2066ADDC7B90E154AD06A45186DD230D11D08CA6D3455EB
+module 0610CB64B650B7DE06816EAE425E6C6EF7B6D5C2E043DCC64F9E96BE36C6F8BA
   imports VERIFICATION
 
 // End_file-wait
@@ -27,7 +27,7 @@ rule [End.file-wait.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -186,10 +186,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Wait)
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #End.wait) ==Int Wait

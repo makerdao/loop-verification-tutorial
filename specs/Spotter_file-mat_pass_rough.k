@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module E628241E0948A09B57DFD1C169ED68C5151DD310EE13CD752EE1BB1DD1E3F939
+module F47E3D0D8D0E8E920B015E53769A878361D1EA2B0151AA2A3FB0DF819B2A5E94
   imports VERIFICATION
 
 // Spotter_file-mat
@@ -27,7 +27,7 @@ rule [Spotter.file-mat.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -186,7 +186,6 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, May)
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -194,7 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool ((May ==Int 1)
   andBool ((VCallValue ==Int 0)
   andBool ((Live ==Int 1)
-  andBool ((ABI_what ==Int #string2Word("mat")))))))))))))))))
+  andBool ((ABI_what ==Int #string2Word("mat"))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].mat) ==Int Junk_0

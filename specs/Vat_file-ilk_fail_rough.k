@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C294508137C5AF4860D538BB87B30F3481A6E1F6E8A8DAD98A8EDFACBD10EC7B
+module 06CF818E0BD7B4D7D774CDCA3FDD062CAD4ED72DB45662EE513FFB44F18F6628
   imports VERIFICATION
 
 // Vat_file-ilk
@@ -27,7 +27,7 @@ rule [Vat.file-ilk.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -189,12 +189,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Dust)
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
-  andBool (#rangeUInt(256, Junk_4))))))))))))))))
+  andBool (#rangeUInt(256, Junk_4)))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].spot) ==Int Spot

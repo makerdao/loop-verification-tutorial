@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module BD129532E2E271F699C20289E5080B910BB90634E690F494319827D93CE100F3
+module 85715A06357CDAB6110F88C4EFDA84EBAC9B9911F389B76E5E54869FA0F603C1
   imports VERIFICATION
 
 // GemJoin_cage
@@ -27,7 +27,7 @@ rule [GemJoin.cage.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -182,12 +182,11 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, May)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool ((VCallValue ==Int 0)
-  andBool ((May ==Int 1)))))))))
+  andBool ((May ==Int 1))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #GemJoin.live) ==Int Junk_0

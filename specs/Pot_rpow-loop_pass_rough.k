@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 9CA8A81990F73B5865176FA07D6AAC99ED267A4FDA1935CB12EBEDD53CAF9760
+module 93579B7A4C9BAECB69D5C77C83BCCBB749F372BB440948C4D65B897E8BDA4F20
   imports VERIFICATION
 
 // Pot_rpow-loop
@@ -27,7 +27,7 @@ rule [Pot.rpow-loop.pass.rough]:
         <wordStack> _ : _ : Half : _ : Z : Base : N : X : WS  =>  Half : _ : #rpow(Z, X, N, Base) : Base : 0 : _ : WS </wordStack>
         <localMem> _ </localMem>
         <pc> 5039  =>  5107 </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> VMemoryUsed </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -193,8 +193,7 @@ andBool #rangeUInt(256, VChainId)
   andBool ((#sizeWordStack(WS) <=Int 1000)
   andBool ((num0(N) >=Int 0)
   andBool ((num1(N) >=Int 0)
-  andBool (#rangeUInt(256, VMemoryUsed)
-  andBool (VGas >=Int 3000000)))))))))))))))
+  andBool (#rangeUInt(256, VMemoryUsed)))))))))))))))
 
  
 

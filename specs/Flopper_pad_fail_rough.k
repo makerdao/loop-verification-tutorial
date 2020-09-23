@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module F4D2D99D44ABF777089AB318092913DE3A6F0033D6DE1E5D9415F3EFDBED5FCF
+module DEAD8B3D94F251BBE89FBFD0301C553D054AF6D04300EE340E7D879968BBE5A8
   imports VERIFICATION
 
 // Flopper_pad
@@ -27,7 +27,7 @@ rule [Flopper.pad.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Pad)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.pad) ==Int Pad
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.pad) ==Int Junk_0

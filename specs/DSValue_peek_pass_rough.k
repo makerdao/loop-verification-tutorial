@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 9B1718DBC43D58A92A53F28860E847414DFB80090F83DD849536F09F862C9451
+module 1E2FF10B2DF5C88EACB1FDA90AC192AC339A4A31D2A540EAB8C8868945E367C2
   imports VERIFICATION
 
 // DSValue_peek
@@ -27,7 +27,7 @@ rule [DSValue.peek.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -185,10 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeBool(Ok)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Owner)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0))))))))))
+  andBool ((VCallValue ==Int 0)))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSValue.owner_has) ==Int #WordPackAddrUInt8(Owner, Ok)
   andBool #lookup(ACCT_ID_STORAGE, #DSValue.val) ==Int Value

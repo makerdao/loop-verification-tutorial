@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module C76EFA34DA6C1125FAC2975AE48E22C5862F2B6181C3032A810F0B2B780589D3
+module C210577BD5794CCBD0052349D676CB11A01C6275D5CE4026AE1FBE61C5879B3B
   imports VERIFICATION
 
 // Cat_cage
@@ -27,7 +27,7 @@ rule [Cat.cage.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -183,11 +183,10 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Ward)
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool ((Ward ==Int 1)
-  andBool ((VCallValue ==Int 0)))))))))
+  andBool ((VCallValue ==Int 0))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Cat.wards[CALLER_ID]) ==Int Ward
   andBool #lookup(ACCT_ID_STORAGE, #Cat.live) ==Int Live

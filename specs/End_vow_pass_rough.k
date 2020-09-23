@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 25A85E35C184823DE9344CBCBC597C26E60DD80757FAD6CCB076995584876CB9
+module 43005A6C9EBA38DF1CE953E383C557D9A0AEC8DC95BFF3807BD347FCDBCA5BA1
   imports VERIFICATION
 
 // End_vow
@@ -27,7 +27,7 @@ rule [End.vow.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vow)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vow)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.vow) ==Int Vow
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.vow) ==Int Junk_0 

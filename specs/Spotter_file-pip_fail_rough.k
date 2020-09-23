@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 940E827C5BD5FED99F4C6B29A3B2308FE314C9515C53865080D00F168C62853E
+module E602A6F30E37C47A7CEF881CB355143C46E62638DFA3ADA2FE2D0D2DB27F2DA4
   imports VERIFICATION
 
 // Spotter_file-pip
@@ -27,7 +27,7 @@ rule [Spotter.file-pip.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -188,10 +188,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Pip)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Pip)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.wards[CALLER_ID]) ==Int May
   andBool #lookup(ACCT_ID_STORAGE, #Spotter.ilks[ABI_ilk].pip) ==Int Pip

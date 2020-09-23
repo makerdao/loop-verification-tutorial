@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 5A73EF8FB53F0CB4707B7560CB26EDCC96A40B3E8BE969CC68A99A97125BF33C
+module 92AC1BE023FA512C4E66BD74182E044E656133813A201BE2261679D76CE1FEEC
   imports VERIFICATION
 
 // Vat_ilks
@@ -27,7 +27,7 @@ rule [Vat.ilks.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -187,12 +187,11 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Ilk_line)
   andBool (#rangeUInt(256, Ilk_dust)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
   andBool (#rangeUInt(256, Junk_3)
-  andBool (#rangeUInt(256, Junk_4))))))))))))))
+  andBool (#rangeUInt(256, Junk_4)))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].Art) ==Int Ilk_Art
   andBool #lookup(ACCT_ID_STORAGE, #Vat.ilks[ABI_ilk].rate) ==Int Ilk_rate

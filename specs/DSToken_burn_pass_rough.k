@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 0838025F102F4188F54AEC009243F102CA6EE1E7E55871FF4F6973E32056539C
+module 970E58E4F464D1ED0A5D88591CCF9A711407BEE8E7183C1DE3D6DE7216BFA4FB
   imports VERIFICATION
 
 // DSToken_burn
@@ -27,7 +27,7 @@ rule [DSToken.burn.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> false </static>
@@ -192,7 +192,6 @@ andBool #rangeUInt(256, VChainId)
   andBool ((CALLER_ID ==Int Owner)
   andBool ((CALLER_ID =/=Int ACCT_ID)
   andBool ((CALLER_ID =/=Int ABI_src)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
   andBool (#rangeUInt(256, Junk_2)
@@ -201,7 +200,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (((#rangeUInt(256, Supply -Int ABI_wad)))
   andBool (((Allowance ==Int maxUInt256) orBool (ABI_wad <=Int Allowance))
   andBool ((VCallValue ==Int 0)
-  andBool ((Stoppedd ==Int 0)))))))))))))))))))))))
+  andBool ((Stoppedd ==Int 0))))))))))))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.allowance[ABI_src][CALLER_ID]) ==Int Allowance
   andBool #lookup(ACCT_ID_STORAGE, #DSToken.balances[ABI_src]) ==Int Gem_s

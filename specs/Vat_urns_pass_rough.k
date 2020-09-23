@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 5D8AFE7E5B0EE4AEC6BF3682D2C19DE8CE0F79849A8B02D8BD2004F3591D913A
+module 2D3ABBF51BCB3F90B5825082732258BE69D2CF4B17D787CDA3B8EC6D5E7C2E43
   imports VERIFICATION
 
 // Vat_urns
@@ -27,7 +27,7 @@ rule [Vat.urns.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -185,10 +185,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(256, Ink_iu)
   andBool (#rangeUInt(256, Art_iu)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool ((VCallValue ==Int 0))))))))))
+  andBool ((VCallValue ==Int 0)))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].ink) ==Int Ink_iu
   andBool #lookup(ACCT_ID_STORAGE, #Vat.urns[ABI_ilk][ABI_urn].art) ==Int Art_iu

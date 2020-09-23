@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 537C717AF377441DD8FE5670033F9DBE10120A4C019A1040EAC7DC02C4D75B82
+module EEAB5423A7D86AA00DF35047CE9F7D90F1D43F0D494986A6CBDC9AE124AE657E
   imports VERIFICATION
 
 // DaiJoin_live
@@ -27,7 +27,7 @@ rule [DaiJoin.live.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #DaiJoin.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #DaiJoin.live) ==Int Junk_0

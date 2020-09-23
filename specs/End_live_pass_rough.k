@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 35C63986DF4D9C7BF60600C139A30AD0DA83D74BD49C28D8FB39B7E9783B5B20
+module D16A278CD2FC587DF62F8180D83068DF58D65D49A40CC92DFBF992547D12AEF5
   imports VERIFICATION
 
 // End_live
@@ -27,7 +27,7 @@ rule [End.live.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Live)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.live) ==Int Live
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.live) ==Int Junk_0 

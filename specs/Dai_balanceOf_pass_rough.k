@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 202558FA933004C0C8D7BBF82C46747CABE60F706519E613A261582D58B9DD24
+module F57658273FDEC892B2960616152D127D5CCD418B0B07AD6821DA03DE9BF75545
   imports VERIFICATION
 
 // Dai_balanceOf
@@ -27,7 +27,7 @@ rule [Dai.balanceOf.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(ABI_who)
   andBool (#rangeUInt(256, Balance)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Dai.balanceOf[ABI_who]) ==Int Balance
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Dai.balanceOf[ABI_who]) ==Int Junk_0 

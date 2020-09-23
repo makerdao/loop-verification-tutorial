@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 874148CDC710F623F60C3AFCD6658601EAD3F9BFC44113F5EAF27DDC89762527
+module 4B1003156BAAD705D10BB61E03F61E98C23D02DF48ABFCC73BC83427B1183AEF
   imports VERIFICATION
 
 // Pot_dsr
@@ -27,7 +27,7 @@ rule [Pot.dsr.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,9 +182,8 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Dsr)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0))))))
+  andBool ((VCallValue ==Int 0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Pot.dsr) ==Int Dsr
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Pot.dsr) ==Int Junk_0 

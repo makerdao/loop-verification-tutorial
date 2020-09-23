@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module ACF44854D785F3A9F4127B0E387C68AE3E906BD3976D3148588EE764D62BB3BB
+module 6681A78EB15539E26910AB0E35BBEDC11BC93ACE8A320ECB01BFFD392E61C457
   imports VERIFICATION
 
 // End_pot
@@ -27,7 +27,7 @@ rule [End.pot.pass.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,9 +183,8 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Pot)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Pot)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
-  andBool ((VCallValue ==Int 0)))))))
+  andBool ((VCallValue ==Int 0))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.pot) ==Int Pot
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.pot) ==Int Junk_0 

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B68D09BFF3608B0CD1E82EFE5080C0CC48BB2D076F5F3DC350A9949AC2965B21
+module 87158242CDBFE17DEAAB800E0DC5EB36F4E091A1C17F357E6D021C9ACE2D6FE8
   imports VERIFICATION
 
 // Flapper_bids
@@ -27,7 +27,7 @@ rule [Flapper.bids.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -188,10 +188,9 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeUInt(48, End)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Guy)
-  andBool (VGas >=Int 3000000
   andBool (#rangeUInt(256, Junk_0)
   andBool (#rangeUInt(256, Junk_1)
-  andBool (#rangeUInt(256, Junk_2)))))))))))))
+  andBool (#rangeUInt(256, Junk_2))))))))))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flapper.bids[ABI_n].bid) ==Int Bid
   andBool #lookup(ACCT_ID_STORAGE, #Flapper.bids[ABI_n].lot) ==Int Lot

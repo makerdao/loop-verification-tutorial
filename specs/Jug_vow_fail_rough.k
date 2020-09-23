@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 3F9DC948D42F1F35338FA0A875666EA7EF1F5ED9C4848C25F2B493A651F7D0F0
+module F5B6571B49DC7B7C044204A8D5E3C9CDE835CF675B02D05000005230E369A7C7
   imports VERIFICATION
 
 // Jug_vow
@@ -27,7 +27,7 @@ rule [Jug.vow.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vow)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vow)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Jug.vow) ==Int Vow
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.vow) ==Int Junk_0

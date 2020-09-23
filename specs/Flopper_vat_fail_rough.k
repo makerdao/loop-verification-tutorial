@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module 5D9FC3D9794BDAF97529E6C8D5F38CB7DF1D28F71680DF862935BCC34CC893B6
+module FA687C8BEC86DF237CF92654F7936E83254E6963456537658D29A78F66CF9398
   imports VERIFICATION
 
 // Flopper_vat
@@ -27,7 +27,7 @@ rule [Flopper.vat.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Vat)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Vat)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.vat) ==Int Vat
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.vat) ==Int Junk_0

@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module B94D7D9282E82DAB2551D731DBAD3CBBFEB5313AF565DACA4BBC680DAF92C9A5
+module B6CBFE5F66ED4F6723435B86F73C469C0FE94655958F75984615C48962FA3FC6
   imports VERIFICATION
 
 // End_spot
@@ -27,7 +27,7 @@ rule [End.spot.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -183,8 +183,7 @@ andBool #rangeUInt(256, VChainId)
   andBool (#rangeAddress(Spot)
   andBool (#sizeByteArray(CD) <=Int 1250000000
   andBool (#notPrecompileAddress(Spot)
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0))))))
+  andBool (#rangeUInt(256, Junk_0)))))
 
   andBool #lookup(ACCT_ID_STORAGE, #End.spot) ==Int Spot
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #End.spot) ==Int Junk_0

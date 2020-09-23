@@ -1,6 +1,6 @@
-requires "dss-verification.k"
+requires "verification.k"
 
-module D5EFCAB77F5C2B6FE8734EA001C6F2F2C2B69D2A8F9484690CE1AC20B3809F49
+module C180D376ACE254881481D66330F440F2D803FCCD0EB0438B3E06BA88E14061DC
   imports VERIFICATION
 
 // Flopper_beg
@@ -27,7 +27,7 @@ rule [Flopper.beg.fail.rough]:
         <wordStack> .WordStack => ?_ </wordStack>
         <localMem> .Memory => ?_ </localMem>
         <pc> 0 => ?_ </pc>
-        <gas> VGas => ?_ </gas>
+        <gas> #gas(VGas) => ?_ </gas>
         <memoryUsed> 0 => ?_ </memoryUsed>
         <callGas> _ => ?_ </callGas>
         <static> _ </static>
@@ -182,8 +182,7 @@ andBool #rangeUInt(256, VChainId)
 
   andBool (#rangeUInt(256, Beg)
   andBool (#sizeByteArray(CD) <=Int 1250000000
-  andBool (VGas >=Int 3000000
-  andBool (#rangeUInt(256, Junk_0)))))
+  andBool (#rangeUInt(256, Junk_0))))
 
   andBool #lookup(ACCT_ID_STORAGE, #Flopper.beg) ==Int Beg
   andBool #lookup(ACCT_ID_ORIG_STORAGE, #Flopper.beg) ==Int Junk_0
