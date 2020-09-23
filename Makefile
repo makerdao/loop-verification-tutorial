@@ -77,36 +77,32 @@ $(KLAB_OUT_LOCAL)/specs/verification.k: src/verification.k
 	@mkdir -p $(CURDIR)/specs
 	cp $< $@
 
-prove-work: KLAB=profile log-prove-work timeout 1200 klab
-prove-work: $(shell cat proofs-work)
-
 %.hash:
 	$(HASH) $*
-
-specs/%.k: out/built/%
-	cp out/specs/$$($(HASH) $*).k $@
 
 %.klab-view:
 	$(KLAB) debug $$($(HASH) $*)
 
-gen-spec: $(patsubst %, specs/%.k, $(all_specs))
-
-$(KLAB_OUT_LOCAL)/gas/%.raw: $(KLAB_OUT_LOCAL)/gas/%
-	$(WRITE_GAS) out/gas/$$($(HASH) $*).raw.kast.json > $@
+specs/%.k: out/built/%
+	cp out/specs/$$($(HASH) $*).k $@
 
 specs/%.gas: $(KLAB_OUT_LOCAL)/gas/%.raw
 	cp $< $@
+
+prove-work: KLAB=profile log-prove-work timeout 1200 klab
+prove-work: $(shell cat proofs-work)
 
 .SECONDARY: $(patsubst %, specs/%.gas, $(all_specs))                  \
             $(patsubst %, $(KLAB_OUT_LOCAL)/gas/%.json, $(all_specs)) \
             $(patsubst %, $(KLAB_OUT_LOCAL)/gas/%, $(all_specs))
 
-gen-gas: $(patsubst %, specs/%.gas, $(pass_rough_specs))
+gen-spec: $(patsubst %, specs/%.k, $(all_specs))
+gen-gas:  $(patsubst %, specs/%.gas, $(pass_rough_specs))
 
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
 
-$(SPEC_MANIFEST): mkdirs $(SRCS) $(DAPP_SRCS) $(SPECS_SRCS)
+$(SPEC_MANIFEST): $(SRCS) $(DAPP_SRCS) $(SPECS_SRCS)
 	$(KLAB_FLAGS) klab build
 
 $(SPECS_DIR)/%.k: src/%.k
