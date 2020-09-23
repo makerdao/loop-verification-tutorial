@@ -1,1 +1,1 @@
-#if_#then_#else_#fi_K-EQUAL((ABI_y ==K 0), #gas((VGas +Int 54)), #gas((VGas +Int 106)))
+#gas(#if (ABI_y ==Int 0) #then (VGas +Int 54) #else (VGas +Int 106) #fi)

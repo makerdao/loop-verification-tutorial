@@ -1,1 +1,1 @@
-#gas((((VGas +Int 2061) +Int #if ((#lookup(ACCT_ID_STORAGE, 3) ==K ABI_data) orBool (notBool (#lookup(ACCT_ID_ORIG_STORAGE, 3) ==K #lookup(ACCT_ID_STORAGE, 3)))) #then 800 #else #if (#lookup(ACCT_ID_ORIG_STORAGE, 3) ==K 0) #then 20000 #else 5000 #fi #fi) +Int 4353))
+#gas((((VGas +Int 2061) +Int #if ((#lookup(ACCT_ID_STORAGE, 3) ==Int ABI_data) orBool (notBool (#lookup(ACCT_ID_ORIG_STORAGE, 3) ==Int #lookup(ACCT_ID_STORAGE, 3)))) #then 800 #else #if (#lookup(ACCT_ID_ORIG_STORAGE, 3) ==Int 0) #then 20000 #else 5000 #fi #fi) +Int 4353))

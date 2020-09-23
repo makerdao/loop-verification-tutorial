@@ -1,1 +1,1 @@
-#if_#then_#else_#fi_K-EQUAL((_<=Int_(ABI_x, ABI_y) ==K true), #gas((VGas +Int 49)), #gas((VGas +Int 59)))
+#gas(#if (_<=Int_(ABI_x, ABI_y) ==Int true) #then (VGas +Int 49) #else (VGas +Int 59) #fi)
