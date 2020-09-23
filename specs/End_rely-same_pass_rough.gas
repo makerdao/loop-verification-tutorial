@@ -1,1 +1,1 @@
-#gas((VGas +Int 6421))
+#gas ( ( _2201 +Int ( Csstore( ISTANBUL , 1 , #lookup( _2160 , hash2 ( _2107 , 0 ) ) , #lookup( _2163 , hash2 ( _2107 , 0 ) ) ) +Int 5621 ) ) )

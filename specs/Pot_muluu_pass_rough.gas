@@ -1,1 +1,1 @@
-#gas(#if (ABI_y ==Int 0) #then (VGas +Int 54) #else (VGas +Int 106) #fi)
+#gas ( ( _2174 +Int #if _2125 ==Int 0 #then 54 #else 106 #fi ) )

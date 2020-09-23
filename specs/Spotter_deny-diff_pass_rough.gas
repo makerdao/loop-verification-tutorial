@@ -1,1 +1,1 @@
-#gas((((VGas +Int 1281) +Int #if ((#lookup(ACCT_ID_STORAGE, hash2(ABI_usr, 0)) ==Int 0) orBool (notBool (#lookup(ACCT_ID_ORIG_STORAGE, hash2(ABI_usr, 0)) ==Int #lookup(ACCT_ID_STORAGE, hash2(ABI_usr, 0))))) #then 800 #else #if (#lookup(ACCT_ID_ORIG_STORAGE, hash2(ABI_usr, 0)) ==Int 0) #then 20000 #else 5000 #fi #fi) +Int 4339))
+#gas ( ( _2176 +Int ( Csstore( ISTANBUL , 0 , #lookup( _2179 , hash2 ( _2113 , 0 ) ) , #lookup( _2181 , hash2 ( _2113 , 0 ) ) ) +Int 5620 ) ) )

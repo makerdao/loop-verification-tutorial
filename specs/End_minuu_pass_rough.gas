@@ -1,1 +1,1 @@
-#gas(#if (_<=Int_(ABI_x, ABI_y) ==Int true) #then (VGas +Int 49) #else (VGas +Int 59) #fi)
+#gas ( ( _2198 +Int #if _2120 <=Int _2121 #then 49 #else 59 #fi ) )

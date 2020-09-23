@@ -1,1 +1,1 @@
-#gas((((VGas +Int 2162) +Int #if ((#lookup(ACCT_ID_STORAGE, 6) ==Int ABI_addr) orBool (notBool (#lookup(ACCT_ID_ORIG_STORAGE, 6) ==Int #lookup(ACCT_ID_STORAGE, 6)))) #then 800 #else #if (#lookup(ACCT_ID_ORIG_STORAGE, 6) ==Int 0) #then 20000 #else 5000 #fi #fi) +Int 4353))
+#gas ( ( _2157 +Int ( Csstore( ISTANBUL , _2111 , #lookup( _2109 , 6 ) , #lookup( _2112 , 6 ) ) +Int 6515 ) ) )
