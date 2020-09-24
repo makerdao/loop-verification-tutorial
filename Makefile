@@ -1,6 +1,6 @@
-DAPP_DIR = $(CURDIR)/dss
+DAPP_DIR = $(CURDIR)/fib
 SRC_DIR = $(CURDIR)/src
-SRCS = $(addprefix $(SRC_DIR)/, dss.md lemmas.k.md storage.k.md prelude.smt2.md)
+SRCS = $(addprefix $(SRC_DIR)/, fib.md lemmas.k.md storage.k.md prelude.smt2.md)
 DAPP_SRCS = $(wildcard $(DAPP_DIR)/src/*)
 # if KLAB_OUT isn't defined, default is to use out/
 OUT_DIR_LOCAL   = out
@@ -36,7 +36,7 @@ export PATH
 PYTHONPATH := $(KLAB_EVMS_PATH)/deps/k/k-distribution/target/release/k/lib/kframework
 export PYTHONPATH
 
-SPEC_SRCS = src/dss.md $(KLAB_OUT_LOCAL)/specs/verification.k
+SPEC_SRCS = src/fib.md $(KLAB_OUT_LOCAL)/specs/verification.k
 
 include.mak: Makefile deps/klab/makefile.timestamp $(SPEC_SRCS)
 	$(KLAB_MAKE) > include.mak
@@ -52,8 +52,8 @@ deps: dapp kevm klab
 
 dapp:
 	dapp --version
-	git submodule update --init --recursive -- dss
-	cd $(DAPP_DIR) && dapp --use solc:0.5.12 build && cd ../
+	git submodule update --init --recursive -- fib
+	cd $(DAPP_DIR) && dapp build && cd ../
 
 kevm:
 	git submodule update --init --recursive -- deps/evm-semantics
@@ -116,12 +116,12 @@ spec: $(SPEC_MANIFEST)
 spec-clean:
 	rm -f $(SPECS_DIR)/* $(ACTS_DIR)/* $(SPEC_MANIFEST)
 
-$(DOC_DIR)/dss.html: $(SRCS)
+$(DOC_DIR)/fib.html: $(SRCS)
 	$(info Generating html documentation: $@)
 	mkdir -p $(DOC_DIR)
 	$(KLAB_FLAGS) klab report > $@
 
-doc: $(DOC_DIR)/dss.html
+doc: $(DOC_DIR)/fib.html
 
 doc-clean:
 	rm -rf $(DOC_DIR)/*
