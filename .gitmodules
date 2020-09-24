@@ -6,3 +6,6 @@
 	path = deps/klab
 	url = https://github.com/ehildenb/klab
 	ignore = untracked
+[submodule "fib"]
+	path = fib
+	url = https://github.com/makerdao/fib.git
