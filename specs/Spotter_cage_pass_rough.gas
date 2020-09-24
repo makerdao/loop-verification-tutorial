@@ -1,0 +1,1 @@
+#gas ( ( _2200 +Int ( Csstore( ISTANBUL , 0 , #lookup( _2106 , 4 ) , #lookup( _2108 , 4 ) ) +Int 5396 ) ) )

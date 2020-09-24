@@ -2,3 +2,6 @@
 *.timestamp
 tmp/
 out/*
+log-*
+compare*
+include.mak

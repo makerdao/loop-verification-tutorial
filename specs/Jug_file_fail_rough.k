@@ -1,0 +1,212 @@
+requires "verification.k"
+
+module 59D617DB22A54A9F178D221D544F213473691EC5FA21BAE8BD36BD48C6D2E030
+  imports VERIFICATION
+
+// Jug_file
+rule [Jug.file.fail.rough]:
+  <k> #execute ~> CONTINUATION => #halt ~> CONTINUATION </k>
+  <exit-code> 1 </exit-code>
+  <mode> NORMAL </mode>
+  <schedule> ISTANBUL </schedule>
+  <ethereum>
+    <evm>
+      <output> _ => ?_ </output>
+      <statusCode> _ => ?FAILURE:EndStatusCode </statusCode>
+      <endPC> _ => ?_ </endPC>
+      <callStack> VCallStack </callStack>
+      <interimStates> _ </interimStates>
+      <touchedAccounts> _ => ?_ </touchedAccounts>
+      <callState>
+        <program> Jug_bin_runtime </program>
+        <jumpDests> #computeValidJumpDests(Jug_bin_runtime) </jumpDests>
+        <id> ACCT_ID </id>
+        <caller> CALLER_ID </caller>
+        <callData> #abiCallData("file", #bytes32(ABI_ilk), #bytes32(ABI_what), #uint256(ABI_data)) ++ CD => ?_ </callData>
+        <callValue> VCallValue </callValue>
+        <wordStack> .WordStack => ?_ </wordStack>
+        <localMem> .Memory => ?_ </localMem>
+        <pc> 0 => ?_ </pc>
+        <gas> #gas(VGas) => ?_ </gas>
+        <memoryUsed> 0 => ?_ </memoryUsed>
+        <callGas> _ => ?_ </callGas>
+        <static> false </static>
+        <callDepth> VCallDepth => ?_ </callDepth>
+      </callState>
+      <substate>
+        <selfDestruct> VSelfDestruct </selfDestruct>
+        <log> _ => ?_ </log>
+        <refund> Vrefund => ?_ </refund>
+      </substate>
+      <gasPrice> _ </gasPrice>
+      <origin> ORIGIN_ID </origin>
+      <blockhashes> _ </blockhashes>
+      <block>
+        <previousHash> _ </previousHash>
+        <ommersHash> _ </ommersHash>
+        <coinbase> _ </coinbase>
+        <stateRoot> _ </stateRoot>
+        <transactionsRoot> _ </transactionsRoot>
+        <receiptsRoot> _ </receiptsRoot>
+        <logsBloom> _ </logsBloom>
+        <difficulty> _ </difficulty>
+        <number> BLOCK_NUMBER </number>
+        <gasLimit> _ </gasLimit>
+        <gasUsed> _ </gasUsed>
+        <timestamp> TIME </timestamp>
+        <extraData> _ </extraData>
+        <mixHash> _ </mixHash>
+        <blockNonce> _ </blockNonce>
+        <ommerBlockHeaders> _ </ommerBlockHeaders>
+      </block>
+    </evm>
+    <network>
+      <chainID> VChainId </chainID>
+      <activeAccounts> SetItem(ACCT_ID)
+      SetItem(1)
+      SetItem(2)
+      SetItem(3)
+      SetItem(4)
+      SetItem(5)
+      SetItem(6)
+      SetItem(7)
+      SetItem(8)
+      SetItem(9) _ </activeAccounts>
+      <accounts>
+        <account>
+          <acctID> ACCT_ID </acctID>
+          <balance> ACCT_ID_balance </balance>
+          <code> Jug_bin_runtime </code>
+          <storage> ACCT_ID_STORAGE => ?_ACCT_ID_STORAGE </storage>
+          <origStorage> ACCT_ID_ORIG_STORAGE </origStorage>
+          <nonce> Nonce_Jug => ?_ </nonce>
+        </account>
+        <account>
+          <acctID> 1 </acctID>
+          <balance> ECREC_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 2 </acctID>
+          <balance> SHA256_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 3 </acctID>
+          <balance> RIP160_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 4 </acctID>
+          <balance> ID_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 5 </acctID>
+          <balance> MODEXP_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 6 </acctID>
+          <balance> ECADD_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 7 </acctID>
+          <balance> ECMUL_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 8 </acctID>
+          <balance> ECPAIRING_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+        <account>
+          <acctID> 9 </acctID>
+          <balance> BLAKE2_BAL </balance>
+          <code> .ByteArray </code>
+          <storage> _:Map </storage>
+          <origStorage> _ </origStorage>
+          <nonce> _ </nonce>
+        </account>
+       ... 
+      </accounts>
+      <txOrder> _ </txOrder>
+      <txPending> _ </txPending>
+      <messages> _ </messages>
+    </network>
+  </ethereum>
+requires #rangeAddress(ACCT_ID)
+andBool ACCT_ID =/=Int 0
+andBool #notPrecompileAddress(ACCT_ID)
+andBool #rangeAddress(CALLER_ID)
+andBool #rangeAddress(ORIGIN_ID)
+andBool #rangeUInt(256, TIME)
+andBool #rangeUInt(256, ACCT_ID_balance)
+andBool #rangeUInt(256, ECREC_BAL)
+andBool #rangeUInt(256, SHA256_BAL)
+andBool #rangeUInt(256, RIP160_BAL)
+andBool #rangeUInt(256, ID_BAL)
+andBool #rangeUInt(256, MODEXP_BAL)
+andBool #rangeUInt(256, ECADD_BAL)
+andBool #rangeUInt(256, ECMUL_BAL)
+andBool #rangeUInt(256, ECPAIRING_BAL)
+andBool #rangeUInt(256, BLAKE2_BAL)
+andBool VCallDepth <=Int 1024
+andBool #rangeUInt(256, VCallValue)
+andBool #rangeUInt(256, VChainId)
+
+  andBool (#rangeBytes(32, ABI_ilk)
+  andBool (#rangeBytes(32, ABI_what)
+  andBool (#rangeUInt(256, ABI_data)
+  andBool (#rangeUInt(256, May)
+  andBool (#rangeUInt(256, Duty)
+  andBool (#rangeUInt(48, Rho)
+  andBool (#sizeByteArray(CD) <=Int 1250000000
+  andBool (#rangeUInt(256, Junk_0)
+  andBool (#rangeUInt(256, Junk_1)
+  andBool (#rangeUInt(256, Junk_2)))))))))))
+
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.wards[CALLER_ID]) ==Int May
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Duty
+  andBool #lookup(ACCT_ID_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Rho
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.wards[CALLER_ID]) ==Int Junk_0
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].duty) ==Int Junk_1
+  andBool #lookup(ACCT_ID_ORIG_STORAGE, #Jug.ilks[ABI_ilk].rho) ==Int Junk_2
+  andBool #Jug.wards[CALLER_ID] =/=Int #Jug.ilks[ABI_ilk].duty
+  andBool #Jug.wards[CALLER_ID] =/=Int #Jug.ilks[ABI_ilk].rho
+  andBool #Jug.ilks[ABI_ilk].duty =/=Int #Jug.ilks[ABI_ilk].rho
+  andBool notBool (
+    ((May:Int ==Int 1)
+    andBool ((ABI_what:Int ==Int #string2Word("duty"))
+    andBool ((TIME:Int ==Int Rho:Int)
+    andBool ((VCallValue:Int ==Int 0)))))
+  ) 
+ensures
+?FAILURE =/=K EVMC_SUCCESS
+
+endmodule
